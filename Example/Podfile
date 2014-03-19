@@ -1,0 +1,7 @@
+pod "CBPWordPress", :path => "../CBPWordPress.podspec"
+
+target "Demo" do
+end
+
+target "DemoTests" do
+end
