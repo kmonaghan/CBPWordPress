@@ -32,15 +32,13 @@
 
 - (void)setValue:(id)value forUndefinedKey:(NSString *)key
 {
-
     if ([key isEqualToString:@"id"]) {
         [self setValue:value forKey:@"commentId"];
     } else {
-        [super setValue:value forUndefinedKey:key];
+        //[super setValue:value forUndefinedKey:key];
+        NSLog(@"Undefined key: %@ with value: %@", key, value);
     }
-
 }
-
 
 - (NSDictionary *)dictionaryRepresentation
 {

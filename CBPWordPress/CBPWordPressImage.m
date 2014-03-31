@@ -26,5 +26,9 @@
     [self setValuesForKeysWithDictionary:aDictionary];
 }
 
+- (void)setValue:(id)value forUndefinedKey:(NSString *)key
+{
+    NSLog(@"Undefined key: %@ with value: %@", key, value);
+}
 
 @end

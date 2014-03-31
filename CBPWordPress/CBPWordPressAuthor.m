@@ -27,12 +27,10 @@
     }
 
     [self setValuesForKeysWithDictionary:aDictionary];
-
 }
 
 - (void)setValue:(id)value forUndefinedKey:(NSString *)key
 {
-
     if ([key isEqualToString:@"description"]) {
         [self setValue:value forKey:@"descriptionText"];
     } else if ([key isEqualToString:@"first_name"]) {
@@ -42,11 +40,10 @@
     } else if ([key isEqualToString:@"last_name"]) {
         [self setValue:value forKey:@"lastName"];
     } else {
-        [super setValue:value forUndefinedKey:key];
+        //[super setValue:value forUndefinedKey:key];
+        NSLog(@"Undefined key: %@ with value: %@", key, value);
     }
-
 }
-
 
 - (NSDictionary *)dictionaryRepresentation
 {

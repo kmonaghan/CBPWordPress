@@ -40,11 +40,10 @@
     } else if ([key isEqualToString:@"post_count"]) {
         [self setValue:value forKey:@"postCount"];
     } else {
-        [super setValue:value forUndefinedKey:key];
+        //[super setValue:value forUndefinedKey:key];
+        NSLog(@"Undefined key: %@ with value: %@", key, value);
     }
-
 }
-
 
 - (NSDictionary *)dictionaryRepresentation
 {

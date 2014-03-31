@@ -35,10 +35,10 @@
     } else if ([key isEqualToString:@"id"]) {
         [self setValue:value forKey:@"tagId"];
     } else {
-        [super setValue:value forUndefinedKey:key];
+        //[super setValue:value forUndefinedKey:key];
+        NSLog(@"Undefined key: %@ with value: %@", key, value);
     }
 }
-
 
 - (NSDictionary *)dictionaryRepresentation
 {

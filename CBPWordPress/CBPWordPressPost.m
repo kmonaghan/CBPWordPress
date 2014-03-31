@@ -94,7 +94,6 @@
 
 - (void)setValue:(id)value forUndefinedKey:(NSString *)key
 {
-    
     if ([key isEqualToString:@"comment_count"]) {
         [self setValue:value forKey:@"commentCount"];
     } else if ([key isEqualToString:@"comment_status"]) {
@@ -104,7 +103,8 @@
     } else if ([key isEqualToString:@"title_plain"]) {
         [self setValue:value forKey:@"titlePlain"];
     } else {
-        [super setValue:value forUndefinedKey:key];
+        //[super setValue:value forUndefinedKey:key];
+        NSLog(@"Undefined key: %@ with value: %@", key, value);
     }
 }
 

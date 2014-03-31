@@ -30,19 +30,15 @@
 
 - (void)setValue:(id)value forKey:(NSString *)key
 {
-
     if ([key isEqualToString:@"images"]) {
-
         if ([value isKindOfClass:[NSDictionary class]]) {
             self.images = [CBPWordPressImage initFromDictionary:value];
         }
-
     } else {
-        [super setValue:value forKey:key];
+        //[super setValue:value forUndefinedKey:key];
+        NSLog(@"Undefined key: %@ with value: %@", key, value);
     }
-
 }
-
 
 - (void)setValue:(id)value forUndefinedKey:(NSString *)key
 {
