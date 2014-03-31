@@ -8,11 +8,29 @@
 
 #import "CBPAppDelegate.h"
 
+#import "CBPViewController.h"
+
 @implementation CBPAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
+     
+    CBPViewController *viewController = [CBPViewController new];
+    
+    self.navigationController = [[UINavigationController alloc] initWithRootViewController:viewController];
+    self.navigationController.navigationBar.tintColor = [UIColor darkGrayColor];
+    
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    self.window.backgroundColor = [UIColor whiteColor];
+    self.window.rootViewController = self.navigationController;
+    [self.window makeKeyAndVisible];
+    
+    NSURLCache *URLCache = [[NSURLCache alloc] initWithMemoryCapacity:4 * 1024 * 1024
+                                                         diskCapacity:20 * 1024 * 1024
+                                                             diskPath:nil];
+    [NSURLCache setSharedURLCache:URLCache];
+    
     return YES;
 }
 							
