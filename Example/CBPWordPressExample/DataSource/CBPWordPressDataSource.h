@@ -9,5 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @interface CBPWordPressDataSource : NSObject <UITableViewDataSource>
+@property (strong, nonatomic) NSArray *posts;
+
 - (void)loadWithBlock:(void (^)(BOOL result, NSError *error))block;
 @end

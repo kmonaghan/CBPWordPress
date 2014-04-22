@@ -7,6 +7,7 @@
 //
 
 #import "CBPViewController.h"
+#import "CBPPostViewController.h"
 
 #import "CBPWordPressDataSource.h"
 
@@ -58,4 +59,11 @@
     }];
 }
 
+#pragma mark - UITableViewDelegate
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath;
+{
+    CBPPostViewController *vc = [[CBPPostViewController alloc] initWithPost:self.dataSource.posts[indexPath.row]];
+    
+    [self.navigationController pushViewController:vc animated:YES];
+}
 @end

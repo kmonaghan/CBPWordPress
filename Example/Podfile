@@ -1,1 +1,2 @@
 pod "CBPWordPress", :path => "../CBPWordPress.podspec"
+pod 'KINWebBrowser', '~> 0.2'

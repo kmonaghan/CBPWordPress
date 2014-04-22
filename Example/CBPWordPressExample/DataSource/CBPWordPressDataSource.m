@@ -13,7 +13,7 @@
 #import <CBPWordPress/CBPWordPressPostContainer.h>
 #import <CBPWordPress/NSURLSessionDataTask+CBPWordPress.h>
 @interface CBPWordPressDataSource()
-@property (strong, nonatomic) NSArray *posts;
+
 @end
 
 @implementation CBPWordPressDataSource
@@ -44,8 +44,9 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CBPWordPressPostCell"];
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"CBPWordPressPostCell"];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
+    
     CBPWordPressPost *post = self.posts[indexPath.row];
     
     cell.textLabel.text = post.title;

@@ -22,6 +22,7 @@
 @property (nonatomic, strong) NSDate *date;
 @property (nonatomic, strong) NSString *excerpt;
 @property (nonatomic, strong) NSNumber *postId;
+@property (nonatomic, strong) NSString *postHtml;
 @property (nonatomic, strong) NSDate *modified;
 @property (nonatomic, strong) NSString *slug;
 @property (nonatomic, strong) NSString *status;
@@ -37,5 +38,5 @@
 - (void)setAttributesFromDictionary:(NSDictionary *)aDictionary;
 
 - (NSDictionary *)dictionaryRepresentation;
-
+- (NSString *)generateHtml:(CGFloat)fontSize;
 @end
