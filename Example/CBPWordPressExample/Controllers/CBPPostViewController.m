@@ -6,8 +6,10 @@
 //  Copyright (c) 2014 Crayons and Brown Paper. All rights reserved.
 //
 
-#import "KINWebBrowserViewController.h"
+#import "TOWebViewController.h"
 
+#import "CBPCommentsViewController.h"
+#import "CBPComposeCommentViewController.h"
 #import "CBPPostViewController.h"
 
 #import "CBPWordPressPost.h"
@@ -72,6 +74,15 @@
     }
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    if (self.post) {
+        [self.navigationController setToolbarHidden:NO animated:YES];
+    }
+}
+
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:YES];
@@ -87,10 +98,21 @@
 
 - (void)toolbarButtons
 {
+    NSMutableArray *buttons = @[].mutableCopy;
+    
+    if ([self.post.commentStatus isEqualToString:@"open"]) {
+        UIBarButtonItem *comment = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose
+                                                                               target:self
+                                                                               action:@selector(composeCommentAction)];
+        [buttons addObject:comment];
+    }
+    
     UIBarButtonItem *share = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction
                                                                            target:self
                                                                            action:@selector(sharePostAction)];
-    [self setToolbarItems:@[share] animated:YES];
+    [buttons addObject:share];
+    
+    [self setToolbarItems:buttons animated:YES];
 }
 
 #pragma mark - 
@@ -104,6 +126,15 @@
 }
 
 #pragma mark - Button Actions
+- (void)composeCommentAction
+{
+    CBPComposeCommentViewController *vc = [CBPComposeCommentViewController new];
+    
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:vc];
+    
+    [self presentViewController:navController animated:YES completion:nil];
+}
+
 - (void)sharePostAction
 {
     
@@ -120,15 +151,11 @@
         
         if ([ext isEqualToString:@"jpg"] || [ext isEqualToString:@"jpeg"]
             || [ext isEqualToString:@"png"]
-            || [ext isEqualToString:@"gif"])
-        {
+            || [ext isEqualToString:@"gif"]) {
             //TODO: Handle showing gallery
-        }
-        else
-        {
-            KINWebBrowserViewController *webBrowser = [KINWebBrowserViewController webBrowser];
+        } else {
+            TOWebViewController *webBrowser = [[TOWebViewController alloc] initWithURL:request.URL];
             [self.navigationController pushViewController:webBrowser animated:YES];
-            [webBrowser loadURL:request.URL];
         }
         
         return NO;

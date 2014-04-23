@@ -1,2 +1,2 @@
 pod "CBPWordPress", :path => "../CBPWordPress.podspec"
-pod 'KINWebBrowser', '~> 0.2'
+pod 'TOWebViewController', '~> 2.0.5'
