@@ -147,9 +147,7 @@
         [dictionary setObject:self.excerpt forKey:@"excerpt"];
     }
     
-    if (self.postId) {
-        [dictionary setObject:self.postId forKey:@"postId"];
-    }
+    [dictionary setObject:[NSNumber numberWithInteger:self.postId] forKey:@"postId"];
     
     if (self.modified) {
         [dictionary setObject:self.modified forKey:@"modified"];

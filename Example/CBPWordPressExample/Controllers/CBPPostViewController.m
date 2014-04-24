@@ -101,10 +101,21 @@
     NSMutableArray *buttons = @[].mutableCopy;
     
     if ([self.post.commentStatus isEqualToString:@"open"]) {
-        UIBarButtonItem *comment = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose
+        UIBarButtonItem *makeComment = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose
                                                                                target:self
                                                                                action:@selector(composeCommentAction)];
-        [buttons addObject:comment];
+        [buttons addObject:makeComment];
+        
+        [buttons addObject:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil]];
+    }
+    
+    if (self.post.commentCount) {
+        UIBarButtonItem *viewComments = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemOrganize
+                                                                                      target:self
+                                                                                      action:@selector(viewCommentAction)];
+        [buttons addObject:viewComments];
+        
+        [buttons addObject:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil]];
     }
     
     UIBarButtonItem *share = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction
@@ -138,6 +149,13 @@
 - (void)sharePostAction
 {
     
+}
+
+- (void)viewCommentAction
+{
+    CBPCommentsViewController *vc = [[CBPCommentsViewController alloc] initWithPost:self.post];
+        
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 #pragma mark - UIWebViewDelegate

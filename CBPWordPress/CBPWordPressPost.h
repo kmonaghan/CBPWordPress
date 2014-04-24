@@ -21,7 +21,7 @@
 @property (nonatomic, strong) NSString *content;
 @property (nonatomic, strong) NSDate *date;
 @property (nonatomic, strong) NSString *excerpt;
-@property (nonatomic, strong) NSNumber *postId;
+@property (nonatomic, assign) NSInteger postId;
 @property (nonatomic, strong) NSString *postHtml;
 @property (nonatomic, strong) NSDate *modified;
 @property (nonatomic, strong) NSString *slug;

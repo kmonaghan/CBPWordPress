@@ -24,6 +24,7 @@
 		34D3695B18E709AF00E14526 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34D3693D18E709AF00E14526 /* UIKit.framework */; };
 		34D3696318E709AF00E14526 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 34D3696118E709AF00E14526 /* InfoPlist.strings */; };
 		34D3696518E709AF00E14526 /* CBPWordPressExampleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 34D3696418E709AF00E14526 /* CBPWordPressExampleTests.m */; };
+		34E6C1CE1909B5FB00F7B5BD /* CBPCommentDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 34E6C1CD1909B5FB00F7B5BD /* CBPCommentDataSource.m */; };
 		C67A29DDF4CD4FD1B3280908 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D58735488124103BBB09705 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -64,6 +65,8 @@
 		34D3696018E709AF00E14526 /* CBPWordPressExampleTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CBPWordPressExampleTests-Info.plist"; sourceTree = "<group>"; };
 		34D3696218E709AF00E14526 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		34D3696418E709AF00E14526 /* CBPWordPressExampleTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CBPWordPressExampleTests.m; sourceTree = "<group>"; };
+		34E6C1CC1909B5FB00F7B5BD /* CBPCommentDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CBPCommentDataSource.h; path = DataSource/CBPCommentDataSource.h; sourceTree = "<group>"; };
+		34E6C1CD1909B5FB00F7B5BD /* CBPCommentDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CBPCommentDataSource.m; path = DataSource/CBPCommentDataSource.m; sourceTree = "<group>"; };
 		5D58735488124103BBB09705 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		6F029F3BBAA643F491064C2C /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -113,6 +116,8 @@
 			children = (
 				34C2B86618EA1003002268BF /* CBPWordPressDataSource.h */,
 				34C2B86718EA1003002268BF /* CBPWordPressDataSource.m */,
+				34E6C1CC1909B5FB00F7B5BD /* CBPCommentDataSource.h */,
+				34E6C1CD1909B5FB00F7B5BD /* CBPCommentDataSource.m */,
 			);
 			name = DataSource;
 			sourceTree = "<group>";
@@ -327,6 +332,7 @@
 				347E286219084AA1004D3842 /* CBPComposeCommentViewController.m in Sources */,
 				34C2B86818EA1003002268BF /* CBPWordPressDataSource.m in Sources */,
 				34D3694A18E709AF00E14526 /* CBPAppDelegate.m in Sources */,
+				34E6C1CE1909B5FB00F7B5BD /* CBPCommentDataSource.m in Sources */,
 				34D3694618E709AF00E14526 /* main.m in Sources */,
 				347E285F190849B2004D3842 /* CBPCommentsViewController.m in Sources */,
 				34C2B86418EA0EF8002268BF /* CBPViewController.m in Sources */,
