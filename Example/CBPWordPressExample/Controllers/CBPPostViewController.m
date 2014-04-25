@@ -148,7 +148,13 @@
 
 - (void)sharePostAction
 {
+    NSArray* activityItems = @[ self.post.title, [NSURL URLWithString:self.post.url] ];
     
+    UIActivityViewController* activityViewController = [[UIActivityViewController alloc] initWithActivityItems:activityItems applicationActivities:nil];
+    
+    activityViewController.excludedActivityTypes = @[UIActivityTypePostToWeibo, UIActivityTypeAssignToContact, UIActivityTypeCopyToPasteboard ];
+    
+    [self presentViewController:activityViewController animated:YES completion:NULL];
 }
 
 - (void)viewCommentAction
