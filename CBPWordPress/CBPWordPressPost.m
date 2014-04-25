@@ -212,7 +212,7 @@
             
             for (CBPWordPressCategory *item in self.categories)
             {
-                [html appendFormat:@"<a class=\"category\" href=\"kmwordpress://category:%d\">%@</a> ", item.categoryId, item.title];
+                [html appendFormat:@"<a class=\"category\" href=\"kmwordpress://category:%ld\">%@</a> ", (long)item.categoryId, item.title];
             }
             
             [html appendString:@"</div>"];
@@ -224,7 +224,7 @@
             
             for (CBPWordPressTag *item in self.tags)
             {
-                [html appendFormat:@"<a class=\"tag\" href=\"kmwordpress://tag:%d\">%@</a>", item.tagId, item.title];
+                [html appendFormat:@"<a class=\"tag\" href=\"kmwordpress://tag:%ld\">%@</a>", (long)item.tagId, item.title];
             }
             
             [html appendString:@"</div>"];
