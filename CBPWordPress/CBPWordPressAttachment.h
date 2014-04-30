@@ -6,16 +6,12 @@
 //  Copyright (c) 2014 Crayons and Brown Paper. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-
-@class CBPWordPressImage;
-
 @interface CBPWordPressAttachment : NSObject
 
 @property (nonatomic, assign) NSInteger attachmentId;
 @property (nonatomic, strong) NSString *caption;
 @property (nonatomic, strong) NSString *descriptionText;
-@property (nonatomic, strong) CBPWordPressImage *images;
+@property (nonatomic, strong) NSArray *images;
 @property (nonatomic, strong) NSString *mimeType;
 @property (nonatomic, assign) NSInteger parent;
 @property (nonatomic, strong) NSString *slug;

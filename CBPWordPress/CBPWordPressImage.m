@@ -1,34 +1,59 @@
-//
-//  CBPWordPressImage.m
-//  
-//
-//  Created by Karl Monaghan on 31/03/2014.
-//  Copyright (c) 2014 Crayons and Brown Paper. All rights reserved.
-//
-
 #import "CBPWordPressImage.h"
 
 @implementation CBPWordPressImage
+- (void)encodeWithCoder:(NSCoder *)encoder
+{
+    [encoder encodeObject:[NSNumber numberWithInteger:self.height] forKey:@"height"];
+    [encoder encodeObject:self.url forKey:@"url"];
+    [encoder encodeObject:[NSNumber numberWithInteger:self.width] forKey:@"width"];
+}
+
+- (id)initWithCoder:(NSCoder *)decoder
+{
+    if ((self = [super init])) {
+        self.height = [(NSNumber *)[decoder decodeObjectForKey:@"height"] integerValue];
+        self.url = [decoder decodeObjectForKey:@"url"];
+        self.width = [(NSNumber *)[decoder decodeObjectForKey:@"width"] integerValue];
+    }
+    return self;
+}
 
 + (instancetype)initFromDictionary:(NSDictionary *)aDictionary
 {
+
     CBPWordPressImage *instance = [[CBPWordPressImage alloc] init];
     [instance setAttributesFromDictionary:aDictionary];
     return instance;
+
 }
 
 - (void)setAttributesFromDictionary:(NSDictionary *)aDictionary
 {
+
     if (![aDictionary isKindOfClass:[NSDictionary class]]) {
         return;
     }
 
     [self setValuesForKeysWithDictionary:aDictionary];
+
 }
 
-- (void)setValue:(id)value forUndefinedKey:(NSString *)key
+- (NSDictionary *)dictionaryRepresentation
 {
-    NSLog(@"Undefined key: %@ with value: %@", key, value);
+
+    NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
+
+    [dictionary setObject:[NSNumber numberWithInteger:self.height] forKey:@"height"];
+
+    if (self.url) {
+        [dictionary setObject:self.url forKey:@"url"];
+    }
+
+    [dictionary setObject:[NSNumber numberWithInteger:self.width] forKey:@"width"];
+
+    return dictionary;
+
 }
+
 
 @end
