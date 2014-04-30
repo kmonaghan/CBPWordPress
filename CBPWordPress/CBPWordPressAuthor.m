@@ -41,7 +41,7 @@
         [self setValue:value forKey:@"lastName"];
     } else {
         //[super setValue:value forUndefinedKey:key];
-        NSLog(@"Undefined key: %@ with value: %@", key, value);
+        NSLog(@"Undefined key in author: %@ with value: %@", key, value);
     }
 }
 

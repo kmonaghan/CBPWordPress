@@ -104,7 +104,7 @@
         [self setValue:value forKey:@"titlePlain"];
     } else {
         //[super setValue:value forUndefinedKey:key];
-        NSLog(@"Undefined key: %@ with value: %@", key, value);
+        NSLog(@"Undefined key post: %@ with value: %@", key, value);
     }
 }
 

@@ -41,7 +41,7 @@
         [self setValue:value forKey:@"postCount"];
     } else {
         //[super setValue:value forUndefinedKey:key];
-        NSLog(@"Undefined key: %@ with value: %@", key, value);
+        NSLog(@"Undefined key in category: %@ with value: %@", key, value);
     }
 }
 

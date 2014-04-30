@@ -36,7 +36,7 @@
         [self setValue:value forKey:@"tagId"];
     } else {
         //[super setValue:value forUndefinedKey:key];
-        NSLog(@"Undefined key: %@ with value: %@", key, value);
+        NSLog(@"Undefined key in tag: %@ with value: %@", key, value);
     }
 }
 

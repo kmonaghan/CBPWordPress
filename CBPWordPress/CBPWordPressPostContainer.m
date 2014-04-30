@@ -51,7 +51,7 @@
         [self setValue:value forKey:@"countTotal"];
     } else {
         //[super setValue:value forUndefinedKey:key];
-        NSLog(@"Undefined key: %@ with value: %@", key, value);
+        NSLog(@"Undefined key in container: %@ with value: %@", key, value);
     }
 }
 
