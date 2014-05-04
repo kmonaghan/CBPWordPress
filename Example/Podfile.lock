@@ -19,7 +19,7 @@ PODS:
     - AFNetworking/NSURLConnection
   - CBPWordPress (0.1.0):
     - AFNetworking (~> 2.0.0)
-  - TOWebViewController (2.0.5)
+  - TOWebViewController (2.0.6)
 
 DEPENDENCIES:
   - CBPWordPress (from `../CBPWordPress.podspec`)
@@ -32,6 +32,6 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   AFNetworking: e499052cbf3d743e9bb727bb37adb9dc2547ba15
   CBPWordPress: 31b7daaa8e8c727cac5276db59705b68252ea1e9
-  TOWebViewController: 2fcfe1fcafcbb5e86ce091bac13648a552269516
+  TOWebViewController: 891ae553f83943e0e2f64c2dc9dab6b100d17151
 
 COCOAPODS: 0.32.1
