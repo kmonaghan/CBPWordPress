@@ -12,8 +12,6 @@
 #import "CBPComposeCommentViewController.h"
 #import "CBPPostViewController.h"
 
-#import "CBPWordPressPost.h"
-
 @interface CBPPostViewController () <UIWebViewDelegate>
 @property (assign, nonatomic) CGFloat baseFontSize;
 @property (strong, nonatomic) CBPWordPressPost *post;

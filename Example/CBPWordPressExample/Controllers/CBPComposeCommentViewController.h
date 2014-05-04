@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface CBPComposeCommentViewController : UIViewController
-
+- (instancetype)initWithPostId:(NSInteger)postId;
 @end

@@ -9,8 +9,6 @@
 #import "CBPViewController.h"
 #import "CBPPostViewController.h"
 
-#import "CBPWordPressDataSource.h"
-
 @interface CBPViewController () <UITableViewDelegate>
 @property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) CBPWordPressDataSource *dataSource;

@@ -6,12 +6,7 @@
 //  Copyright (c) 2014 Crayons and Brown Paper. All rights reserved.
 //
 
-#import "NSURLSessionDataTask+CBPWordPress.h"
-
 #import "CBPCommentDataSource.h"
-
-#import "CBPWordPressPost.h"
-#import "CBPWordPressComment.h"
 
 @interface CBPCommentDataSource()
 @property (strong, nonatomic) CBPWordPressPost *post;

@@ -11,8 +11,6 @@
 
 #import "CBPCommentDataSource.h"
 
-#import "CBPWordPressPost.h"
-
 @interface CBPCommentsViewController ()
 @property (strong, nonatomic) CBPCommentDataSource *dataSource;
 @property (strong, nonatomic) CBPWordPressPost *post;

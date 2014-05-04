@@ -10,6 +10,7 @@
 
 #import "CBPWordPressAPIClient.h"
 
+#import "CBPWordPressComment.h"
 #import "CBPWordPressPost.h"
 #import "CBPWordPressPostContainer.h"
 
@@ -33,6 +34,26 @@
 + (NSURLSessionDataTask *)fetchPostWithId:(NSInteger)postId withBlock:(void (^)(CBPWordPressPost *post, NSError *error))block
 {
     return [[CBPWordPressAPIClient sharedClient] GET:@"/?json=get_post" parameters:@{@"post_id": [NSNumber numberWithInteger:postId]} success:^(NSURLSessionDataTask * __unused task, id JSON) {
+        
+        if ([JSON[@"status"] isEqualToString:@"ok"]) {
+            CBPWordPressPost *post = [CBPWordPressPost initFromDictionary:JSON[@"post"]];
+            
+            if (block) {
+                block(post, nil);
+            }
+        } else {
+            block(nil, [NSError errorWithDomain:@"CBPWordPressError" code:0 userInfo:@{@"error": JSON[@"error"]}]);
+        }
+    } failure:^(NSURLSessionDataTask *__unused task, NSError *error) {
+        if (block) {
+            block(nil, error);
+        }
+    }];
+}
+
++ (NSURLSessionDataTask *)postComment:(NSDictionary *)comment withBlock:(void (^)(CBPWordPressComment *comment, NSError *error))block
+{
+    return [[CBPWordPressAPIClient sharedClient] GET:@"/?json=get_post" parameters:@{} success:^(NSURLSessionDataTask * __unused task, id JSON) {
         
         if ([JSON[@"status"] isEqualToString:@"ok"]) {
             CBPWordPressPost *post = [CBPWordPressPost initFromDictionary:JSON[@"post"]];
