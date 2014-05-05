@@ -84,7 +84,7 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:YES];
-
+    
     [self.navigationController setToolbarHidden:YES animated:YES];
 }
 
@@ -100,8 +100,8 @@
     
     if ([self.post.commentStatus isEqualToString:@"open"]) {
         UIBarButtonItem *makeComment = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose
-                                                                               target:self
-                                                                               action:@selector(composeCommentAction)];
+                                                                                     target:self
+                                                                                     action:@selector(composeCommentAction)];
         [buttons addObject:makeComment];
         
         [buttons addObject:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil]];
@@ -124,7 +124,7 @@
     [self setToolbarItems:buttons animated:YES];
 }
 
-#pragma mark - 
+#pragma mark -
 - (void)displayPost
 {
     [self.webView loadHTMLString:[self.post generateHtml:self.baseFontSize] baseURL:[NSURL fileURLWithPath:[[NSBundle mainBundle] bundlePath]]];
@@ -137,7 +137,19 @@
 #pragma mark - Button Actions
 - (void)composeCommentAction
 {
-    CBPComposeCommentViewController *vc = [CBPComposeCommentViewController new];
+    __weak typeof(self) blockSelf = self;
+    
+    CBPComposeCommentViewController *vc = [[CBPComposeCommentViewController alloc] initWithPostId:self.post.postId
+                                                                              withCompletionBlock:^(CBPWordPressComment *comment, NSError *error) {
+                                                                                  [blockSelf.navigationController dismissViewControllerAnimated:YES
+                                                                                                                                     completion:^() {
+                                                                                      
+                                                                                      if (error) {
+                                                                                          
+                                                                                      } else if (comment) {
+                                                                                          
+                                                                                      }}];
+                                                                              }];
     
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:vc];
     
@@ -158,7 +170,7 @@
 - (void)viewCommentAction
 {
     CBPCommentsViewController *vc = [[CBPCommentsViewController alloc] initWithPost:self.post];
-        
+    
     [self.navigationController pushViewController:vc animated:YES];
 }
 

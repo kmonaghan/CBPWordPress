@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+typedef void (^commentCompletionBlock)(CBPWordPressComment *comment, NSError *error);
+
 @interface CBPComposeCommentViewController : UIViewController
-- (instancetype)initWithPostId:(NSInteger)postId;
+- (instancetype)initWithPostId:(NSInteger)postId withCompletionBlock:(commentCompletionBlock)block;
 @end

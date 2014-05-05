@@ -10,19 +10,23 @@
 
 @interface CBPComposeCommentViewController () <UITextFieldDelegate, UITextViewDelegate>
 @property (assign, nonatomic) BOOL constraintsCreated;
+@property (copy, nonatomic) commentCompletionBlock completionBlock;
+@property (strong, nonatomic) UITextView *commentTextView;
 @property (strong, nonatomic) UITextField *emailTextField;
 @property (strong, nonatomic) UITextField *nameTextField;
-@property (strong, nonatomic) UITextView *commentTextView;
+@property (assign, nonatomic) NSInteger postId;
 @property (strong, nonatomic) UITextField *urlTextField;
 @end
 
 @implementation CBPComposeCommentViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (instancetype)initWithPostId:(NSInteger)postId withCompletionBlock:(commentCompletionBlock)block
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    self = [super initWithNibName:nil bundle:nil];
     if (self) {
         // Custom initialization
+        _postId = postId;
+        _completionBlock = block;
     }
     return self;
 }
@@ -31,7 +35,7 @@
 {
     [super loadView];
     
-    self.view.backgroundColor = [UIColor grayColor];
+    self.view.backgroundColor = [UIColor lightGrayColor];
     
     [self updateViewConstraints];
 }
@@ -44,9 +48,10 @@
         NSDictionary *views = @{@"topLayoutGuide": self.topLayoutGuide,
                                 @"nameTextField": self.nameTextField,
                                 @"emailTextField": self.emailTextField,
-                                @"urlTextField": self.urlTextField};
+                                @"urlTextField": self.urlTextField,
+                                @"commentTextView": self.commentTextView};
         
-        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[topLayoutGuide]-[nameTextField]-[emailTextField]-[urlTextField]"
+        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[topLayoutGuide]-[nameTextField]-[emailTextField]-[urlTextField]-[commentTextView(200)]"
                                                                           options:0
                                                                           metrics:nil
                                                                             views:views]];
@@ -59,6 +64,10 @@
                                                                           metrics:nil
                                                                             views:views]];
         [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-[urlTextField]-|"
+                                                                          options:0
+                                                                          metrics:nil
+                                                                            views:views]];
+        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-[commentTextView]-|"
                                                                           options:0
                                                                           metrics:nil
                                                                             views:views]];
@@ -75,8 +84,8 @@
                                                                                           target:self
                                                                                           action:@selector(cancelAction)];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemReply
-                                                                                          target:self
-                                                                                          action:@selector(replyAction)];
+                                                                                           target:self
+                                                                                           action:@selector(replyAction)];
 }
 
 - (void)didReceiveMemoryWarning
@@ -85,18 +94,54 @@
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark -
+#pragma mark - Button Actions
 - (void)cancelAction
 {
-    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+    self.completionBlock(nil, nil);
 }
 
 - (void)replyAction
 {
+    [self syncDetails];
     
+    __weak typeof(self) blockSelf = self;
+    
+    NSMutableDictionary *params = @{@"post_id": [NSNumber numberWithInteger:self.postId],
+                                    @"email": self.emailTextField.text,
+                                    @"name": self.nameTextField.text,
+                                    @"content": self.commentTextView.text}.mutableCopy;
+    
+    if ([self.urlTextField.text length]) {
+        params[@"url"] = self.urlTextField.text;
+    }
+    
+    [NSURLSessionDataTask postComment:params
+                            withBlock:^(CBPWordPressComment *comment, NSError *error){
+                                NSLog(@"%@", [comment dictionaryRepresentation]);
+                                
+                                if (comment) {
+                                    blockSelf.completionBlock(comment, nil);
+                                }
+                            }];
 }
 
 #pragma mark -
+- (void)syncDetails
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    [defaults setObject:self.nameTextField.text forKey:@"comment_name"];
+    [defaults setObject:self.emailTextField.text forKey:@"comment_email"];
+    
+    if ([self.urlTextField.text length])
+    {
+        [defaults setObject:self.urlTextField.text forKey:@"comment_url"];
+    }
+    
+    [defaults synchronize];
+}
+
+#pragma mark - Getters
 - (UITextField *)emailTextField
 {
     if (!_emailTextField) {
@@ -129,6 +174,20 @@
         [self.view addSubview:_nameTextField];
     }
     return _nameTextField;
+}
+
+- (UITextView *)commentTextView
+{
+    if (!_commentTextView) {
+        _commentTextView = [UITextView new];
+        _commentTextView.font = [UIFont systemFontOfSize:17.0f];
+        _commentTextView.translatesAutoresizingMaskIntoConstraints = NO;
+        _commentTextView.layer.cornerRadius = 4.0f;
+        
+        [self.view addSubview:_commentTextView];
+    }
+    
+    return _commentTextView;
 }
 
 - (UITextField *)urlTextField

@@ -53,13 +53,13 @@
 
 + (NSURLSessionDataTask *)postComment:(NSDictionary *)comment withBlock:(void (^)(CBPWordPressComment *comment, NSError *error))block
 {
-    return [[CBPWordPressAPIClient sharedClient] GET:@"/?json=get_post" parameters:@{} success:^(NSURLSessionDataTask * __unused task, id JSON) {
+    return [[CBPWordPressAPIClient sharedClient] GET:@"/?json=respond.submit_comment" parameters:comment success:^(NSURLSessionDataTask * __unused task, id JSON) {
         
         if ([JSON[@"status"] isEqualToString:@"ok"]) {
-            CBPWordPressPost *post = [CBPWordPressPost initFromDictionary:JSON[@"post"]];
+            CBPWordPressComment *comment = [CBPWordPressComment initFromDictionary:JSON[@"comment"]];
             
             if (block) {
-                block(post, nil);
+                block(comment, nil);
             }
         } else {
             block(nil, [NSError errorWithDomain:@"CBPWordPressError" code:0 userInfo:@{@"error": JSON[@"error"]}]);
