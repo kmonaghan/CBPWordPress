@@ -17,7 +17,7 @@
                                      withBlock:(void (^)(CBPWordPressPostContainer *data, NSError *error))block;
 + (NSURLSessionDataTask *)fetchPostWithId:(NSInteger)postId
                                 withBlock:(void (^)(CBPWordPressPost *post, NSError *error))block;
-+ (NSURLSessionDataTask *)postComment:(NSDictionary *)comment
++ (NSURLSessionDataTask *)postComment:(CBPWordPressComment *)comment
                             withBlock:(void (^)(CBPWordPressComment *comment, NSError *error))block;
 
 @end

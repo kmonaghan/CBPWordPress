@@ -13,9 +13,11 @@
 @property (nonatomic, strong) id avatar;
 @property (nonatomic, strong) NSString *content;
 @property (nonatomic, strong) NSString *date;
+@property (nonatomic, strong) NSString *email;
 @property (nonatomic, assign) NSInteger commentId;
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, assign) NSInteger parent;
+@property (nonatomic, assign) NSInteger postId;
 @property (nonatomic, strong) NSString *url;
 
 

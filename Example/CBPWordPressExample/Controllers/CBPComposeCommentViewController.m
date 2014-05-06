@@ -106,16 +106,17 @@
     
     __weak typeof(self) blockSelf = self;
     
-    NSMutableDictionary *params = @{@"post_id": [NSNumber numberWithInteger:self.postId],
-                                    @"email": self.emailTextField.text,
-                                    @"name": self.nameTextField.text,
-                                    @"content": self.commentTextView.text}.mutableCopy;
+    CBPWordPressComment *newComment = [CBPWordPressComment new];
+    newComment.postId = self.postId;
+    newComment.email = self.emailTextField.text;
+    newComment.name = self.nameTextField.text;
+    newComment.content = self.commentTextView.text;
     
     if ([self.urlTextField.text length]) {
-        params[@"url"] = self.urlTextField.text;
+        newComment.url = self.urlTextField.text;
     }
     
-    [NSURLSessionDataTask postComment:params
+    [NSURLSessionDataTask postComment:newComment
                             withBlock:^(CBPWordPressComment *comment, NSError *error){
                                 NSLog(@"%@", [comment dictionaryRepresentation]);
                                 

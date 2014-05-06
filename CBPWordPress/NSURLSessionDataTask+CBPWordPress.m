@@ -51,9 +51,9 @@
     }];
 }
 
-+ (NSURLSessionDataTask *)postComment:(NSDictionary *)comment withBlock:(void (^)(CBPWordPressComment *comment, NSError *error))block
++ (NSURLSessionDataTask *)postComment:(CBPWordPressComment *)comment withBlock:(void (^)(CBPWordPressComment *comment, NSError *error))block
 {
-    return [[CBPWordPressAPIClient sharedClient] GET:@"/?json=respond.submit_comment" parameters:comment success:^(NSURLSessionDataTask * __unused task, id JSON) {
+    return [[CBPWordPressAPIClient sharedClient] GET:@"/?json=respond.submit_comment" parameters:[comment dictionaryRepresentation] success:^(NSURLSessionDataTask * __unused task, id JSON) {
         
         if ([JSON[@"status"] isEqualToString:@"ok"]) {
             CBPWordPressComment *comment = [CBPWordPressComment initFromDictionary:JSON[@"comment"]];
