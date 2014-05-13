@@ -6,6 +6,7 @@
 //  Copyright (c) 2014 Crayons and Brown Paper. All rights reserved.
 //
 
+#import "MHGallery.h"
 #import "TOWebViewController.h"
 
 #import "CBPCommentsViewController.h"
@@ -167,6 +168,32 @@
     [self presentViewController:activityViewController animated:YES completion:NULL];
 }
 
+- (void)showGallery
+{
+    NSMutableArray *galleryData = @[].mutableCopy;
+    
+    for (CBPWordPressAttachment *attachment in self.post.attachments) {
+        MHGalleryItem *image = [[MHGalleryItem alloc] initWithURL:attachment.url
+                                                      galleryType:MHGalleryTypeImage];
+        
+        [galleryData addObject:image];
+    }
+
+    MHGalleryController *gallery = [MHGalleryController galleryWithPresentationStyle:MHGalleryViewModeImageViewerNavigationBarShown];
+    gallery.galleryItems = galleryData;
+
+    __weak MHGalleryController *blockGallery = gallery;
+    
+    gallery.finishedCallback = ^(NSUInteger currentIndex,UIImage *image,MHTransitionDismissMHGallery *interactiveTransition,MHGalleryViewMode viewMode) {
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [blockGallery dismissViewControllerAnimated:YES dismissImageView:nil completion:nil];
+        });
+        
+    };
+    [self presentMHGalleryController:gallery animated:YES completion:nil];
+}
+
 - (void)viewCommentAction
 {
     CBPCommentsViewController *vc = [[CBPCommentsViewController alloc] initWithPost:self.post];
@@ -186,7 +213,7 @@
         if ([ext isEqualToString:@"jpg"] || [ext isEqualToString:@"jpeg"]
             || [ext isEqualToString:@"png"]
             || [ext isEqualToString:@"gif"]) {
-            //TODO: Handle showing gallery
+            [self showGallery];
         } else {
             TOWebViewController *webBrowser = [[TOWebViewController alloc] initWithURL:request.URL];
             [self.navigationController pushViewController:webBrowser animated:YES];
