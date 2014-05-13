@@ -6,12 +6,12 @@
 //  Copyright (c) 2014 Crayons and Brown Paper. All rights reserved.
 //
 
+#import "NSString+HTML.h"
+
 #import "CBPWordPressDataSource.h"
 
-#import <CBPWordPress/CBPWordPressPost.h>
-#import <CBPWordPress/CBPWordPressAuthor.h>
-#import <CBPWordPress/CBPWordPressPostContainer.h>
-#import <CBPWordPress/NSURLSessionDataTask+CBPWordPress.h>
+#import <CBPWordPress/CBPWordPress.h>
+
 @interface CBPWordPressDataSource()
 
 @end
@@ -49,7 +49,7 @@
     
     CBPWordPressPost *post = self.posts[indexPath.row];
     
-    cell.textLabel.text = post.title;
+    cell.textLabel.text = [post.title kv_decodeHTMLCharacterEntities];
     cell.detailTextLabel.text = post.author.name;
     
     return cell;
