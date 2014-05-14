@@ -12,6 +12,7 @@ static const CGFloat CBPLargePostPreviewTableViewCellHeight = 230.0;
 static NSString * const CBPLargePostPreviewTableViewCellIdentifier = @"CBPLargePostPreviewTableViewCell";
 
 @interface CBPLargePostPreviewTableViewCell : UITableViewCell
+@property (nonatomic, assign) NSInteger commentCount;
 @property (nonatomic) NSString *imageURI;
 @property (nonatomic) NSDate *postDate;
 @property (nonatomic) NSString *postTitle;

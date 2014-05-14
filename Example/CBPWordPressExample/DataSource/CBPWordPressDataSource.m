@@ -49,6 +49,7 @@
     cell.postTitle = [post.title kv_decodeHTMLCharacterEntities];
     cell.imageURI = post.thumbnail;
     cell.postDate = post.date;
+    cell.commentCount = post.commentCount;
     
     return cell;
 }
