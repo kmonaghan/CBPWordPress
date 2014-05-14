@@ -245,4 +245,18 @@
     return self.postHtml;
 }
 
+#pragma mark -
+- (NSString *)thumbnail
+{
+    if (!_thumbnail) {
+        if ([self.attachments count]) {
+            CBPWordPressAttachment *attachment = [self.attachments firstObject];
+            
+            _thumbnail = attachment.url;
+        }
+    }
+    
+    return _thumbnail;
+}
+
 @end

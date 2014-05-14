@@ -11,9 +11,12 @@
 
 #import "CBPWordPressDataSource.h"
 
+#import "CBPLargePostPreviewTableViewCell.h"
+
 @interface CBPViewController () <UITableViewDelegate>
-@property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) CBPWordPressDataSource *dataSource;
+@property (strong, nonatomic) UITableView *tableView;
+
 @end
 
 @implementation CBPViewController
@@ -38,6 +41,8 @@
     self.tableView.delegate = self;
     self.tableView.dataSource = self.dataSource;
     
+    [self.tableView registerClass:[CBPLargePostPreviewTableViewCell class] forCellReuseIdentifier:CBPLargePostPreviewTableViewCellIdentifier];
+    
     [self load];
 }
 
@@ -60,6 +65,11 @@
 }
 
 #pragma mark - UITableViewDelegate
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return CBPLargePostPreviewTableViewCellHeight;
+}
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath;
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];

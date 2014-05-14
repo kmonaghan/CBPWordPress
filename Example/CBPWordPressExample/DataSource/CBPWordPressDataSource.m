@@ -7,10 +7,11 @@
 //
 
 #import "NSString+HTML.h"
+#import <CBPWordPress/CBPWordPress.h>
 
 #import "CBPWordPressDataSource.h"
 
-#import <CBPWordPress/CBPWordPress.h>
+#import "CBPLargePostPreviewTableViewCell.h"
 
 @interface CBPWordPressDataSource()
 
@@ -41,16 +42,13 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CBPWordPressPostCell"];
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"CBPWordPressPostCell"];
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    }
+    CBPLargePostPreviewTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CBPLargePostPreviewTableViewCellIdentifier];
     
     CBPWordPressPost *post = self.posts[indexPath.row];
     
-    cell.textLabel.text = [post.title kv_decodeHTMLCharacterEntities];
-    cell.detailTextLabel.text = post.author.name;
+    cell.postTitle = [post.title kv_decodeHTMLCharacterEntities];
+    cell.imageURI = post.thumbnail;
+    cell.postDate = post.date;
     
     return cell;
 }
