@@ -11,5 +11,5 @@
 @interface CBPWordPressDataSource : NSObject <UITableViewDataSource>
 @property (strong, nonatomic) NSArray *posts;
 
-- (void)loadWithBlock:(void (^)(BOOL result, NSError *error))block;
+- (void)loadMore:(BOOL)more withBlock:(void (^)(BOOL result, NSError *error))block;
 @end

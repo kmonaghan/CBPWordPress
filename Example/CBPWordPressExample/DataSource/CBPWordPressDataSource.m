@@ -13,19 +13,26 @@
 #import "CBPLargePostPreviewTableViewCell.h"
 
 @interface CBPWordPressDataSource()
-
+@property (nonatomic) NSInteger page;
 @end
 
 @implementation CBPWordPressDataSource
-- (void)loadWithBlock:(void (^)(BOOL result, NSError *error))block 
+- (void)loadMore:(BOOL)more withBlock:(void (^)(BOOL result, NSError *error))block
 {
     __weak typeof(self) blockSelf = self;
 
-    [NSURLSessionDataTask fetchPostsWithParams:nil
+    self.page = (more) ? self.page + 1 : 1;
+    
+    [NSURLSessionDataTask fetchPostsWithParams:@{@"page": [NSNumber numberWithInteger:self.page]}
                                       withBlock:^(CBPWordPressPostContainer *data, NSError *error) {
                                           
                                           if (!error) {
-                                              blockSelf.posts = data.posts;
+                                              NSMutableArray *posts = (blockSelf.posts) ? blockSelf.posts.mutableCopy : @[].mutableCopy;
+                                              
+                                              [posts addObjectsFromArray:data.posts];
+                                              
+                                              blockSelf.posts = posts;
+                                              
                                               block(YES, nil);
                                           } else {
                                               NSLog(@"Error: %@", error);

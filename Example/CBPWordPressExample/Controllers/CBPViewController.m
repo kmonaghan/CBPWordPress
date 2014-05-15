@@ -7,6 +7,7 @@
 //
 
 #import "NSString+HTML.h"
+#import <SVPullToRefresh/SVPullToRefresh.h>
 
 #import "CBPViewController.h"
 #import "CBPPostViewController.h"
@@ -48,23 +49,42 @@
     
     [self.tableView registerClass:[CBPLargePostPreviewTableViewCell class] forCellReuseIdentifier:CBPLargePostPreviewTableViewCellIdentifier];
     
-    [self load];
+    __weak typeof(self) weakSelf = self;
+
+    // setup infinite scrolling
+    [self.tableView addInfiniteScrollingWithActionHandler:^{
+        [weakSelf load:YES];
+    }];
+    
+    [self load:NO];
 }
 
-- (void)didReceiveMemoryWarning
+- (void)viewDidAppear:(BOOL)animated
 {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    [super viewDidAppear:animated];
+    
+    __weak typeof(self) weakSelf = self;
+
+    // setup pull-to-refresh
+    [self.tableView addPullToRefreshWithActionHandler:^{
+        [weakSelf load:NO];
+    }];
 }
 
 #pragma mark - 
-- (void)load
+- (void)load:(BOOL)more
 {
-    __weak typeof(self) blockSelf = self;
+    __weak typeof(self) weakSelf = self;
     
-    [self.dataSource loadWithBlock:^(BOOL result, NSError *error){
+    [self.dataSource loadMore:more withBlock:^(BOOL result, NSError *error){
         if (result) {
-            [blockSelf.tableView reloadData];
+            [weakSelf.tableView reloadData];
+            
+            if (more) {
+                [weakSelf.tableView.infiniteScrollingView stopAnimating];                
+            } else {
+                [weakSelf.tableView.pullToRefreshView stopAnimating];
+            }
         }
     }];
 }
