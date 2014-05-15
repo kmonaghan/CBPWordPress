@@ -35,12 +35,17 @@ static const CGFloat CBPLargePostPreviewTableViewCellPadding = 15.0;
 - (void)updateConstraints
 {
     if (!self.constraintsUpdated) {
+        
+        //What madness is this? It turns out that we need to temporarily resize the content view as it starts off too small
+        //See https://github.com/smileyborg/TableViewCellWithAutoLayout/blob/master/TableViewCellWithAutoLayout/TableViewController/RJTableViewCell.m#L77
+        self.contentView.bounds = CGRectMake(0.0f, 0.0f, CGRectGetWidth(self.frame), CBPLargePostPreviewTableViewCellHeight);
+        
         NSDictionary *views = @{@"postCommentLabel": self.postCommentLabel,
                                 @"postDateLabel": self.postDateLabel,
                                 @"postImageView": self.postImageView,
                                 @"postTitleLabel": self.postTitleLabel};
         
-        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[postTitleLabel][postImageView(150)][postDateLabel]"
+        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(5)-[postTitleLabel]-(5)-[postImageView(150)]-(5)-[postDateLabel]-(5)-|"
                                                                                  options:0
                                                                                  metrics:nil
                                                                                    views:views]];
@@ -68,6 +73,20 @@ static const CGFloat CBPLargePostPreviewTableViewCellPadding = 15.0;
     }
     
     [super updateConstraints];
+}
+
+- (void)layoutSubviews
+{
+    [super layoutSubviews];
+    
+    // Make sure the contentView does a layout pass here so that its subviews have their frames set, which we
+    // need to use to set the preferredMaxLayoutWidth below.
+    [self.contentView setNeedsLayout];
+    [self.contentView layoutIfNeeded];
+    
+    // Set the preferredMaxLayoutWidth of the mutli-line bodyLabel based on the evaluated width of the label's frame,
+    // as this will allow the text to wrap correctly, and as a result allow the label to take on the correct height.
+    self.postTitleLabel.preferredMaxLayoutWidth = CGRectGetWidth(self.contentView.frame) - (CBPLargePostPreviewTableViewCellPadding * 2);
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
@@ -163,7 +182,6 @@ static const CGFloat CBPLargePostPreviewTableViewCellPadding = 15.0;
     if (!_postTitleLabel) {
         _postTitleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _postTitleLabel.translatesAutoresizingMaskIntoConstraints = NO;
-        _postTitleLabel.preferredMaxLayoutWidth = CGRectGetWidth(self.frame) - (CBPLargePostPreviewTableViewCellPadding * 2);
         _postTitleLabel.numberOfLines = 0;
         _postTitleLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleHeadline];
         

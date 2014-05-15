@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-static const CGFloat CBPLargePostPreviewTableViewCellHeight = 230.0;
+static const CGFloat CBPLargePostPreviewTableViewCellHeight = 210.0;
 static NSString * const CBPLargePostPreviewTableViewCellIdentifier = @"CBPLargePostPreviewTableViewCell";
 
 @interface CBPLargePostPreviewTableViewCell : UITableViewCell

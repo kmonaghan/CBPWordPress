@@ -7,7 +7,6 @@
 //
 
 #import "NSString+HTML.h"
-#import <CBPWordPress/CBPWordPress.h>
 
 #import "CBPWordPressDataSource.h"
 
