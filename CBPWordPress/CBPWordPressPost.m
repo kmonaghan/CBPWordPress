@@ -6,6 +6,8 @@
 //  Copyright (c) 2014 Crayons and Brown Paper. All rights reserved.
 //
 
+#import "NSDateFormatter+CBPWordPress.h"
+
 #import "CBPWordPressPost.h"
 
 #import "CBPWordPressAttachment.h"
@@ -75,7 +77,8 @@
             self.comments = myMembers;
             
         }
-        
+    } else if ([key isEqualToString:@"date"]) {
+        self.date = [[NSDateFormatter cbp_sharedInstance] dateFromString:value];
     } else if ([key isEqualToString:@"tags"]) {
         if ([value isKindOfClass:[NSArray class]])
         {

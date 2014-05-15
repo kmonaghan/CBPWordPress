@@ -6,6 +6,8 @@
 //  Copyright (c) 2014 Crayons and Brown Paper. All rights reserved.
 //
 
+#import "SORelativeDateTransformer.h"
+
 #import "UIImageView+AFNetworking.h"
 
 #import "CBPLargePostPreviewTableViewCell.h"
@@ -128,7 +130,7 @@ static const CGFloat CBPLargePostPreviewTableViewCellPadding = 15.0;
 
 - (void)setPostDate:(NSDate *)postDate
 {
-    self.postDateLabel.text = [postDate description];
+    self.postDateLabel.text = [[SORelativeDateTransformer registeredTransformer] transformedValue:postDate];
     [self.postDateLabel sizeToFit];
 }
 

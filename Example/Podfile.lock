@@ -25,6 +25,7 @@ PODS:
   - SDWebImage (3.6):
     - SDWebImage/Core
   - SDWebImage/Core (3.6)
+  - SORelativeDateTransformer (1.1.10)
   - SVPullToRefresh (0.4.1)
   - TOWebViewController (2.0.6)
 
@@ -32,6 +33,7 @@ DEPENDENCIES:
   - CBPWordPress (from `../CBPWordPress.podspec`)
   - MHVideoPhotoGallery (~> 1.6)
   - NSString-HTML (~> 0.0)
+  - SORelativeDateTransformer (~> 1.1)
   - SVPullToRefresh (~> 0.4)
   - TOWebViewController (~> 2.0.5)
 
@@ -45,6 +47,7 @@ SPEC CHECKSUMS:
   MHVideoPhotoGallery: 1203cddda3a2699a5ff8dd50acf1481933792a41
   NSString-HTML: e3340335446f7f434828bd32abb308494b4952e8
   SDWebImage: 7eb273e54ca8a2e506ad9bd5e80c35b2a4d7c95e
+  SORelativeDateTransformer: eba9b9bcc290eb7c9754b9955ace59b890fa59f8
   SVPullToRefresh: 61a0e4bd12bd6f8e3465909810b0fbeb1a28d5f2
   TOWebViewController: 891ae553f83943e0e2f64c2dc9dab6b100d17151
 
