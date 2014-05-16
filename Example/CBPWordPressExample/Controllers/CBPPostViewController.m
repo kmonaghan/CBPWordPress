@@ -7,6 +7,7 @@
 //
 
 #import "JBWhatsAppActivity.h"
+#import "GPPShareActivity.h"
 #import "MHGallery.h"
 #import "TOWebViewController.h"
 
@@ -164,7 +165,7 @@
     
     NSArray* activityItems = @[ self.post.title, [NSURL URLWithString:self.post.url], whatsappMsg ];
     
-    UIActivityViewController* activityViewController = [[UIActivityViewController alloc] initWithActivityItems:activityItems applicationActivities:@[[JBWhatsAppActivity new]]];
+    UIActivityViewController* activityViewController = [[UIActivityViewController alloc] initWithActivityItems:activityItems applicationActivities:@[[JBWhatsAppActivity new], [GPPShareActivity new]]];
     
     activityViewController.excludedActivityTypes = @[UIActivityTypePostToWeibo, UIActivityTypeAssignToContact, UIActivityTypeCopyToPasteboard ];
     

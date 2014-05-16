@@ -19,6 +19,9 @@ PODS:
     - AFNetworking/NSURLConnection
   - CBPWordPress (0.1.0):
     - AFNetworking (~> 2.0.0)
+  - google-plus-ios-sdk (1.5.0)
+  - GooglePlusShareActivity (0.2.4):
+    - google-plus-ios-sdk (= 1.5.0)
   - JBWhatsAppActivity (1.0)
   - MHVideoPhotoGallery (1.6.1):
     - SDWebImage (~> 3.6)
@@ -32,6 +35,7 @@ PODS:
 
 DEPENDENCIES:
   - CBPWordPress (from `../CBPWordPress.podspec`)
+  - GooglePlusShareActivity (~> 0.2)
   - JBWhatsAppActivity (~> 1.0)
   - MHVideoPhotoGallery (~> 1.6)
   - NSString-HTML (~> 0.0)
@@ -46,6 +50,8 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   AFNetworking: e499052cbf3d743e9bb727bb37adb9dc2547ba15
   CBPWordPress: 31b7daaa8e8c727cac5276db59705b68252ea1e9
+  google-plus-ios-sdk: 0a1012188f380d5e9fe12a4613ef32a9a965e746
+  GooglePlusShareActivity: 4ed527355d306d3116947220051cdfc65d16d6c6
   JBWhatsAppActivity: 7825506049ec8784361c0b4ca5b163b6a778b216
   MHVideoPhotoGallery: 1203cddda3a2699a5ff8dd50acf1481933792a41
   NSString-HTML: e3340335446f7f434828bd32abb308494b4952e8
