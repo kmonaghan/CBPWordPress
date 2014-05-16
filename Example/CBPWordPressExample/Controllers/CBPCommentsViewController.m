@@ -11,10 +11,13 @@
 
 #import "CBPCommentDataSource.h"
 
-@interface CBPCommentsViewController ()
-@property (strong, nonatomic) CBPCommentDataSource *dataSource;
-@property (strong, nonatomic) CBPWordPressPost *post;
-@property (strong, nonatomic) UITableView *tableView;
+#import "CBPCommentTableViewCell.h"
+
+@interface CBPCommentsViewController () <UITableViewDelegate>
+@property (nonatomic) CBPCommentDataSource *dataSource;
+@property (nonatomic) CBPCommentTableViewCell *heightMeasuringCell;
+@property (nonatomic) CBPWordPressPost *post;
+@property (nonatomic) UITableView *tableView;
 @end
 
 @implementation CBPCommentsViewController
@@ -53,13 +56,18 @@
     
     self.dataSource = [[CBPCommentDataSource alloc] initWithPost:self.post];
     
+    self.tableView.delegate = self;
     self.tableView.dataSource = self.dataSource;
+    self.tableView.rowHeight = CBPCommentTableViewCellHeight;
+    self.tableView.estimatedRowHeight = CBPCommentTableViewCellHeight;
+    
+    [self.tableView registerClass:[CBPCommentTableViewCell class] forCellReuseIdentifier:CBPCommentTableViewCellIdentifier];
     
     if ([self.post.commentStatus isEqualToString:@"open"]) {
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose
-                                                                                     target:self
-                                                                                     action:@selector(composeCommentAction)];
-    
+                                                                                               target:self
+                                                                                               action:@selector(composeCommentAction)];
+        
     }
 }
 
@@ -72,7 +80,19 @@
 #pragma mark - Button Actions
 - (void)composeCommentAction
 {
-    CBPComposeCommentViewController *vc = [CBPComposeCommentViewController new];
+    __weak typeof(self) blockSelf = self;
+    
+    CBPComposeCommentViewController *vc = [[CBPComposeCommentViewController alloc] initWithPostId:self.post.postId
+                                                                              withCompletionBlock:^(CBPWordPressComment *comment, NSError *error) {
+                                                                                  [blockSelf.navigationController dismissViewControllerAnimated:YES
+                                                                                                                                     completion:^() {
+                                                                                                                                         
+                                                                                                                                         if (error) {
+                                                                                                                                             
+                                                                                                                                         } else if (comment) {
+                                                                                                                                             
+                                                                                                                                         }}];
+                                                                              }];
     
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:vc];
     
@@ -89,4 +109,46 @@
     return _tableView;
 }
 
+#pragma mark - UITableViewDelegate
+/**
+ * Adapted from https://github.com/smileyborg/TableViewCellWithAutoLayout/blob/master/TableViewCellWithAutoLayout/TableViewController/RJTableViewController.m
+ */
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (!self.heightMeasuringCell) {
+        self.heightMeasuringCell = [CBPCommentTableViewCell new];
+        
+        // Make sure the constraints have been added to this cell, since it may have just been created from scratch
+        [self.heightMeasuringCell setNeedsUpdateConstraints];
+        [self.heightMeasuringCell updateConstraintsIfNeeded];
+    }
+    
+    CBPWordPressComment *comment = self.post.comments[indexPath.row];
+    
+    self.heightMeasuringCell.avatarURI = comment.avatar;
+    self.heightMeasuringCell.commentator = comment.name;
+    self.heightMeasuringCell.commentDate = comment.date;
+    self.heightMeasuringCell.comment = comment.content;
+    
+    // The cell's width must be set to the same size it will end up at once it is in the table view.
+    // This is important so that we'll get the correct height for different table view widths, since our cell's
+    // height depends on its width due to the multi-line UILabel word wrapping. Don't need to do this above in
+    // -[tableView:cellForRowAtIndexPath:] because it happens automatically when the cell is used in the table view.
+    self.heightMeasuringCell.bounds = CGRectMake(0.0f, 0.0f, CGRectGetWidth(tableView.bounds), CGRectGetHeight(self.heightMeasuringCell.bounds));
+    
+    // Do the layout pass on the cell, which will calculate the frames for all the views based on the constraints
+    // (Note that the preferredMaxLayoutWidth is set on multi-line UILabels inside the -[layoutSubviews] method
+    // in the UITableViewCell subclass
+    [self.heightMeasuringCell setNeedsLayout];
+    [self.heightMeasuringCell layoutIfNeeded];
+    
+    // Get the actual height required for the cell
+    CGFloat height = [self.heightMeasuringCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height;
+    
+    // Add an extra point to the height to account for the cell separator, which is added between the bottom
+    // of the cell's contentView and the bottom of the table view cell.
+    height += 1;
+    
+    return height;
+}
 @end

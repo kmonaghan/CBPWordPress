@@ -27,6 +27,7 @@
 		34E6C1CE1909B5FB00F7B5BD /* CBPCommentDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 34E6C1CD1909B5FB00F7B5BD /* CBPCommentDataSource.m */; };
 		C67A29DDF4CD4FD1B3280908 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D58735488124103BBB09705 /* libPods.a */; };
 		F53D045B192382CE001A392E /* CBPLargePostPreviewTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F53D045A192382CE001A392E /* CBPLargePostPreviewTableViewCell.m */; };
+		F53E4E2A1926596D00932EC3 /* CBPCommentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F53E4E291926596D00932EC3 /* CBPCommentTableViewCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -72,6 +73,8 @@
 		6F029F3BBAA643F491064C2C /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		F53D0459192382CE001A392E /* CBPLargePostPreviewTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CBPLargePostPreviewTableViewCell.h; path = Views/TableCells/CBPLargePostPreviewTableViewCell.h; sourceTree = "<group>"; };
 		F53D045A192382CE001A392E /* CBPLargePostPreviewTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CBPLargePostPreviewTableViewCell.m; path = Views/TableCells/CBPLargePostPreviewTableViewCell.m; sourceTree = "<group>"; };
+		F53E4E281926596D00932EC3 /* CBPCommentTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CBPCommentTableViewCell.h; path = Views/TableCells/CBPCommentTableViewCell.h; sourceTree = "<group>"; };
+		F53E4E291926596D00932EC3 /* CBPCommentTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CBPCommentTableViewCell.m; path = Views/TableCells/CBPCommentTableViewCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -211,6 +214,8 @@
 		F53D045819238253001A392E /* TableCells */ = {
 			isa = PBXGroup;
 			children = (
+				F53E4E281926596D00932EC3 /* CBPCommentTableViewCell.h */,
+				F53E4E291926596D00932EC3 /* CBPCommentTableViewCell.m */,
 				F53D0459192382CE001A392E /* CBPLargePostPreviewTableViewCell.h */,
 				F53D045A192382CE001A392E /* CBPLargePostPreviewTableViewCell.m */,
 			);
@@ -358,6 +363,7 @@
 				34D3694618E709AF00E14526 /* main.m in Sources */,
 				347E285F190849B2004D3842 /* CBPCommentsViewController.m in Sources */,
 				34C2B86418EA0EF8002268BF /* CBPViewController.m in Sources */,
+				F53E4E2A1926596D00932EC3 /* CBPCommentTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

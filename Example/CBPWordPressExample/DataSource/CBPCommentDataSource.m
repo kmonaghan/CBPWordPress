@@ -8,6 +8,10 @@
 
 #import "CBPCommentDataSource.h"
 
+#import "CBPCommentTableViewCell.h"
+
+#import "CBPCommentTableViewCell.h"
+
 @interface CBPCommentDataSource()
 @property (strong, nonatomic) CBPWordPressPost *post;
 @end
@@ -48,15 +52,14 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CBPWordPressPostCell"];
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"CBPWordPressPostCell"];
-    }
+    CBPCommentTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CBPCommentTableViewCellIdentifier];
     
     CBPWordPressComment *comment = self.post.comments[indexPath.row];
     
-    cell.textLabel.text = comment.name;
-    cell.detailTextLabel.text = comment.content;
+    cell.avatarURI = comment.avatar;
+    cell.commentator = comment.name;
+    cell.commentDate = comment.date;
+    cell.comment = comment.content;
     
     return cell;
 }
