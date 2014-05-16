@@ -10,9 +10,9 @@
 
 @interface CBPWordPressComment : NSObject
 
-@property (nonatomic, strong) id avatar;
+@property (nonatomic, strong) NSString *avatar;
 @property (nonatomic, strong) NSString *content;
-@property (nonatomic, strong) NSString *date;
+@property (nonatomic, strong) NSDate *date;
 @property (nonatomic, strong) NSString *email;
 @property (nonatomic, assign) NSInteger commentId;
 @property (nonatomic, strong) NSString *name;

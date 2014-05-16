@@ -6,6 +6,8 @@
 //  Copyright (c) 2014 Crayons and Brown Paper. All rights reserved.
 //
 
+#import "NSDateFormatter+CBPWordPress.h"
+
 #import "CBPWordPressComment.h"
 
 @implementation CBPWordPressComment
@@ -28,6 +30,15 @@
 
     [self setValuesForKeysWithDictionary:aDictionary];
 
+}
+
+- (void)setValue:(id)value forKey:(NSString *)key
+{
+    if ([key isEqualToString:@"date"]) {
+        self.date = [[NSDateFormatter cbp_sharedInstance] dateFromString:value];
+    } else {
+        [super setValue:value forKey:key];
+    }
 }
 
 - (void)setValue:(id)value forUndefinedKey:(NSString *)key
