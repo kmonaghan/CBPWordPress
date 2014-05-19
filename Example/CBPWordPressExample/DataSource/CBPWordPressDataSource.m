@@ -27,7 +27,7 @@
                                       withBlock:^(CBPWordPressPostContainer *data, NSError *error) {
                                           
                                           if (!error) {
-                                              NSMutableArray *posts = (blockSelf.posts) ? blockSelf.posts.mutableCopy : @[].mutableCopy;
+                                              NSMutableArray *posts = (blockSelf.posts && more) ? blockSelf.posts.mutableCopy : @[].mutableCopy;
                                               
                                               [posts addObjectsFromArray:data.posts];
                                               
