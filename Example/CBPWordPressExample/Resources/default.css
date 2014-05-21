@@ -1,0 +1,112 @@
+body {
+    font-family: Helvetica, Arial, sans-serif;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    margin: 10px;
+}
+
+h1 {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+a:link {
+    text-decoration: none
+}
+
+#title {
+    display: block;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.title-color {
+
+}
+
+.date-color {
+    color:#CC0000;
+}
+
+a.author:link,
+a.author:hover,
+a.author:active {
+    color:#777;
+}
+       
+#singlentry {
+
+}
+
+img.alignleft, img.alignright, img.aligncenter {
+
+}
+
+img {
+    height: auto;
+    max-width: 100%;
+}
+
+.entry-content img, .comment-content img, .widget img {
+    max-width: 95%;
+}
+.aligncenter {
+    clear: both;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.post object, .post embed, .post video, .post iframe {
+    height: auto;
+
+    max-width: 100% !important;
+}
+
+.category {
+    float:left;
+    margin:0 10px 7px 0;
+    position:relative;
+    font-family:'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size:0.75em;
+    font-weight:bold;
+    color:#996633;
+    text-shadow:0px 1px 0px rgba(255,255,255,.4);
+    padding: 5px;
+    border:1px solid #d99d38;
+    -webkit-border-radius:0.25em;
+
+    border-radius:0.25em;
+    background-image: -webkit-linear-gradient(top, rgb(254, 218, 113), rgb(254, 186, 71));
+    -webkit-box-shadow:
+        inset 0 1px 0 #faeaba,
+        0 1px 1px rgba(0,0,0,.1);
+    box-shadow:
+        inset 0 1px 0 #faeaba,
+        0 1px 1px rgba(0,0,0,.1);
+    z-index:100;
+}
+
+.tag {
+    float:left;
+    margin:0 10px 7px 0;
+    position:relative;
+    font-family:'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size:0.75em;
+    font-weight:bold;
+    color:#996633;
+    text-shadow:0px 1px 0px rgba(255,255,255,.4);
+    padding:0.417em;
+    border:1px solid #d99d38;
+    -webkit-border-radius:0.25em;
+
+    border-radius:0.25em;
+    background-image: -webkit-linear-gradient(top, rgb(254, 218, 113), rgb(254, 186, 71));
+    -webkit-box-shadow:
+        inset 0 1px 0 #faeaba,
+        0 1px 1px rgba(0,0,0,.1);
+    box-shadow:
+        inset 0 1px 0 #faeaba,
+        0 1px 1px rgba(0,0,0,.1);
+    z-index:100;
+}
