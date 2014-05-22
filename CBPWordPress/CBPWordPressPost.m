@@ -105,6 +105,14 @@
         [self setValue:value forKey:@"postId"];
     } else if ([key isEqualToString:@"title_plain"]) {
         [self setValue:value forKey:@"titlePlain"];
+    } else if ([key isEqualToString:@"next_title"]) {
+        [self setValue:value forKey:@"nextTitle"];
+    } else if ([key isEqualToString:@"next_url"]) {
+        [self setValue:value forKey:@"nextURL"];
+    } else if ([key isEqualToString:@"previous_title"]) {
+        [self setValue:value forKey:@"previousTitle"];
+    } else if ([key isEqualToString:@"previous_url"]) {
+        [self setValue:value forKey:@"previousURL"];
     } else {
         //[super setValue:value forUndefinedKey:key];
         NSLog(@"Undefined key post: %@ with value: %@", key, value);
