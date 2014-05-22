@@ -6,6 +6,8 @@
 //  Copyright (c) 2014 Crayons and Brown Paper. All rights reserved.
 //
 
+#import "NSString+CBPWordPressExample.h"
+
 #import "JBWhatsAppActivity.h"
 #import "GPPShareActivity.h"
 #import "MHGallery.h"
@@ -130,7 +132,7 @@
 #pragma mark -
 - (void)displayPost
 {
-    [self.webView loadHTMLString:[self.post generateHtml:self.baseFontSize] baseURL:[NSURL fileURLWithPath:[[NSBundle mainBundle] bundlePath]]];
+    [self.webView loadHTMLString:[NSString cbp_HTMLStringFor:self.post] baseURL:[NSURL fileURLWithPath:[[NSBundle mainBundle] bundlePath]]];
     
     [self toolbarButtons];
     

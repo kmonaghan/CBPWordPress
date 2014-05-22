@@ -28,6 +28,9 @@
 		C67A29DDF4CD4FD1B3280908 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D58735488124103BBB09705 /* libPods.a */; };
 		F53D045B192382CE001A392E /* CBPLargePostPreviewTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F53D045A192382CE001A392E /* CBPLargePostPreviewTableViewCell.m */; };
 		F53E4E2A1926596D00932EC3 /* CBPCommentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F53E4E291926596D00932EC3 /* CBPCommentTableViewCell.m */; };
+		F58217E8192D00130014AE2E /* NSString+CBPWordPressExample.m in Sources */ = {isa = PBXBuildFile; fileRef = F58217E7192D00130014AE2E /* NSString+CBPWordPressExample.m */; };
+		F58217EC192D02CB0014AE2E /* default.css in Resources */ = {isa = PBXBuildFile; fileRef = F58217EB192D02CB0014AE2E /* default.css */; };
+		F58217EE192D02F50014AE2E /* template.html in Resources */ = {isa = PBXBuildFile; fileRef = F58217ED192D02F50014AE2E /* template.html */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -75,6 +78,10 @@
 		F53D045A192382CE001A392E /* CBPLargePostPreviewTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CBPLargePostPreviewTableViewCell.m; path = Views/TableCells/CBPLargePostPreviewTableViewCell.m; sourceTree = "<group>"; };
 		F53E4E281926596D00932EC3 /* CBPCommentTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CBPCommentTableViewCell.h; path = Views/TableCells/CBPCommentTableViewCell.h; sourceTree = "<group>"; };
 		F53E4E291926596D00932EC3 /* CBPCommentTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CBPCommentTableViewCell.m; path = Views/TableCells/CBPCommentTableViewCell.m; sourceTree = "<group>"; };
+		F58217E6192D00130014AE2E /* NSString+CBPWordPressExample.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+CBPWordPressExample.h"; path = "Categories/NSString+CBPWordPressExample.h"; sourceTree = "<group>"; };
+		F58217E7192D00130014AE2E /* NSString+CBPWordPressExample.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+CBPWordPressExample.m"; path = "Categories/NSString+CBPWordPressExample.m"; sourceTree = "<group>"; };
+		F58217EB192D02CB0014AE2E /* default.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; name = default.css; path = Resources/default.css; sourceTree = "<group>"; };
+		F58217ED192D02F50014AE2E /* template.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = template.html; path = Resources/template.html; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -163,6 +170,8 @@
 		34D3693F18E709AF00E14526 /* CBPWordPressExample */ = {
 			isa = PBXGroup;
 			children = (
+				F58217EA192D010D0014AE2E /* Resources */,
+				F58217E5192CFFE70014AE2E /* Categories */,
 				34D3694818E709AF00E14526 /* CBPAppDelegate.h */,
 				34D3694918E709AF00E14526 /* CBPAppDelegate.m */,
 				34C2B86118EA0EF8002268BF /* Controllers */,
@@ -220,6 +229,24 @@
 				F53D045A192382CE001A392E /* CBPLargePostPreviewTableViewCell.m */,
 			);
 			name = TableCells;
+			sourceTree = "<group>";
+		};
+		F58217E5192CFFE70014AE2E /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				F58217E6192D00130014AE2E /* NSString+CBPWordPressExample.h */,
+				F58217E7192D00130014AE2E /* NSString+CBPWordPressExample.m */,
+			);
+			name = Categories;
+			sourceTree = "<group>";
+		};
+		F58217EA192D010D0014AE2E /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				F58217EB192D02CB0014AE2E /* default.css */,
+				F58217ED192D02F50014AE2E /* template.html */,
+			);
+			name = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -301,8 +328,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F58217EE192D02F50014AE2E /* template.html in Resources */,
 				34D3695218E709AF00E14526 /* Images.xcassets in Resources */,
 				34D3694418E709AF00E14526 /* InfoPlist.strings in Resources */,
+				F58217EC192D02CB0014AE2E /* default.css in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -357,6 +386,7 @@
 				3417327819070AA000DAAE85 /* CBPPostViewController.m in Sources */,
 				347E286219084AA1004D3842 /* CBPComposeCommentViewController.m in Sources */,
 				34C2B86818EA1003002268BF /* CBPWordPressDataSource.m in Sources */,
+				F58217E8192D00130014AE2E /* NSString+CBPWordPressExample.m in Sources */,
 				F53D045B192382CE001A392E /* CBPLargePostPreviewTableViewCell.m in Sources */,
 				34D3694A18E709AF00E14526 /* CBPAppDelegate.m in Sources */,
 				34E6C1CE1909B5FB00F7B5BD /* CBPCommentDataSource.m in Sources */,

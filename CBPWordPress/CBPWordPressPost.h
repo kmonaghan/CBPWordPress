@@ -38,5 +38,4 @@
 - (void)setAttributesFromDictionary:(NSDictionary *)aDictionary;
 
 - (NSDictionary *)dictionaryRepresentation;
-- (NSString *)generateHtml:(CGFloat)fontSize;
 @end
