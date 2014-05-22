@@ -18,8 +18,8 @@
 
 @interface CBPViewController () <UITableViewDelegate>
 @property (nonatomic) CBPLargePostPreviewTableViewCell *heightMeasuringCell;
-@property (strong, nonatomic) CBPWordPressDataSource *dataSource;
-@property (strong, nonatomic) UITableView *tableView;
+@property (nonatomic) CBPWordPressDataSource *dataSource;
+@property (nonatomic) UITableView *tableView;
 
 @end
 
@@ -140,7 +140,9 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    CBPPostViewController *vc = [[CBPPostViewController alloc] initWithPost:self.dataSource.posts[indexPath.row]];
+    CBPPostViewController *vc = [[CBPPostViewController alloc] initWithPost:self.dataSource.posts[indexPath.row]
+                                                             withDataSource:self.dataSource
+                                                                  withIndex:indexPath.row];
     
     [self.navigationController pushViewController:vc animated:YES];
 }

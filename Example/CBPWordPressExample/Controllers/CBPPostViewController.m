@@ -17,10 +17,18 @@
 #import "CBPComposeCommentViewController.h"
 #import "CBPPostViewController.h"
 
+#import "CBPWordPressDataSource.h"
+
 @interface CBPPostViewController () <UIWebViewDelegate>
-@property (assign, nonatomic) CGFloat baseFontSize;
-@property (strong, nonatomic) CBPWordPressPost *post;
-@property (strong, nonatomic) UIWebView *webView;
+@property (nonatomic, assign) CGFloat baseFontSize;
+@property (nonatomic, weak) CBPWordPressDataSource *dataSource;
+@property (nonatomic) NSInteger index;
+@property (nonatomic) UIBarButtonItem *nextPostButton;
+@property (nonatomic) CBPWordPressPost *post;
+@property (nonatomic) UIBarButtonItem *postCommentButton;
+@property (nonatomic) UIBarButtonItem *previousPostButton;
+@property (nonatomic) UIWebView *webView;
+@property (nonatomic) UIBarButtonItem *viewCommentsButton;
 @end
 
 @implementation CBPPostViewController
@@ -42,6 +50,18 @@
     
     if (self) {
         _post = post;
+    }
+    
+    return self;
+}
+
+- (id)initWithPost:(CBPWordPressPost *)post withDataSource:(CBPWordPressDataSource *)dataSource withIndex:(NSInteger)index
+{
+    self = [self initWithPost:post];
+    
+    if (self) {
+        _dataSource = dataSource;
+        _index = index;
     }
     
     return self;
@@ -103,23 +123,39 @@
 {
     NSMutableArray *buttons = @[].mutableCopy;
     
-    if ([self.post.commentStatus isEqualToString:@"open"]) {
-        UIBarButtonItem *makeComment = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose
-                                                                                     target:self
-                                                                                     action:@selector(composeCommentAction)];
-        [buttons addObject:makeComment];
-        
-        [buttons addObject:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil]];
-    }
+    self.nextPostButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"up4-25"]
+                                                           style:UIBarButtonItemStylePlain
+                                                          target:self
+                                                          action:@selector(nextPostAction)];
+    self.nextPostButton.enabled = NO;
+    [buttons addObject:self.nextPostButton];
     
-    if (self.post.commentCount) {
-        UIBarButtonItem *viewComments = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemOrganize
-                                                                                      target:self
-                                                                                      action:@selector(viewCommentAction)];
-        [buttons addObject:viewComments];
-        
-        [buttons addObject:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil]];
-    }
+    [buttons addObject:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil]];
+    
+    self.previousPostButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"down4-25"]
+                                                               style:UIBarButtonItemStylePlain
+                                                              target:self
+                                                              action:@selector(previousPostAction)];
+    self.previousPostButton.enabled = NO;
+    [buttons addObject:self.previousPostButton];
+    
+    [buttons addObject:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil]];
+    self.postCommentButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose
+                                                                           target:self
+                                                                           action:@selector(composeCommentAction)];
+    [buttons addObject:self.postCommentButton];
+    self.postCommentButton.enabled = NO;
+    [buttons addObject:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil]];
+    
+    
+    self.viewCommentsButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemOrganize
+                                                                            target:self
+                                                                            action:@selector(viewCommentAction)];
+    [buttons addObject:self.viewCommentsButton];
+    self.viewCommentsButton.enabled = NO;
+    
+    [buttons addObject:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil]];
+    
     
     UIBarButtonItem *share = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction
                                                                            target:self
@@ -134,9 +170,47 @@
 {
     [self.webView loadHTMLString:[NSString cbp_HTMLStringFor:self.post] baseURL:[NSURL fileURLWithPath:[[NSBundle mainBundle] bundlePath]]];
     
-    [self toolbarButtons];
+    [self updateToolbar];
     
     [self.navigationController setToolbarHidden:NO animated:YES];
+}
+
+- (void)updateToolbar
+{
+    if (![self.toolbarItems count]) {
+        [self toolbarButtons];
+    }
+    
+    BOOL previousEnabled = NO;
+    BOOL nextEnabled = NO;
+    if (self.dataSource) {
+        if (self.index) {
+            nextEnabled = YES;
+        }
+        
+        if (self.index < [self.dataSource.posts count]) {
+            previousEnabled = YES;
+        } else if (self.index == ([self.dataSource.posts count] - 1)) {
+            if (self.post.previousTitle) {
+                previousEnabled = YES;
+            }
+        }
+    } else {
+        if (self.post.nextTitle) {
+            nextEnabled = YES;
+        }
+        
+        if (self.post.previousTitle) {
+            previousEnabled = YES;
+        }
+    }
+    
+    self.previousPostButton.enabled = previousEnabled;
+    self.nextPostButton.enabled = YES;
+    
+    self.postCommentButton.enabled = ([self.post.commentStatus isEqualToString:@"open"]);
+    
+    self.viewCommentsButton.enabled = self.post.commentCount;
 }
 
 #pragma mark - Button Actions
@@ -148,17 +222,43 @@
                                                                               withCompletionBlock:^(CBPWordPressComment *comment, NSError *error) {
                                                                                   [blockSelf.navigationController dismissViewControllerAnimated:YES
                                                                                                                                      completion:^() {
-                                                                                      
-                                                                                      if (error) {
-                                                                                          
-                                                                                      } else if (comment) {
-                                                                                          
-                                                                                      }}];
+                                                                                                                                         
+                                                                                                                                         if (error) {
+                                                                                                                                             
+                                                                                                                                         } else if (comment) {
+                                                                                                                                             
+                                                                                                                                         }}];
                                                                               }];
     
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:vc];
     
     [self presentViewController:navController animated:YES completion:nil];
+}
+
+- (void)nextPostAction
+{
+    if (self.dataSource) {
+        if (self.index) {
+            self.index--;
+            
+            self.post = self.dataSource.posts[self.index];
+            
+            [self displayPost];
+        }
+    }
+}
+
+- (void)previousPostAction
+{
+    if (self.dataSource) {
+        if (self.index < ([self.dataSource.posts count] - 1)) {
+            self.index++;
+            
+            self.post = self.dataSource.posts[self.index];
+            
+            [self displayPost];
+        }
+    }
 }
 
 - (void)sharePostAction
@@ -184,10 +284,10 @@
         
         [galleryData addObject:image];
     }
-
+    
     MHGalleryController *gallery = [MHGalleryController galleryWithPresentationStyle:MHGalleryViewModeImageViewerNavigationBarShown];
     gallery.galleryItems = galleryData;
-
+    
     __weak MHGalleryController *blockGallery = gallery;
     
     gallery.finishedCallback = ^(NSUInteger currentIndex,UIImage *image,MHTransitionDismissMHGallery *interactiveTransition,MHGalleryViewMode viewMode) {
@@ -231,6 +331,15 @@
 	return YES;
 }
 
+- (void)webViewDidStartLoad:(UIWebView *)webView
+{
+    
+}
+
+- (void)webViewDidFinishLoad:(UIWebView *)webView
+{
+    NSLog(@"Finished loading post");
+}
 #pragma mark - UIPinchGestureRecognizer
 - (void)pinchAction:(UIPinchGestureRecognizer *)gestureRecognizer
 {

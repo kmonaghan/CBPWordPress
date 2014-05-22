@@ -9,7 +9,9 @@
 #import <UIKit/UIKit.h>
 
 @class CBPWordPressPost;
+@class CBPWordPressDataSource;
 
 @interface CBPPostViewController : UIViewController
 - (id)initWithPost:(CBPWordPressPost *)post;
+- (id)initWithPost:(CBPWordPressPost *)post withDataSource:(CBPWordPressDataSource *)dataSource withIndex:(NSInteger)index;
 @end
