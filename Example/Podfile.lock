@@ -22,6 +22,7 @@ PODS:
   - google-plus-ios-sdk (1.5.0)
   - GooglePlusShareActivity (0.2.4):
     - google-plus-ios-sdk (= 1.5.0)
+  - GTScrollNavigationBar (0.1.1)
   - JBWhatsAppActivity (1.0)
   - MHVideoPhotoGallery (1.6.1):
     - SDWebImage (~> 3.6)
@@ -36,6 +37,7 @@ PODS:
 DEPENDENCIES:
   - CBPWordPress (from `../CBPWordPress.podspec`)
   - GooglePlusShareActivity (~> 0.2)
+  - GTScrollNavigationBar (~> 0.1)
   - JBWhatsAppActivity (~> 1.0)
   - MHVideoPhotoGallery (~> 1.6)
   - NSString-HTML (~> 0.0)
@@ -48,16 +50,17 @@ EXTERNAL SOURCES:
     :path: ../CBPWordPress.podspec
 
 SPEC CHECKSUMS:
-  AFNetworking: e499052cbf3d743e9bb727bb37adb9dc2547ba15
+  AFNetworking: a4d0e9a64de9242986620dafd1b3cee3b413ac5c
   CBPWordPress: 31b7daaa8e8c727cac5276db59705b68252ea1e9
-  google-plus-ios-sdk: 0a1012188f380d5e9fe12a4613ef32a9a965e746
-  GooglePlusShareActivity: 4ed527355d306d3116947220051cdfc65d16d6c6
-  JBWhatsAppActivity: 7825506049ec8784361c0b4ca5b163b6a778b216
-  MHVideoPhotoGallery: 1203cddda3a2699a5ff8dd50acf1481933792a41
-  NSString-HTML: e3340335446f7f434828bd32abb308494b4952e8
-  SDWebImage: 7eb273e54ca8a2e506ad9bd5e80c35b2a4d7c95e
-  SORelativeDateTransformer: eba9b9bcc290eb7c9754b9955ace59b890fa59f8
-  SVPullToRefresh: 61a0e4bd12bd6f8e3465909810b0fbeb1a28d5f2
-  TOWebViewController: 891ae553f83943e0e2f64c2dc9dab6b100d17151
+  google-plus-ios-sdk: 20ab80284c5ce4616e176b25ed9522cde6f894d3
+  GooglePlusShareActivity: 291bce40de044aaefc8dbe32141e21f8de0c13f4
+  GTScrollNavigationBar: 60392a5cc551047d0471e5693d06f68d4c1bd77b
+  JBWhatsAppActivity: d0eeb5b235d297be90935105e5cac2e41240a1ef
+  MHVideoPhotoGallery: 55bedce06c1bd53c6cf1368a9419bc0db0f7f701
+  NSString-HTML: 2ccaa6a9886d35f8176ee5e456442bd1524c151b
+  SDWebImage: c6989652c1cdf27cbdf3f56957e2030f825af5bc
+  SORelativeDateTransformer: de7936811c9988af8e129a097af48c828f933f5f
+  SVPullToRefresh: d5161ebc833a38b465364412e5e307ca80bbb190
+  TOWebViewController: 9f8bb66cf01aec186d2e278efa8141ba22270984
 
-COCOAPODS: 0.32.1
+COCOAPODS: 0.33.1

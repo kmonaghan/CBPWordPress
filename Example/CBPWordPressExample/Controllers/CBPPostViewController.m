@@ -10,6 +10,7 @@
 
 #import "JBWhatsAppActivity.h"
 #import "GPPShareActivity.h"
+#import "GTScrollNavigationBar.h"
 #import "MHGallery.h"
 #import "TOWebViewController.h"
 
@@ -19,14 +20,16 @@
 
 #import "CBPWordPressDataSource.h"
 
-@interface CBPPostViewController () <UIWebViewDelegate>
+@interface CBPPostViewController () <UIScrollViewDelegate, UIWebViewDelegate>
 @property (nonatomic, assign) CGFloat baseFontSize;
 @property (nonatomic, weak) CBPWordPressDataSource *dataSource;
+@property (nonatomic, assign) CGFloat contentOffsetY;
 @property (nonatomic) NSInteger index;
 @property (nonatomic) UIBarButtonItem *nextPostButton;
 @property (nonatomic) CBPWordPressPost *post;
 @property (nonatomic) UIBarButtonItem *postCommentButton;
 @property (nonatomic) UIBarButtonItem *previousPostButton;
+@property (nonatomic) UIScrollView *scrollView;
 @property (nonatomic) UIWebView *webView;
 @property (nonatomic) UIBarButtonItem *viewCommentsButton;
 @end
@@ -67,6 +70,13 @@
     return self;
 }
 
+- (void)dealloc
+{
+    [_scrollView removeObserver:self
+                     forKeyPath:@"contentOffset"
+                        context:NULL];
+}
+
 - (void)loadView
 {
     [super loadView];
@@ -85,6 +95,13 @@
     [self.webView addGestureRecognizer:pinch];
     
     [self.view addSubview:self.webView];
+    
+    self.scrollView = self.webView.scrollView;
+    self.scrollView.delegate = self;
+    [self.scrollView addObserver:self
+                      forKeyPath:@"contentOffset"
+                         options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld | NSKeyValueObservingOptionPrior
+                         context:NULL];
 }
 
 - (void)viewDidLoad
@@ -104,6 +121,8 @@
     if (self.post) {
         [self.navigationController setToolbarHidden:NO animated:YES];
     }
+    
+    self.navigationController.scrollNavigationBar.scrollView = self.webView.scrollView;
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -111,6 +130,8 @@
     [super viewWillDisappear:YES];
     
     [self.navigationController setToolbarHidden:YES animated:YES];
+    
+    self.navigationController.scrollNavigationBar.scrollView = nil;
 }
 
 - (void)didReceiveMemoryWarning
@@ -147,7 +168,6 @@
     self.postCommentButton.enabled = NO;
     [buttons addObject:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil]];
     
-    
     self.viewCommentsButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemOrganize
                                                                             target:self
                                                                             action:@selector(viewCommentAction)];
@@ -155,7 +175,6 @@
     self.viewCommentsButton.enabled = NO;
     
     [buttons addObject:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil]];
-    
     
     UIBarButtonItem *share = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction
                                                                            target:self
@@ -340,6 +359,7 @@
 {
     NSLog(@"Finished loading post");
 }
+
 #pragma mark - UIPinchGestureRecognizer
 - (void)pinchAction:(UIPinchGestureRecognizer *)gestureRecognizer
 {
@@ -364,5 +384,37 @@
     }
     
     [self.webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"changeFontSize('%f')", self.baseFontSize]];
+}
+
+#pragma mark - UIScrollViewDelegate
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+{
+    self.contentOffsetY = scrollView.contentOffset.y;
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
+{
+    if (scrollView.contentOffset.y > self.contentOffsetY) {
+        [self.navigationController setToolbarHidden:YES animated:YES];
+    } else {
+        [self.navigationController setToolbarHidden:NO animated:YES];
+    }
+}
+
+- (void)scrollViewDidScrollToTop:(UIScrollView *)scrollView
+{
+    [self.navigationController.scrollNavigationBar resetToDefaultPosition:YES];
+}
+
+#pragma mark - Observers
+- (void) observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+    if ([keyPath isEqualToString:@"contentOffset"])
+    {
+        if (self.scrollView.contentOffset.y > self.contentOffsetY) {
+            [self.navigationController setToolbarHidden:YES animated:YES];
+        } else {
+            [self.navigationController setToolbarHidden:NO animated:YES];
+        }
+    }
 }
 @end

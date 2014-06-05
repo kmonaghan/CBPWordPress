@@ -7,6 +7,7 @@
 //
 
 #import <GooglePlus/GooglePlus.h>
+#import "GTScrollNavigationBar.h"
 
 #import "CBPAppDelegate.h"
 
@@ -20,7 +21,9 @@
      
     CBPViewController *viewController = [CBPViewController new];
     
-    self.navigationController = [[UINavigationController alloc] initWithRootViewController:viewController];
+    self.navigationController = [[UINavigationController alloc] initWithNavigationBarClass:[GTScrollNavigationBar class]
+                                                                              toolbarClass:nil];
+    [self.navigationController setViewControllers:@[viewController] animated:NO];
     self.navigationController.navigationBar.tintColor = [UIColor darkGrayColor];
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
