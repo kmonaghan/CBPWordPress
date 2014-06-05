@@ -144,6 +144,14 @@
 {
     NSMutableArray *buttons = @[].mutableCopy;
     
+    self.viewCommentsButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemOrganize
+                                                                            target:self
+                                                                            action:@selector(viewCommentAction)];
+    [buttons addObject:self.viewCommentsButton];
+    self.viewCommentsButton.enabled = NO;
+    
+    [buttons addObject:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil]];
+    
     self.nextPostButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"up4-25"]
                                                            style:UIBarButtonItemStylePlain
                                                           target:self
@@ -168,13 +176,7 @@
     self.postCommentButton.enabled = NO;
     [buttons addObject:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil]];
     
-    self.viewCommentsButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemOrganize
-                                                                            target:self
-                                                                            action:@selector(viewCommentAction)];
-    [buttons addObject:self.viewCommentsButton];
-    self.viewCommentsButton.enabled = NO;
-    
-    [buttons addObject:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil]];
+
     
     UIBarButtonItem *share = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction
                                                                            target:self
@@ -225,7 +227,7 @@
     }
     
     self.previousPostButton.enabled = previousEnabled;
-    self.nextPostButton.enabled = YES;
+    self.nextPostButton.enabled = nextEnabled;
     
     self.postCommentButton.enabled = ([self.post.commentStatus isEqualToString:@"open"]);
     
