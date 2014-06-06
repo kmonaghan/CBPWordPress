@@ -54,11 +54,11 @@
         [dictionary setObject:self.descriptionText forKey:@"descriptionText"];
     }
 
-    [dictionary setObject:[NSNumber numberWithInteger:self.categoryId] forKey:@"categoryId"];
+    [dictionary setObject:@(self.categoryId) forKey:@"categoryId"];
 
-    [dictionary setObject:[NSNumber numberWithInteger:self.parent] forKey:@"parent"];
+    [dictionary setObject:@(self.parent) forKey:@"parent"];
 
-    [dictionary setObject:[NSNumber numberWithInteger:self.postCount] forKey:@"postCount"];
+    [dictionary setObject:@(self.postCount) forKey:@"postCount"];
 
     if (self.slug) {
         [dictionary setObject:self.slug forKey:@"slug"];

@@ -136,7 +136,7 @@
         [dictionary setObject:self.categories forKey:@"categories"];
     }
     
-    [dictionary setObject:[NSNumber numberWithInteger:self.commentCount] forKey:@"commentCount"];
+    [dictionary setObject:@(self.commentCount) forKey:@"commentCount"];
     
     if (self.commentStatus) {
         [dictionary setObject:self.commentStatus forKey:@"commentStatus"];
@@ -158,7 +158,7 @@
         [dictionary setObject:self.excerpt forKey:@"excerpt"];
     }
     
-    [dictionary setObject:[NSNumber numberWithInteger:self.postId] forKey:@"postId"];
+    [dictionary setObject:@(self.postId) forKey:@"postId"];
     
     if (self.modified) {
         [dictionary setObject:self.modified forKey:@"modified"];

@@ -53,7 +53,7 @@
 
 + (NSURLSessionDataTask *)fetchPostWithId:(NSInteger)postId withBlock:(void (^)(CBPWordPressPost *post, NSError *error))block
 {
-    return [[CBPWordPressAPIClient sharedClient] GET:@"/?json=get_post" parameters:@{@"post_id": [NSNumber numberWithInteger:postId]} success:^(NSURLSessionDataTask * __unused task, id JSON) {
+    return [[CBPWordPressAPIClient sharedClient] GET:@"" parameters:@{@"json": @"get_post", @"post_id": @(postId)} success:^(NSURLSessionDataTask * __unused task, id JSON) {
         
         if ([JSON[@"status"] isEqualToString:@"ok"]) {
             CBPWordPressPost *post = [CBPWordPressPost initFromDictionary:JSON[@"post"]];

@@ -11,9 +11,9 @@
 @implementation CBPWordPressImage
 - (void)encodeWithCoder:(NSCoder *)encoder
 {
-    [encoder encodeObject:[NSNumber numberWithInteger:self.height] forKey:@"height"];
+    [encoder encodeObject:@(self.height) forKey:@"height"];
     [encoder encodeObject:self.url forKey:@"url"];
-    [encoder encodeObject:[NSNumber numberWithInteger:self.width] forKey:@"width"];
+    [encoder encodeObject:@(self.width) forKey:@"width"];
 }
 
 - (id)initWithCoder:(NSCoder *)decoder
@@ -51,13 +51,13 @@
 
     NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
 
-    [dictionary setObject:[NSNumber numberWithInteger:self.height] forKey:@"height"];
+    [dictionary setObject:@(self.height) forKey:@"height"];
 
     if (self.url) {
         [dictionary setObject:self.url forKey:@"url"];
     }
 
-    [dictionary setObject:[NSNumber numberWithInteger:self.width] forKey:@"width"];
+    [dictionary setObject:@(self.width) forKey:@"width"];
 
     return dictionary;
 

@@ -64,7 +64,7 @@
 
     NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
 
-    [dictionary setObject:[NSNumber numberWithInteger:self.attachmentId] forKey:@"attachmentId"];
+    [dictionary setObject:@(self.attachmentId) forKey:@"attachmentId"];
 
     if (self.caption) {
         [dictionary setObject:self.caption forKey:@"caption"];
@@ -82,7 +82,7 @@
         [dictionary setObject:self.mimeType forKey:@"mimeType"];
     }
 
-    [dictionary setObject:[NSNumber numberWithInteger:self.parent] forKey:@"parent"];
+    [dictionary setObject:@(self.parent) forKey:@"parent"];
 
     if (self.slug) {
         [dictionary setObject:self.slug forKey:@"slug"];

@@ -59,11 +59,11 @@
 {
     NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
     
-    [dictionary setObject:[NSNumber numberWithInteger:self.count] forKey:@"count"];
+    [dictionary setObject:@(self.count) forKey:@"count"];
     
-    [dictionary setObject:[NSNumber numberWithInteger:self.countTotal] forKey:@"countTotal"];
+    [dictionary setObject:@(self.countTotal) forKey:@"countTotal"];
     
-    [dictionary setObject:[NSNumber numberWithInteger:self.pages] forKey:@"pages"];
+    [dictionary setObject:@(self.pages) forKey:@"pages"];
     
     if (self.posts) {
         [dictionary setObject:self.posts forKey:@"posts"];

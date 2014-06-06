@@ -23,8 +23,8 @@
 
     self.page = (more) ? self.page + 1 : 1;
     
-    [NSURLSessionDataTask fetchPostsWithParams:@{@"page": [NSNumber numberWithInteger:self.page]}
-                                      withBlock:^(CBPWordPressPostContainer *data, NSError *error) {
+    [NSURLSessionDataTask fetchPostsWithParams:@{@"page": @(self.page)}
+                                      withBlock:^(CBPWordPressPostsContainer *data, NSError *error) {
                                           
                                           if (!error) {
                                               NSMutableArray *posts = (blockSelf.posts && more) ? blockSelf.posts.mutableCopy : @[].mutableCopy;

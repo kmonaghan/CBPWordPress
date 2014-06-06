@@ -58,7 +58,7 @@
         [dictionary setObject:self.firstName forKey:@"firstName"];
     }
 
-    [dictionary setObject:[NSNumber numberWithInteger:self.authorId] forKey:@"authorId"];
+    [dictionary setObject:@(self.authorId) forKey:@"authorId"];
 
     if (self.lastName) {
         [dictionary setObject:self.lastName forKey:@"lastName"];

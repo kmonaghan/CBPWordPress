@@ -73,15 +73,15 @@
                        forKey:@"email"];
     }
 
-    [dictionary setObject:[NSNumber numberWithInteger:self.commentId] forKey:@"id"];
+    [dictionary setObject:@(self.commentId) forKey:@"id"];
 
     if (self.name) {
         [dictionary setObject:self.name forKey:@"name"];
     }
 
-    [dictionary setObject:[NSNumber numberWithInteger:self.parent] forKey:@"parent"];
+    [dictionary setObject:@(self.parent) forKey:@"parent"];
 
-    [dictionary setObject:[NSNumber numberWithInteger:self.postId] forKey:@"post_id"];
+    [dictionary setObject:@(self.postId) forKey:@"post_id"];
 
     if (self.url) {
         [dictionary setObject:self.url forKey:@"url"];

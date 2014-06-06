@@ -48,13 +48,13 @@
         [dictionary setObject:self.descriptionText forKey:@"descriptionText"];
     }
 
-    [dictionary setObject:[NSNumber numberWithInteger:self.postCount] forKey:@"postCount"];
+    [dictionary setObject:@(self.postCount) forKey:@"postCount"];
 
     if (self.slug) {
         [dictionary setObject:self.slug forKey:@"slug"];
     }
 
-    [dictionary setObject:[NSNumber numberWithInteger:self.tagId] forKey:@"tagId"];
+    [dictionary setObject:@(self.tagId) forKey:@"tagId"];
 
     if (self.title) {
         [dictionary setObject:self.title forKey:@"title"];
