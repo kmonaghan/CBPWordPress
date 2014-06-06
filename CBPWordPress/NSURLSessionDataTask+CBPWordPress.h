@@ -10,11 +10,13 @@
 
 @class CBPWordPressComment;
 @class CBPWordPressPost;
-@class CBPWordPressPostContainer;
+@class CBPWordPressPostsContainer;
 
 @interface NSURLSessionDataTask (CBPWordPress)
++ (NSURLSessionDataTask *)fetchPostWithURL:(NSURL *)url
+                                 withBlock:(void (^)(CBPWordPressPost *post, NSError *error))block;
 + (NSURLSessionDataTask *)fetchPostsWithParams:(NSDictionary *)params
-                                     withBlock:(void (^)(CBPWordPressPostContainer *data, NSError *error))block;
+                                     withBlock:(void (^)(CBPWordPressPostsContainer *data, NSError *error))block;
 + (NSURLSessionDataTask *)fetchPostWithId:(NSInteger)postId
                                 withBlock:(void (^)(CBPWordPressPost *post, NSError *error))block;
 + (NSURLSessionDataTask *)postComment:(CBPWordPressComment *)comment

@@ -15,6 +15,7 @@
 #import "CBPWordPressImage.h"
 #import "CBPWordPressPost.h"
 #import "CBPWordPressPostContainer.h"
+#import "CBPWordPressPostsContainer.h"
 #import "CBPWordPressTag.h"
 
 #import "NSDateFormatter+CBPWordPress.h"

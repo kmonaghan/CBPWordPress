@@ -30,8 +30,9 @@
 @property (nonatomic) UIBarButtonItem *postCommentButton;
 @property (nonatomic) UIBarButtonItem *previousPostButton;
 @property (nonatomic) UIScrollView *scrollView;
-@property (nonatomic) UIWebView *webView;
+@property (nonatomic) NSURL *url;
 @property (nonatomic) UIBarButtonItem *viewCommentsButton;
+@property (nonatomic) UIWebView *webView;
 @end
 
 @implementation CBPPostViewController
@@ -70,6 +71,17 @@
     return self;
 }
 
+- (instancetype)initWithURL:(NSURL *)url
+{
+    self = [self initWithNibName:nil bundle:nil];
+    
+    if (self) {
+        _url = url;
+    }
+    
+    return self;
+}
+
 - (void)dealloc
 {
     [_scrollView removeObserver:self
@@ -82,17 +94,6 @@
     [super loadView];
     
     self.view.backgroundColor = [UIColor whiteColor];
-    
-	// Do any additional setup after loading the view.
-    self.webView = [[UIWebView alloc] initWithFrame:self.view.frame];
-    self.webView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
-    self.webView.backgroundColor = [UIColor clearColor];
-    self.webView.delegate = self;
-    
-    UIPinchGestureRecognizer *pinch = [[UIPinchGestureRecognizer alloc] initWithTarget:self
-                                                                                action:@selector(pinchAction:)];
-    
-    [self.webView addGestureRecognizer:pinch];
     
     [self.view addSubview:self.webView];
     
@@ -111,6 +112,8 @@
     
     if (self.post) {
         [self displayPost];
+    } else if (self.url) {
+        [self loadPost];
     }
 }
 
@@ -194,6 +197,23 @@
     [self updateToolbar];
     
     [self.navigationController setToolbarHidden:NO animated:YES];
+}
+
+- (void)loadPost
+{
+    __weak typeof(self) blockSelf = self;
+    
+    [NSURLSessionDataTask fetchPostWithURL:self.url
+                                 withBlock:^(CBPWordPressPost *post, NSError *error) {
+                                         if (!error) {
+                                             blockSelf.post = post;
+                                             
+                                             [blockSelf displayPost];
+                                         } else {
+                                             NSLog(@"Error: %@", error);
+                                            
+                                         }
+                                     }];
 }
 
 - (void)updateToolbar
@@ -333,14 +353,22 @@
 {
     if (navigationType == UIWebViewNavigationTypeLinkClicked)
 	{
-        NSArray *parts = [[[request URL] absoluteString] componentsSeparatedByString:@"."];
-        
-        NSString *ext = [[parts lastObject] lowercaseString];
-        
-        if ([ext isEqualToString:@"jpg"] || [ext isEqualToString:@"jpeg"]
-            || [ext isEqualToString:@"png"]
-            || [ext isEqualToString:@"gif"]) {
-            [self showGallery];
+        //show images in the in-app browser
+        if ([[[request URL] host] hasPrefix:@"cf.broadsheet.ie"]) {
+            NSArray *parts = [[[request URL] absoluteString] componentsSeparatedByString:@"."];
+            
+            NSString *ext = [[parts lastObject] lowercaseString];
+            
+            if ([ext isEqualToString:@"jpg"] || [ext isEqualToString:@"jpeg"]
+                || [ext isEqualToString:@"png"]
+                || [ext isEqualToString:@"gif"]) {
+                [self showGallery];
+            }
+        //Capture links to other posts
+        } else if ([[[request URL] host] hasSuffix:@"broadsheet.ie"] && [[[request URL] path] hasPrefix:@"/20"]) {
+            CBPPostViewController *vc = [[CBPPostViewController alloc] initWithURL:[request URL]];
+            
+            [self.navigationController pushViewController:vc animated:YES];
         } else {
             TOWebViewController *webBrowser = [[TOWebViewController alloc] initWithURL:request.URL];
             [self.navigationController pushViewController:webBrowser animated:YES];
@@ -418,5 +446,26 @@
             [self.navigationController setToolbarHidden:NO animated:YES];
         }
     }
+}
+
+#pragma mark -
+- (UIWebView *)webView
+{
+    if (!_webView) {
+        // Do any additional setup after loading the view.
+        _webView = [[UIWebView alloc] initWithFrame:self.view.frame];
+        _webView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
+        _webView.backgroundColor = [UIColor clearColor];
+        _webView.allowsInlineMediaPlayback = YES;
+        _webView.mediaPlaybackRequiresUserAction = YES;
+        _webView.delegate = self;
+        
+        UIPinchGestureRecognizer *pinch = [[UIPinchGestureRecognizer alloc] initWithTarget:self
+                                                                                    action:@selector(pinchAction:)];
+        
+        [_webView addGestureRecognizer:pinch];
+    }
+    
+    return _webView;
 }
 @end

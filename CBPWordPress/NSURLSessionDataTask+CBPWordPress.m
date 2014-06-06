@@ -13,13 +13,33 @@
 #import "CBPWordPressComment.h"
 #import "CBPWordPressPost.h"
 #import "CBPWordPressPostContainer.h"
+#import "CBPWordPressPostsContainer.h"
 
 @implementation NSURLSessionDataTask (CBPWordPress)
-+ (NSURLSessionDataTask *)fetchPostsWithParams:(NSDictionary *)params withBlock:(void (^)(CBPWordPressPostContainer *data, NSError *error))block
++ (NSURLSessionDataTask *)fetchPostWithURL:(NSURL *)url withBlock:(void (^)(CBPWordPressPost *post, NSError *error))block
+{
+    return [[CBPWordPressAPIClient sharedClient] GET:[url path] parameters:@{@"json": @1} success:^(NSURLSessionDataTask * __unused task, id JSON) {
+        
+        CBPWordPressPostContainer *container = [CBPWordPressPostContainer initFromDictionary:JSON];
+        if ([JSON[@"status"] isEqualToString:@"ok"]) {
+            if (block) {
+                block(container.post, nil);
+            }
+        } else {
+            block(nil, [NSError errorWithDomain:@"CBPWordPressError" code:0 userInfo:@{@"error": JSON[@"error"]}]);
+        }
+    } failure:^(NSURLSessionDataTask *__unused task, NSError *error) {
+        if (block) {
+            block(nil, error);
+        }
+    }];
+}
+
++ (NSURLSessionDataTask *)fetchPostsWithParams:(NSDictionary *)params withBlock:(void (^)(CBPWordPressPostsContainer *data, NSError *error))block
 {
     return [[CBPWordPressAPIClient sharedClient] GET:@"/?json=1" parameters:params success:^(NSURLSessionDataTask * __unused task, id JSON) {
         
-        CBPWordPressPostContainer *container = [CBPWordPressPostContainer initFromDictionary:JSON];
+        CBPWordPressPostsContainer *container = [CBPWordPressPostsContainer initFromDictionary:JSON];
         
         if (block) {
             block(container, nil);
