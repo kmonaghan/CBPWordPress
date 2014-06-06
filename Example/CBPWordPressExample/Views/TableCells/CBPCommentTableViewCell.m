@@ -12,10 +12,10 @@
 
 static const CGFloat CBPCommentTableViewCellPadding = 15.0;
 
-@interface CBPCommentTableViewCell()
+@interface CBPCommentTableViewCell() <UITextViewDelegate>
 @property (nonatomic) UIImageView *avatarImageView;
 @property (nonatomic, assign) BOOL constraintsUpdated;
-@property (nonatomic) UILabel *commentLabel;
+@property (nonatomic) UITextView *commentTextView;
 @property (nonatomic) UILabel *commentatorLabel;
 @property (nonatomic) UILabel *commentDateLabel;
 @end
@@ -41,15 +41,15 @@ static const CGFloat CBPCommentTableViewCellPadding = 15.0;
         self.contentView.bounds = CGRectMake(0.0f, 0.0f, CGRectGetWidth(self.frame), CBPCommentTableViewCellHeight);
         
         NSDictionary *views = @{@"avatarImageView": self.avatarImageView,
-                                @"commentLabel": self.commentLabel,
+                                @"commentTextView": self.commentTextView,
                                 @"commentatorLabel": self.commentatorLabel,
                                 @"commentDateLabel": self.commentDateLabel};
         
-        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(10)-[avatarImageView(40)]-(10)-[commentLabel(>=60)]-(10)-|"
+        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(10)-[avatarImageView(40)]-(10)-[commentTextView]-(10)-|"
                                                                                  options:0
                                                                                  metrics:nil
                                                                                    views:views]];
-        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(10)-[commentatorLabel]-(>=0)-[commentDateLabel]-(10)-[commentLabel]-(10)-|"
+        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(10)-[commentatorLabel]-(>=0)-[commentDateLabel]-(10)-[commentTextView]-(10)-|"
                                                                                  options:0
                                                                                  metrics:nil
                                                                                    views:views]];
@@ -61,7 +61,7 @@ static const CGFloat CBPCommentTableViewCellPadding = 15.0;
                                                                                  options:0
                                                                                  metrics:nil
                                                                                    views:views]];
-        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"H:|-(%f)-[commentLabel]-(%f)-|", CBPCommentTableViewCellPadding, CBPCommentTableViewCellPadding]
+        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"H:|-(%f)-[commentTextView]-(%f)-|", CBPCommentTableViewCellPadding, CBPCommentTableViewCellPadding]
                                                                                  options:0
                                                                                  metrics:nil
                                                                                    views:views]];
@@ -80,10 +80,6 @@ static const CGFloat CBPCommentTableViewCellPadding = 15.0;
     // need to use to set the preferredMaxLayoutWidth below.
     [self.contentView setNeedsLayout];
     [self.contentView layoutIfNeeded];
-    
-    // Set the preferredMaxLayoutWidth of the mutli-line bodyLabel based on the evaluated width of the label's frame,
-    // as this will allow the text to wrap correctly, and as a result allow the label to take on the correct height.
-    self.commentLabel.preferredMaxLayoutWidth = CGRectGetWidth(self.contentView.frame) - (CBPCommentTableViewCellPadding * 2);
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
@@ -100,7 +96,7 @@ static const CGFloat CBPCommentTableViewCellPadding = 15.0;
     self.avatarImageView.image = nil;
     [self.avatarImageView cancelImageRequestOperation];
     self.avatarImageView.image = [UIImage imageNamed:@"default_avatar_image"];
-    self.commentLabel.text = nil;
+    self.commentTextView.text = nil;
     self.commentatorLabel.text = nil;
     self.commentDateLabel.text = nil;
 }
@@ -120,14 +116,15 @@ static const CGFloat CBPCommentTableViewCellPadding = 15.0;
                                                                                     options:@{NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType}
                                                                          documentAttributes:nil
                                                                                       error:&error].mutableCopy;
+    [attributedComment addAttribute:NSFontAttributeName value:[UIFont preferredFontForTextStyle:UIFontTextStyleBody] range:NSMakeRange(0, attributedComment.length)];
     
-    self.commentLabel.attributedText = attributedComment;
+    self.commentTextView.attributedText = attributedComment;
     
     if (error) {
         NSLog(@"error turning comment into attrinuted string: %@", error);
     }
     
-    [self.commentLabel sizeToFit];
+    [self.commentTextView sizeToFit];
 }
 
 - (void)setCommentator:(NSString *)commentator
@@ -154,18 +151,22 @@ static const CGFloat CBPCommentTableViewCellPadding = 15.0;
     return _avatarImageView;
 }
 
-- (UILabel *)commentLabel
+- (UITextView *)commentTextView
 {
-    if (!_commentLabel) {
-        _commentLabel = [UILabel new];
-        _commentLabel.translatesAutoresizingMaskIntoConstraints = NO;
-        _commentLabel.numberOfLines = 0;
-        _commentLabel.adjustsFontSizeToFitWidth = NO;
+    if (!_commentTextView) {
+        _commentTextView = [UITextView new];
+        _commentTextView.translatesAutoresizingMaskIntoConstraints = NO;
+        _commentTextView.editable = NO;
+        _commentTextView.scrollEnabled = NO;
+        _commentTextView.font =
+        [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+        _commentTextView.dataDetectorTypes = UIDataDetectorTypeAll;
+        _commentTextView.delegate = self;
         
-        [self.contentView addSubview:_commentLabel];
+        [self.contentView addSubview:_commentTextView];
     }
     
-    return _commentLabel;
+    return _commentTextView;
 }
 
 - (UILabel *)commentatorLabel
@@ -173,6 +174,7 @@ static const CGFloat CBPCommentTableViewCellPadding = 15.0;
     if (!_commentatorLabel) {
         _commentatorLabel = [UILabel new];
         _commentatorLabel.translatesAutoresizingMaskIntoConstraints = NO;
+        _commentatorLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline];
         
         [self.contentView addSubview:_commentatorLabel];
     }
@@ -185,10 +187,22 @@ static const CGFloat CBPCommentTableViewCellPadding = 15.0;
     if (!_commentDateLabel) {
         _commentDateLabel = [UILabel new];
         _commentDateLabel.translatesAutoresizingMaskIntoConstraints = NO;
+        _commentDateLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline];
         
         [self.contentView addSubview:_commentDateLabel];
     }
     
     return _commentDateLabel;
 }
+
+#pragma mark - UITextViewDelegate
+- (BOOL)textView:(UITextView *)textView shouldInteractWithURL:(NSURL *)URL inRange:(NSRange)characterRange
+{
+    NSLog(@"URL tapped: %@", [URL absoluteString]);
+    
+    [self.delegate openURL:URL];
+    
+    return NO;
+}
+
 @end

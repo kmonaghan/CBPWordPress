@@ -60,6 +60,7 @@
     cell.commentator = comment.name;
     cell.commentDate = comment.date;
     cell.comment = comment.content;
+    cell.delegate = self.linkDelegate;
     
     return cell;
 }

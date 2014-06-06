@@ -6,6 +6,8 @@
 //  Copyright (c) 2014 Crayons and Brown Paper. All rights reserved.
 //
 
+#import "TOWebViewController.h"
+
 #import "CBPCommentsViewController.h"
 #import "CBPComposeCommentViewController.h"
 
@@ -13,7 +15,7 @@
 
 #import "CBPCommentTableViewCell.h"
 
-@interface CBPCommentsViewController () <UITableViewDelegate>
+@interface CBPCommentsViewController () <CBPCommentTableViewCellDelegate, UITableViewDelegate>
 @property (nonatomic) CBPCommentDataSource *dataSource;
 @property (nonatomic) CBPCommentTableViewCell *heightMeasuringCell;
 @property (nonatomic) CBPWordPressPost *post;
@@ -55,6 +57,7 @@
     // Do any additional setup after loading the view.
     
     self.dataSource = [[CBPCommentDataSource alloc] initWithPost:self.post];
+    self.dataSource.linkDelegate = self;
     
     self.tableView.delegate = self;
     self.tableView.dataSource = self.dataSource;
@@ -150,5 +153,12 @@
     height += 1;
     
     return height;
+}
+
+#pragma mark - CBPCommentTableViewCellDelegate
+- (void)openURL:(NSURL *)URL
+{
+    TOWebViewController *webBrowser = [[TOWebViewController alloc] initWithURL:URL];
+    [self.navigationController pushViewController:webBrowser animated:YES];
 }
 @end

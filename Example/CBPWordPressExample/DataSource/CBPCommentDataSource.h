@@ -8,9 +8,13 @@
 
 #import <Foundation/Foundation.h>
 
+#import "CBPCommentTableViewCell.h"
+
 @class CBPWordPressPost;
 
 @interface CBPCommentDataSource : NSObject <UITableViewDataSource>
+@property (nonatomic, weak) id<CBPCommentTableViewCellDelegate> linkDelegate;
+
 - (instancetype)initWithPost:(CBPWordPressPost *)post;
 - (void)loadWithBlock:(void (^)(BOOL result, NSError *error))block;
 @end
