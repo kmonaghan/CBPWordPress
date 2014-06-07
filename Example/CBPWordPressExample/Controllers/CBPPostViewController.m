@@ -82,13 +82,6 @@
     return self;
 }
 
-- (void)dealloc
-{
-    [_scrollView removeObserver:self
-                     forKeyPath:@"contentOffset"
-                        context:NULL];
-}
-
 - (void)loadView
 {
     [super loadView];
@@ -99,10 +92,6 @@
     
     self.scrollView = self.webView.scrollView;
     self.scrollView.delegate = self;
-    [self.scrollView addObserver:self
-                      forKeyPath:@"contentOffset"
-                         options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld | NSKeyValueObservingOptionPrior
-                         context:NULL];
 }
 
 - (void)viewDidLoad
@@ -126,6 +115,11 @@
     }
     
     self.navigationController.scrollNavigationBar.scrollView = self.webView.scrollView;
+    
+    [self.scrollView addObserver:self
+                      forKeyPath:@"contentOffset"
+                         options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld | NSKeyValueObservingOptionPrior
+                         context:NULL];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -135,6 +129,10 @@
     [self.navigationController setToolbarHidden:YES animated:YES];
     
     self.navigationController.scrollNavigationBar.scrollView = nil;
+    
+    [self.scrollView removeObserver:self
+                         forKeyPath:@"contentOffset"
+                            context:NULL];
 }
 
 - (void)didReceiveMemoryWarning
@@ -251,7 +249,7 @@
     
     self.postCommentButton.enabled = ([self.post.commentStatus isEqualToString:@"open"]);
     
-    self.viewCommentsButton.enabled = self.post.commentCount;
+    self.viewCommentsButton.enabled = (self.post.commentCount) ? YES : NO;
 }
 
 #pragma mark - Button Actions
@@ -420,31 +418,57 @@
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
 {
     self.contentOffsetY = scrollView.contentOffset.y;
+    
+    NSLog(@"scrollViewWillBeginDragging %f", self.contentOffsetY);
 }
 
+// called on finger up if the user dragged. decelerate is true if it will continue moving afterwards
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
 {
+    NSLog(@"scrollViewDidEndDragging scrollView.contentOffset.y: %f > %f", scrollView.contentOffset.y, self.contentOffsetY);
+
     if (scrollView.contentOffset.y > self.contentOffsetY) {
+        NSLog(@"hide toolbar scrollViewDidEndDragging");
         [self.navigationController setToolbarHidden:YES animated:YES];
-    } else {
+    } else if (!decelerate) {
+        NSLog(@"show toolbar scrollViewDidEndDragging");
         [self.navigationController setToolbarHidden:NO animated:YES];
     }
 }
 
+- (void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView   // called on finger up as we are moving
+{
+    NSLog(@"scrollViewWillBeginDecelerating scrollView.contentOffset.y: %f > %f", scrollView.contentOffset.y, self.contentOffsetY);
+
+    if (scrollView.contentOffset.y > self.contentOffsetY) {
+        NSLog(@"hide toolbar scrollViewWillBeginDecelerating");
+        [self.navigationController setToolbarHidden:YES animated:YES];
+    }
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView      // called when scroll view grinds to a halt
+{
+    NSLog(@"scrollViewDidEndDecelerating scrollView.contentOffset.y: %f < %f", scrollView.contentOffset.y, self.contentOffsetY);
+    
+    if (scrollView.contentOffset.y < self.contentOffsetY) {
+        NSLog(@"show toolbar scrollViewDidEndDecelerating");
+        [self.navigationController setToolbarHidden:NO animated:YES];
+    }
+}
+
+
 - (void)scrollViewDidScrollToTop:(UIScrollView *)scrollView
 {
     [self.navigationController.scrollNavigationBar resetToDefaultPosition:YES];
+    
+    [self.navigationController setToolbarHidden:NO animated:YES];
 }
 
 #pragma mark - Observers
 - (void) observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     if ([keyPath isEqualToString:@"contentOffset"])
     {
-        if (self.scrollView.contentOffset.y > self.contentOffsetY) {
-            [self.navigationController setToolbarHidden:YES animated:YES];
-        } else {
-            [self.navigationController setToolbarHidden:NO animated:YES];
-        }
+
     }
 }
 
@@ -452,7 +476,6 @@
 - (UIWebView *)webView
 {
     if (!_webView) {
-        // Do any additional setup after loading the view.
         _webView = [[UIWebView alloc] initWithFrame:self.view.frame];
         _webView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
         _webView.backgroundColor = [UIColor clearColor];
