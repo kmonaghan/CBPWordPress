@@ -8,7 +8,9 @@
 
 #import "CBPWordPressPostsContainer.h"
 
+#import "CBPWordPressCategory.h"
 #import "CBPWordPressPost.h"
+#import "CBPWordPressTag.h"
 
 @implementation CBPWordPressPostsContainer
 
@@ -30,7 +32,9 @@
 
 - (void)setValue:(id)value forKey:(NSString *)key
 {
-    if ([key isEqualToString:@"posts"]) {
+    if ([key isEqualToString:@"category"]) {
+        self.category = [CBPWordPressCategory initFromDictionary:value];
+    } else if ([key isEqualToString:@"posts"]) {
         if ([value isKindOfClass:[NSArray class]]) {
             NSMutableArray *myMembers = [NSMutableArray arrayWithCapacity:[value count]];
             for (id valueMember in value) {
@@ -40,6 +44,8 @@
             
             self.posts = myMembers;
         }
+    } else if ([key isEqualToString:@"tag"]) {
+        self.tag = [CBPWordPressTag initFromDictionary:value];
     } else {
         [super setValue:value forKey:key];
     }
