@@ -80,6 +80,8 @@ static const CGFloat CBPCommentTableViewCellPadding = 15.0;
     // need to use to set the preferredMaxLayoutWidth below.
     [self.contentView setNeedsLayout];
     [self.contentView layoutIfNeeded];
+
+    [self.commentTextView sizeToFit];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
@@ -123,8 +125,6 @@ static const CGFloat CBPCommentTableViewCellPadding = 15.0;
     if (error) {
         NSLog(@"error turning comment into attrinuted string: %@", error);
     }
-    
-    [self.commentTextView sizeToFit];
 }
 
 - (void)setCommentator:(NSString *)commentator
