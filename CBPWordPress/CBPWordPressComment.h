@@ -8,8 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
+@class CBPWordPressAuthor;
+
 @interface CBPWordPressComment : NSObject
 
+@property (nonatomic) CBPWordPressAuthor *author;
 @property (nonatomic, strong) NSString *avatar;
 @property (nonatomic, strong) NSString *content;
 @property (nonatomic, strong) NSDate *date;

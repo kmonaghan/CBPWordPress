@@ -9,6 +9,7 @@
 #import "NSDateFormatter+CBPWordPress.h"
 
 #import "CBPWordPressComment.h"
+#import "CBPWordPressAuthor.h"
 
 @implementation CBPWordPressComment
 
@@ -34,7 +35,11 @@
 
 - (void)setValue:(id)value forKey:(NSString *)key
 {
-    if ([key isEqualToString:@"date"]) {
+    if ([key isEqualToString:@"author"]) {
+        if ([value isKindOfClass:[NSDictionary class]]) {
+            self.author = [CBPWordPressAuthor initFromDictionary:value];
+        }
+    } else if ([key isEqualToString:@"date"]) {
         self.date = [[NSDateFormatter cbp_sharedInstance] dateFromString:value];
     } else {
         [super setValue:value forKey:key];
