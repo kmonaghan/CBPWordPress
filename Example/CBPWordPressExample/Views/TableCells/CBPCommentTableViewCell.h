@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-static const CGFloat CBPCommentTableViewCellHeight = 110.0;
+static const CGFloat CBPCommentTableViewCellHeight = 70.0;
 static NSString * const CBPCommentTableViewCellIdentifier = @"CBPCommentTableViewCellIdentifier";
 
 @protocol CBPCommentTableViewCellDelegate
@@ -17,6 +17,7 @@ static NSString * const CBPCommentTableViewCellIdentifier = @"CBPCommentTableVie
 
 @interface CBPCommentTableViewCell : UITableViewCell
 @property (nonatomic) NSString *avatarURI;
+@property (nonatomic, assign, readonly) CGFloat cellHeight;
 @property (nonatomic) NSString *comment;
 @property (nonatomic) NSString *commentator;
 @property (nonatomic) NSDate *commentDate;

@@ -45,11 +45,12 @@ static const CGFloat CBPCommentTableViewCellPadding = 15.0;
                                 @"commentatorLabel": self.commentatorLabel,
                                 @"commentDateLabel": self.commentDateLabel};
         
-        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(10)-[avatarImageView(40)]-(10)-[commentTextView]-(10)-|"
+        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"V:|-(%f)-[avatarImageView(40)]-(10)-[commentTextView]-(%f)-|", CBPCommentTableViewCellPadding, CBPCommentTableViewCellPadding]
                                                                                  options:0
                                                                                  metrics:nil
                                                                                    views:views]];
-        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(10)-[commentatorLabel]-(>=0)-[commentDateLabel]-(10)-[commentTextView]-(10)-|"
+        
+        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"V:|-(%f)-[commentatorLabel]-(>=0)-[commentDateLabel]", CBPCommentTableViewCellPadding]
                                                                                  options:0
                                                                                  metrics:nil
                                                                                    views:views]];
@@ -61,6 +62,7 @@ static const CGFloat CBPCommentTableViewCellPadding = 15.0;
                                                                                  options:0
                                                                                  metrics:nil
                                                                                    views:views]];
+        
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"H:|-(%f)-[commentTextView]-(%f)-|", CBPCommentTableViewCellPadding, CBPCommentTableViewCellPadding]
                                                                                  options:0
                                                                                  metrics:nil
@@ -80,7 +82,7 @@ static const CGFloat CBPCommentTableViewCellPadding = 15.0;
     // need to use to set the preferredMaxLayoutWidth below.
     [self.contentView setNeedsLayout];
     [self.contentView layoutIfNeeded];
-
+    
     [self.commentTextView sizeToFit];
 }
 
@@ -95,12 +97,13 @@ static const CGFloat CBPCommentTableViewCellPadding = 15.0;
 {
     [super prepareForReuse];
     
-    self.avatarImageView.image = nil;
     [self.avatarImageView cancelImageRequestOperation];
     self.avatarImageView.image = [UIImage imageNamed:@"default_avatar_image"];
     self.commentTextView.text = nil;
     self.commentatorLabel.text = nil;
     self.commentDateLabel.text = nil;
+    
+    [self setNeedsUpdateConstraints];
 }
 
 #pragma mark -
@@ -123,8 +126,10 @@ static const CGFloat CBPCommentTableViewCellPadding = 15.0;
     self.commentTextView.attributedText = attributedComment;
     
     if (error) {
-        NSLog(@"error turning comment into attrinuted string: %@", error);
+        NSLog(@"error turning comment into attributed string: %@", error);
     }
+
+    [self setNeedsUpdateConstraints];
 }
 
 - (void)setCommentator:(NSString *)commentator
@@ -158,10 +163,11 @@ static const CGFloat CBPCommentTableViewCellPadding = 15.0;
         _commentTextView.translatesAutoresizingMaskIntoConstraints = NO;
         _commentTextView.editable = NO;
         _commentTextView.scrollEnabled = NO;
-        _commentTextView.font =
-        [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+        _commentTextView.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
         _commentTextView.dataDetectorTypes = UIDataDetectorTypeAll;
         _commentTextView.delegate = self;
+        
+        _commentTextView.backgroundColor = [UIColor lightGrayColor];
         
         [self.contentView addSubview:_commentTextView];
     }
@@ -198,11 +204,15 @@ static const CGFloat CBPCommentTableViewCellPadding = 15.0;
 #pragma mark - UITextViewDelegate
 - (BOOL)textView:(UITextView *)textView shouldInteractWithURL:(NSURL *)URL inRange:(NSRange)characterRange
 {
-    NSLog(@"URL tapped: %@", [URL absoluteString]);
-    
     [self.delegate openURL:URL];
     
     return NO;
+}
+
+#pragma mark - 
+- (CGFloat)cellHeight
+{
+    return CGRectGetMaxY(self.commentTextView.frame) + CBPCommentTableViewCellPadding;
 }
 
 @end

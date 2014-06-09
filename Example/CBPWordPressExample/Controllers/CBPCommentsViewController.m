@@ -127,12 +127,11 @@
     }
     
     CBPWordPressComment *comment = self.post.comments[indexPath.row];
-    
-    self.heightMeasuringCell.avatarURI = comment.avatar;
+
     self.heightMeasuringCell.commentator = comment.name;
     self.heightMeasuringCell.commentDate = comment.date;
     self.heightMeasuringCell.comment = comment.content;
-    
+
     // The cell's width must be set to the same size it will end up at once it is in the table view.
     // This is important so that we'll get the correct height for different table view widths, since our cell's
     // height depends on its width due to the multi-line UILabel word wrapping. Don't need to do this above in
@@ -146,8 +145,9 @@
     [self.heightMeasuringCell layoutIfNeeded];
     
     // Get the actual height required for the cell
-    CGFloat height = [self.heightMeasuringCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height;
-    
+    //CGFloat height = [self.heightMeasuringCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height;
+    CGFloat height = self.heightMeasuringCell.cellHeight;
+
     // Add an extra point to the height to account for the cell separator, which is added between the bottom
     // of the cell's contentView and the bottom of the table view cell.
     height += 1;
