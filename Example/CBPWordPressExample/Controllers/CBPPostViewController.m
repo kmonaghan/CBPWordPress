@@ -27,6 +27,7 @@
 @property (nonatomic) CBPWordPressPost *post;
 @property (nonatomic) UIBarButtonItem *postCommentButton;
 @property (nonatomic) UIBarButtonItem *previousPostButton;
+@property (nonatomic, assign) BOOL scrollToMore;
 @property (nonatomic) UIScrollView *scrollView;
 @property (nonatomic) NSURL *url;
 @property (nonatomic) UIBarButtonItem *viewCommentsButton;
@@ -361,6 +362,26 @@
             if ([[[request URL] path] hasSuffix:@"author"]) {
                 
             }
+        } else if ([[[request URL] absoluteString] hasSuffix:[NSString stringWithFormat:@"%@#more-%ld", self.post.url, (long)self.post.postId]]) {
+            __weak typeof(self) weakSelf = self;
+
+            [self.webView stringByEvaluatingJavaScriptFromString:@"loadingMore()"];
+
+            [NSURLSessionDataTask fetchPostWithId:self.post.postId
+                                        withBlock:^(CBPWordPressPost *post, NSError *error) {
+                                            if (!error) {
+                                                __strong typeof(weakSelf) strongSelf = weakSelf;
+                                                
+                                                strongSelf.post = post;
+                                                
+                                                [strongSelf displayPost];
+                                                
+                                                strongSelf.scrollToMore = YES;
+                                            } else {
+                                                NSLog(@"Error: %@", error);
+                                            }
+                                        }];
+
         //Capture links to other posts
         } else if ([[[request URL] host] hasSuffix:@"broadsheet.ie"] && [[[request URL] path] hasPrefix:@"/20"]) {
             CBPPostViewController *vc = [[CBPPostViewController alloc] initWithURL:[request URL]];
@@ -384,7 +405,11 @@
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
-    NSLog(@"Finished loading post");
+    if (self.scrollToMore) {
+        [self.webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"scrollIntoView(%ld)", self.post.postId]];
+        
+        self.scrollToMore = NO;
+    }
 }
 
 #pragma mark - UIPinchGestureRecognizer
