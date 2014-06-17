@@ -356,6 +356,11 @@
                 || [ext isEqualToString:@"gif"]) {
                 [self showGallery];
             }
+        //Capture CBPWordPRess links
+        } else if ([[[request URL] scheme] hasSuffix:@"cbpwordpress"]) {
+            if ([[[request URL] path] hasSuffix:@"author"]) {
+                
+            }
         //Capture links to other posts
         } else if ([[[request URL] host] hasSuffix:@"broadsheet.ie"] && [[[request URL] path] hasPrefix:@"/20"]) {
             CBPPostViewController *vc = [[CBPPostViewController alloc] initWithURL:[request URL]];

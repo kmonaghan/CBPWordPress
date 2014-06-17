@@ -57,7 +57,7 @@
         
         for (CBPWordPressCategory *item in post.categories)
         {
-            [html appendFormat:@"<a class=\"category\" href=\"kmwordpress://category:%ld\">%@</a> ", (long)item.categoryId, item.title];
+            [html appendFormat:@"<a class=\"category\" href=\"cbpwordpress://category:%ld\">%@</a> ", (long)item.categoryId, item.title];
         }
         
         [html appendString:@"</div>"];
@@ -69,7 +69,7 @@
         
         for (CBPWordPressTag *item in post.tags)
         {
-            [html appendFormat:@"<a class=\"tag\" href=\"kmwordpress://tag:%ld\">%@</a>", (long)item.tagId, item.title];
+            [html appendFormat:@"<a class=\"tag\" href=\"cbpwordpress://tag:%ld\">%@</a>", (long)item.tagId, item.title];
         }
         
         [html appendString:@"</div>"];
@@ -84,7 +84,6 @@
     html = [html stringByReplacingOccurrencesOfString:@"\"//platform.twitter.com/"
                                            withString:@"\"http://platform.twitter.com/"].mutableCopy;
     
-     
     
     return html;
 }
