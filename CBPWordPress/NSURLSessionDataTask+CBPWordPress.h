@@ -15,6 +15,8 @@
 @interface NSURLSessionDataTask (CBPWordPress)
 + (NSURLSessionDataTask *)fetchPostWithURL:(NSURL *)url
                                  withBlock:(void (^)(CBPWordPressPost *post, NSError *error))block;
++ (NSURLSessionDataTask *)fetchPostsWithAuthorId:(NSInteger)authorId
+                                       withBlock:(void (^)(CBPWordPressPostsContainer *data, NSError *error))block;
 + (NSURLSessionDataTask *)fetchPostsWithParams:(NSDictionary *)params
                                      withBlock:(void (^)(CBPWordPressPostsContainer *data, NSError *error))block;
 + (NSURLSessionDataTask *)fetchPostWithId:(NSInteger)postId
