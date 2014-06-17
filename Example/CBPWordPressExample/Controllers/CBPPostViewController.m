@@ -10,7 +10,6 @@
 
 #import "JBWhatsAppActivity.h"
 #import "GPPShareActivity.h"
-#import "GTScrollNavigationBar.h"
 #import "MHGallery.h"
 #import "TOWebViewController.h"
 
@@ -23,7 +22,6 @@
 @interface CBPPostViewController () <UIScrollViewDelegate, UIWebViewDelegate>
 @property (nonatomic, assign) CGFloat baseFontSize;
 @property (nonatomic, weak) CBPWordPressDataSource *dataSource;
-@property (nonatomic, assign) CGFloat contentOffsetY;
 @property (nonatomic) NSInteger index;
 @property (nonatomic) UIBarButtonItem *nextPostButton;
 @property (nonatomic) CBPWordPressPost *post;
@@ -114,8 +112,6 @@
         [self.navigationController setToolbarHidden:NO animated:YES];
     }
     
-    self.navigationController.scrollNavigationBar.scrollView = self.webView.scrollView;
-    
     [self.scrollView addObserver:self
                       forKeyPath:@"contentOffset"
                          options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld | NSKeyValueObservingOptionPrior
@@ -127,8 +123,6 @@
     [super viewWillDisappear:YES];
     
     [self.navigationController setToolbarHidden:YES animated:YES];
-    
-    self.navigationController.scrollNavigationBar.scrollView = nil;
     
     [self.scrollView removeObserver:self
                          forKeyPath:@"contentOffset"
@@ -412,56 +406,6 @@
     }
     
     [self.webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"changeFontSize('%f')", self.baseFontSize]];
-}
-
-#pragma mark - UIScrollViewDelegate
-- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
-{
-    self.contentOffsetY = scrollView.contentOffset.y;
-    
-    NSLog(@"scrollViewWillBeginDragging %f", self.contentOffsetY);
-}
-
-// called on finger up if the user dragged. decelerate is true if it will continue moving afterwards
-- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
-{
-    NSLog(@"scrollViewDidEndDragging scrollView.contentOffset.y: %f > %f", scrollView.contentOffset.y, self.contentOffsetY);
-
-    if (scrollView.contentOffset.y > self.contentOffsetY) {
-        NSLog(@"hide toolbar scrollViewDidEndDragging");
-        [self.navigationController setToolbarHidden:YES animated:YES];
-    } else if (!decelerate) {
-        NSLog(@"show toolbar scrollViewDidEndDragging");
-        [self.navigationController setToolbarHidden:NO animated:YES];
-    }
-}
-
-- (void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView   // called on finger up as we are moving
-{
-    NSLog(@"scrollViewWillBeginDecelerating scrollView.contentOffset.y: %f > %f", scrollView.contentOffset.y, self.contentOffsetY);
-
-    if (scrollView.contentOffset.y > self.contentOffsetY) {
-        NSLog(@"hide toolbar scrollViewWillBeginDecelerating");
-        [self.navigationController setToolbarHidden:YES animated:YES];
-    }
-}
-
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView      // called when scroll view grinds to a halt
-{
-    NSLog(@"scrollViewDidEndDecelerating scrollView.contentOffset.y: %f < %f", scrollView.contentOffset.y, self.contentOffsetY);
-    
-    if (scrollView.contentOffset.y < self.contentOffsetY) {
-        NSLog(@"show toolbar scrollViewDidEndDecelerating");
-        [self.navigationController setToolbarHidden:NO animated:YES];
-    }
-}
-
-
-- (void)scrollViewDidScrollToTop:(UIScrollView *)scrollView
-{
-    [self.navigationController.scrollNavigationBar resetToDefaultPosition:YES];
-    
-    [self.navigationController setToolbarHidden:NO animated:YES];
 }
 
 #pragma mark - Observers
