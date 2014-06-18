@@ -17,13 +17,17 @@
 @end
 
 @implementation CBPWordPressDataSource
-- (void)loadMore:(BOOL)more withBlock:(void (^)(BOOL result, NSError *error))block
+- (void)loadMore:(BOOL)more withParams:(NSDictionary *)params withBlock:(void (^)(BOOL result, NSError *error))block
 {
     __weak typeof(self) blockSelf = self;
 
     self.page = (more) ? self.page + 1 : 1;
     
-    [NSURLSessionDataTask fetchPostsWithParams:@{@"page": @(self.page)}
+    NSMutableDictionary *postParams = (params) ? params.mutableCopy : @{}.mutableCopy;
+    
+    postParams[@"page"] = @(self.page);
+    
+    [NSURLSessionDataTask fetchPostsWithParams:params
                                       withBlock:^(CBPWordPressPostsContainer *data, NSError *error) {
                                           
                                           if (!error) {

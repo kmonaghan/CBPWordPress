@@ -15,6 +15,7 @@
 
 #import "CBPCommentsViewController.h"
 #import "CBPComposeCommentViewController.h"
+#import "CBPPostListViewController.h"
 #import "CBPPostViewController.h"
 
 #import "CBPWordPressDataSource.h"
@@ -130,12 +131,6 @@
                             context:NULL];
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 - (void)toolbarButtons
 {
     NSMutableArray *buttons = @[].mutableCopy;
@@ -194,14 +189,16 @@
 
 - (void)loadPost
 {
-    __weak typeof(self) blockSelf = self;
+    __weak typeof(self) weakSelf = self;
     
     [NSURLSessionDataTask fetchPostWithURL:self.url
                                  withBlock:^(CBPWordPressPost *post, NSError *error) {
                                          if (!error) {
-                                             blockSelf.post = post;
+                                             __strong typeof(weakSelf) strongSelf = weakSelf;
                                              
-                                             [blockSelf displayPost];
+                                             strongSelf.post = post;
+                                             
+                                             [strongSelf displayPost];
                                          } else {
                                              NSLog(@"Error: %@", error);
                                             
@@ -359,8 +356,18 @@
             }
         //Capture CBPWordPRess links
         } else if ([[[request URL] scheme] hasSuffix:@"cbpwordpress"]) {
-            if ([[[request URL] path] hasSuffix:@"author"]) {
+            CBPPostListViewController *vc;
+            
+            if ([[[request URL] host] hasSuffix:@"author"]) {
                 
+            } else if ([[[request URL] host] hasSuffix:@"category"]) {
+                vc = [[CBPPostListViewController alloc] initWithCategoryId:[[request URL] port]];
+            } else if ([[[request URL] host] hasSuffix:@"tag"]) {
+                vc = [[CBPPostListViewController alloc] initWithTagId:[[request URL] port]];
+            }
+            
+            if (vc) {
+                [self.navigationController pushViewController:vc animated:YES];
             }
         } else if ([[[request URL] absoluteString] hasSuffix:[NSString stringWithFormat:@"%@#more-%ld", self.post.url, (long)self.post.postId]]) {
             __weak typeof(self) weakSelf = self;

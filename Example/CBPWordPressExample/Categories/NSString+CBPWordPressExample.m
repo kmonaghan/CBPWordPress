@@ -50,31 +50,98 @@
                              options:0
                                range:NSMakeRange(0, [html length])];
     
-    /*
+    
     if ([post.categories count])
     {
-        [html appendString:@"<div>"];
+        static NSString *categorySnippet;
         
-        for (CBPWordPressCategory *item in post.categories)
-        {
-            [html appendFormat:@"<a class=\"category\" href=\"cbpwordpress://category:%ld\">%@</a> ", (long)item.categoryId, item.title];
+        if (!categorySnippet) {
+            NSError *error;
+            
+            NSString *categorypath = [[NSBundle mainBundle] pathForResource:@"category.snippet" ofType:@"html"];
+            categorySnippet = [NSString stringWithContentsOfFile:categorypath encoding:NSUTF8StringEncoding error:&error];
+            
+            if (error) {
+                NSLog(@"Error loading Tag template: %@", error);
+            }
         }
         
-        [html appendString:@"</div>"];
+        if (categorySnippet) {
+            NSMutableString *categories = @"".mutableCopy;
+            
+            for (CBPWordPressCategory *category in post.categories)
+            {
+                NSMutableString *currentCategory = categorySnippet.mutableCopy;
+                
+                [currentCategory replaceOccurrencesOfString:@"$categoryId$"
+                                                 withString:[@(category.categoryId) stringValue]
+                                                    options:0
+                                                      range:NSMakeRange(0, [currentCategory length])];
+                [currentCategory replaceOccurrencesOfString:@"$categoryname$"
+                                                 withString:category.title
+                                                    options:0
+                                                      range:NSMakeRange(0, [currentCategory length])];
+                
+                [categories appendString:currentCategory];
+            }
+            
+            [html replaceOccurrencesOfString:@"$categories$"
+                                  withString:categories
+                                     options:0
+                                       range:NSMakeRange(0, [html length])];
+        }
+    } else {
+        [html replaceOccurrencesOfString:@"$categories$"
+                              withString:@""
+                                 options:0
+                                   range:NSMakeRange(0, [html length])];
     }
     
     if ([post.tags count])
     {
-        [html appendString:@"<div style=\"clear:both\">"];
+        static NSString *tagSnippet;
         
-        for (CBPWordPressTag *item in post.tags)
-        {
-            [html appendFormat:@"<a class=\"tag\" href=\"cbpwordpress://tag:%ld\">%@</a>", (long)item.tagId, item.title];
+        if (!tagSnippet) {
+            NSError *error;
+            
+            NSString *tagpath = [[NSBundle mainBundle] pathForResource:@"tag.snippet" ofType:@"html"];
+            tagSnippet = [NSString stringWithContentsOfFile:tagpath encoding:NSUTF8StringEncoding error:&error];
+            
+            if (error) {
+                NSLog(@"Error loading Tag template: %@", error);
+            }
         }
         
-        [html appendString:@"</div>"];
+        if (tagSnippet) {
+            NSMutableString *tags = @"".mutableCopy;
+            
+            for (CBPWordPressTag *tag in post.tags)
+            {
+                NSMutableString *currentTag = tagSnippet.mutableCopy;
+                
+                [currentTag replaceOccurrencesOfString:@"$tagId$"
+                                            withString:[@(tag.tagId) stringValue]
+                                               options:0
+                                                 range:NSMakeRange(0, [currentTag length])];
+                [currentTag replaceOccurrencesOfString:@"$tagname$"
+                                            withString:tag.title
+                                               options:0
+                                                 range:NSMakeRange(0, [currentTag length])];
+                
+                [tags appendString:currentTag];
+            }
+            
+            [html replaceOccurrencesOfString:@"$tags$"
+                                  withString:tags
+                                     options:0
+                                       range:NSMakeRange(0, [html length])];
+        }
+    } else {
+        [html replaceOccurrencesOfString:@"$tags$"
+                              withString:@""
+                                 options:0
+                                   range:NSMakeRange(0, [html length])];
     }
-    */
     
     if (([html rangeOfString:@"twitter-tweet"].location != NSNotFound) && ([html rangeOfString:@"widgets.js"].location == NSNotFound))
     {

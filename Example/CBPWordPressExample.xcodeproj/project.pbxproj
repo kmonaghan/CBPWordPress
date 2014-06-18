@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		3417327819070AA000DAAE85 /* CBPPostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3417327719070AA000DAAE85 /* CBPPostViewController.m */; };
 		341C803319522B4D00070FD4 /* CBPTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 341C803219522B4D00070FD4 /* CBPTableViewController.m */; };
+		341C8037195238E900070FD4 /* tag.snippet.html in Resources */ = {isa = PBXBuildFile; fileRef = 341C8036195238E900070FD4 /* tag.snippet.html */; };
+		341C803919523B8D00070FD4 /* category.snippet.html in Resources */ = {isa = PBXBuildFile; fileRef = 341C803819523B8D00070FD4 /* category.snippet.html */; };
 		347E285F190849B2004D3842 /* CBPCommentsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 347E285E190849B2004D3842 /* CBPCommentsViewController.m */; };
 		347E286219084AA1004D3842 /* CBPComposeCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 347E286119084AA1004D3842 /* CBPComposeCommentViewController.m */; };
 		34C2B86418EA0EF8002268BF /* CBPPostListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 34C2B86318EA0EF8002268BF /* CBPPostListViewController.m */; };
@@ -50,6 +52,8 @@
 		3417327719070AA000DAAE85 /* CBPPostViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBPPostViewController.m; sourceTree = "<group>"; };
 		341C803119522B4D00070FD4 /* CBPTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBPTableViewController.h; sourceTree = "<group>"; };
 		341C803219522B4D00070FD4 /* CBPTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBPTableViewController.m; sourceTree = "<group>"; };
+		341C8036195238E900070FD4 /* tag.snippet.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = tag.snippet.html; sourceTree = "<group>"; };
+		341C803819523B8D00070FD4 /* category.snippet.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = category.snippet.html; sourceTree = "<group>"; };
 		347E285D190849B2004D3842 /* CBPCommentsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBPCommentsViewController.h; sourceTree = "<group>"; };
 		347E285E190849B2004D3842 /* CBPCommentsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBPCommentsViewController.m; sourceTree = "<group>"; };
 		347E286019084AA1004D3842 /* CBPComposeCommentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBPComposeCommentViewController.h; sourceTree = "<group>"; };
@@ -253,6 +257,8 @@
 				F58217EB192D02CB0014AE2E /* default.css */,
 				F58217ED192D02F50014AE2E /* template.html */,
 				34FE95F01950E9BB0003C814 /* cbpwordpress.js */,
+				341C8036195238E900070FD4 /* tag.snippet.html */,
+				341C803819523B8D00070FD4 /* category.snippet.html */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -336,10 +342,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				341C803919523B8D00070FD4 /* category.snippet.html in Resources */,
 				34FE95F41950ED2A0003C814 /* cbpwordpress.js in Resources */,
 				F58217EE192D02F50014AE2E /* template.html in Resources */,
 				34D3695218E709AF00E14526 /* Images.xcassets in Resources */,
 				34D3694418E709AF00E14526 /* InfoPlist.strings in Resources */,
+				341C8037195238E900070FD4 /* tag.snippet.html in Resources */,
 				F58217EC192D02CB0014AE2E /* default.css in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -17,12 +17,34 @@
 #import "CBPLargePostPreviewTableViewCell.h"
 
 @interface CBPPostListViewController ()
-@property (nonatomic) CBPLargePostPreviewTableViewCell *heightMeasuringCell;
+@property (nonatomic) NSNumber *categoryId;
 @property (nonatomic) CBPWordPressDataSource *dataSource;
-
+@property (nonatomic) CBPLargePostPreviewTableViewCell *heightMeasuringCell;
+@property (nonatomic) NSNumber *tagId;
 @end
 
 @implementation CBPPostListViewController
+- (instancetype)initWithCategoryId:(NSNumber *)categoryId
+{
+    self = [super initWithNibName:nil bundle:nil];
+
+    if (self) {
+        _categoryId = categoryId;
+    }
+    
+    return self;
+}
+
+- (instancetype)initWithTagId:(NSNumber *)tagId
+{
+    self = [super initWithNibName:nil bundle:nil];
+    
+    if (self) {
+        _tagId = tagId;
+    }
+    
+    return self;
+}
 
 - (void)loadView
 {
@@ -72,7 +94,15 @@
 {
     __weak typeof(self) weakSelf = self;
     
-    [self.dataSource loadMore:more withBlock:^(BOOL result, NSError *error){
+    NSMutableDictionary *params = @{}.mutableCopy;
+    
+    if (self.categoryId) {
+        params[@"category_id"] = self.categoryId;
+    } else if (self.categoryId) {
+        params[@"tag_id"] = self.tagId;
+    }
+    
+    [self.dataSource loadMore:more withParams:(NSDictionary *)params withBlock:^(BOOL result, NSError *error){
         if (result) {
             __strong typeof(weakSelf) strongSelf = weakSelf;
             

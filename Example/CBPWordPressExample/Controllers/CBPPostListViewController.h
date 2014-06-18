@@ -11,5 +11,6 @@
 #import "CBPTableViewController.h"
 
 @interface CBPPostListViewController : CBPTableViewController
-
+- (instancetype)initWithCategoryId:(NSNumber *)categoryId;
+- (instancetype)initWithTagId:(NSNumber *)tagId;
 @end
