@@ -10,7 +10,7 @@
 
 #import "CBPAppDelegate.h"
 
-#import "CBPViewController.h"
+#import "CBPPostListViewController.h"
 
 @implementation CBPAppDelegate
 
@@ -18,7 +18,7 @@
 {
     // Override point for customization after application launch.
      
-    CBPViewController *viewController = [CBPViewController new];
+    CBPPostListViewController *viewController = [CBPPostListViewController new];
     
     self.navigationController = [[UINavigationController alloc] initWithRootViewController:viewController];
     self.navigationController.navigationBar.tintColor = [UIColor darkGrayColor];

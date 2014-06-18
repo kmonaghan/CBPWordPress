@@ -1,5 +1,5 @@
 //
-//  CBPViewController.h
+//  CBPPostListViewController.h
 //  CBPWordPressExample
 //
 //  Created by Karl Monaghan on 29/03/2014.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CBPViewController : UIViewController
+@interface CBPPostListViewController : UIViewController
 
 @end

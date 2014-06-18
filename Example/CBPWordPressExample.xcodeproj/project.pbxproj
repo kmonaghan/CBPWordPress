@@ -10,7 +10,7 @@
 		3417327819070AA000DAAE85 /* CBPPostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3417327719070AA000DAAE85 /* CBPPostViewController.m */; };
 		347E285F190849B2004D3842 /* CBPCommentsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 347E285E190849B2004D3842 /* CBPCommentsViewController.m */; };
 		347E286219084AA1004D3842 /* CBPComposeCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 347E286119084AA1004D3842 /* CBPComposeCommentViewController.m */; };
-		34C2B86418EA0EF8002268BF /* CBPViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 34C2B86318EA0EF8002268BF /* CBPViewController.m */; };
+		34C2B86418EA0EF8002268BF /* CBPPostListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 34C2B86318EA0EF8002268BF /* CBPPostListViewController.m */; };
 		34C2B86818EA1003002268BF /* CBPWordPressDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 34C2B86718EA1003002268BF /* CBPWordPressDataSource.m */; };
 		34D3693A18E709AF00E14526 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34D3693918E709AF00E14526 /* Foundation.framework */; };
 		34D3693C18E709AF00E14526 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34D3693B18E709AF00E14526 /* CoreGraphics.framework */; };
@@ -51,8 +51,8 @@
 		347E285E190849B2004D3842 /* CBPCommentsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBPCommentsViewController.m; sourceTree = "<group>"; };
 		347E286019084AA1004D3842 /* CBPComposeCommentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBPComposeCommentViewController.h; sourceTree = "<group>"; };
 		347E286119084AA1004D3842 /* CBPComposeCommentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBPComposeCommentViewController.m; sourceTree = "<group>"; };
-		34C2B86218EA0EF8002268BF /* CBPViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBPViewController.h; sourceTree = "<group>"; };
-		34C2B86318EA0EF8002268BF /* CBPViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBPViewController.m; sourceTree = "<group>"; };
+		34C2B86218EA0EF8002268BF /* CBPPostListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBPPostListViewController.h; sourceTree = "<group>"; };
+		34C2B86318EA0EF8002268BF /* CBPPostListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBPPostListViewController.m; sourceTree = "<group>"; };
 		34C2B86618EA1003002268BF /* CBPWordPressDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CBPWordPressDataSource.h; path = DataSource/CBPWordPressDataSource.h; sourceTree = "<group>"; };
 		34C2B86718EA1003002268BF /* CBPWordPressDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CBPWordPressDataSource.m; path = DataSource/CBPWordPressDataSource.m; sourceTree = "<group>"; };
 		34D3693618E709AF00E14526 /* CBPWordPressExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CBPWordPressExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -114,8 +114,8 @@
 		34C2B86118EA0EF8002268BF /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				34C2B86218EA0EF8002268BF /* CBPViewController.h */,
-				34C2B86318EA0EF8002268BF /* CBPViewController.m */,
+				34C2B86218EA0EF8002268BF /* CBPPostListViewController.h */,
+				34C2B86318EA0EF8002268BF /* CBPPostListViewController.m */,
 				3417327619070AA000DAAE85 /* CBPPostViewController.h */,
 				3417327719070AA000DAAE85 /* CBPPostViewController.m */,
 				347E285D190849B2004D3842 /* CBPCommentsViewController.h */,
@@ -396,7 +396,7 @@
 				34E6C1CE1909B5FB00F7B5BD /* CBPCommentDataSource.m in Sources */,
 				34D3694618E709AF00E14526 /* main.m in Sources */,
 				347E285F190849B2004D3842 /* CBPCommentsViewController.m in Sources */,
-				34C2B86418EA0EF8002268BF /* CBPViewController.m in Sources */,
+				34C2B86418EA0EF8002268BF /* CBPPostListViewController.m in Sources */,
 				F53E4E2A1926596D00932EC3 /* CBPCommentTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

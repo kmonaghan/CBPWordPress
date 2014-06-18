@@ -1,5 +1,5 @@
 //
-//  CBPViewController.m
+//  CBPPostListViewController.m
 //  CBPWordPressExample
 //
 //  Created by Karl Monaghan on 29/03/2014.
@@ -9,21 +9,21 @@
 #import "NSString+HTML.h"
 #import <SVPullToRefresh/SVPullToRefresh.h>
 
-#import "CBPViewController.h"
+#import "CBPPostListViewController.h"
 #import "CBPPostViewController.h"
 
 #import "CBPWordPressDataSource.h"
 
 #import "CBPLargePostPreviewTableViewCell.h"
 
-@interface CBPViewController () <UITableViewDelegate>
+@interface CBPPostListViewController () <UITableViewDelegate>
 @property (nonatomic) CBPLargePostPreviewTableViewCell *heightMeasuringCell;
 @property (nonatomic) CBPWordPressDataSource *dataSource;
 @property (nonatomic) UITableView *tableView;
 
 @end
 
-@implementation CBPViewController
+@implementation CBPPostListViewController
 
 - (void)loadView
 {
@@ -67,7 +67,8 @@
 
     // setup pull-to-refresh
     [self.tableView addPullToRefreshWithActionHandler:^{
-        [weakSelf load:NO];
+        __strong typeof(weakSelf) strongSelf = weakSelf;
+        [strongSelf load:NO];
     }];
 }
 
@@ -78,12 +79,14 @@
     
     [self.dataSource loadMore:more withBlock:^(BOOL result, NSError *error){
         if (result) {
-            [weakSelf.tableView reloadData];
+            __strong typeof(weakSelf) strongSelf = weakSelf;
+            
+            [strongSelf.tableView reloadData];
             
             if (more) {
-                [weakSelf.tableView.infiniteScrollingView stopAnimating];                
+                [strongSelf.tableView.infiniteScrollingView stopAnimating];
             } else {
-                [weakSelf.tableView.pullToRefreshView stopAnimating];
+                [strongSelf.tableView.pullToRefreshView stopAnimating];
             }
         }
     }];
