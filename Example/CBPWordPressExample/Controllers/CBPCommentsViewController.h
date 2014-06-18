@@ -8,8 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+#import "CBPTableViewController.h"
+
 @class CBPWordPressPost;
 
-@interface CBPCommentsViewController : UIViewController
+@interface CBPCommentsViewController : CBPTableViewController
 - (id)initWithPost:(CBPWordPressPost *)post;
 @end

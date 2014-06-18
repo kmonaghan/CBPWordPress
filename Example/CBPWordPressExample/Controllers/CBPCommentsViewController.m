@@ -15,7 +15,7 @@
 
 #import "CBPCommentTableViewCell.h"
 
-@interface CBPCommentsViewController () <CBPCommentTableViewCellDelegate, UITableViewDelegate>
+@interface CBPCommentsViewController () <CBPCommentTableViewCellDelegate>
 @property (nonatomic) CBPCommentDataSource *dataSource;
 @property (nonatomic) CBPCommentTableViewCell *heightMeasuringCell;
 @property (nonatomic) CBPWordPressPost *post;
@@ -59,7 +59,6 @@
     self.dataSource = [[CBPCommentDataSource alloc] initWithPost:self.post];
     self.dataSource.linkDelegate = self;
     
-    self.tableView.delegate = self;
     self.tableView.dataSource = self.dataSource;
     self.tableView.rowHeight = CBPCommentTableViewCellHeight;
     self.tableView.estimatedRowHeight = CBPCommentTableViewCellHeight;
@@ -72,12 +71,6 @@
                                                                                                action:@selector(composeCommentAction)];
         
     }
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 #pragma mark - Button Actions
@@ -100,16 +93,6 @@
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:vc];
     
     [self presentViewController:navController animated:YES completion:nil];
-}
-
-#pragma mark -
-- (UITableView *)tableView
-{
-    if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:self.view.frame style:UITableViewStylePlain];
-    }
-    
-    return _tableView;
 }
 
 #pragma mark - UITableViewDelegate

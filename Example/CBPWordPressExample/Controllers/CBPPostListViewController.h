@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CBPPostListViewController : UIViewController
+#import "CBPTableViewController.h"
+
+@interface CBPPostListViewController : CBPTableViewController
 
 @end

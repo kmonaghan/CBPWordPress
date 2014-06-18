@@ -16,10 +16,9 @@
 
 #import "CBPLargePostPreviewTableViewCell.h"
 
-@interface CBPPostListViewController () <UITableViewDelegate>
+@interface CBPPostListViewController ()
 @property (nonatomic) CBPLargePostPreviewTableViewCell *heightMeasuringCell;
 @property (nonatomic) CBPWordPressDataSource *dataSource;
-@property (nonatomic) UITableView *tableView;
 
 @end
 
@@ -28,9 +27,6 @@
 - (void)loadView
 {
     [super loadView];
-    
-    self.tableView = [[UITableView alloc] initWithFrame:self.view.frame
-                                                  style:UITableViewStylePlain];
     
     [self.view addSubview:self.tableView];
 }
@@ -42,7 +38,6 @@
     
     self.dataSource = [CBPWordPressDataSource new];
     
-    self.tableView.delegate = self;
     self.tableView.dataSource = self.dataSource;
     self.tableView.rowHeight = CBPLargePostPreviewTableViewCellHeight;
     self.tableView.estimatedRowHeight = CBPLargePostPreviewTableViewCellHeight;
