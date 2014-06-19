@@ -6,6 +6,8 @@
 //  Copyright (c) 2014 Crayons and Brown Paper. All rights reserved.
 //
 
+#import <AVFoundation/AVFoundation.h>
+
 #import "NSString+CBPWordPressExample.h"
 
 #import "JBWhatsAppActivity.h"
@@ -457,6 +459,18 @@
 - (UIWebView *)webView
 {
     if (!_webView) {
+        //this is to allow video to use sound even if the ute button is toggled
+        //via: http://stackoverflow.com/a/12414719/806442
+        
+        AVAudioSession *audioSession = [AVAudioSession sharedInstance];
+        BOOL ok;
+        NSError *setCategoryError = nil;
+        ok = [audioSession setCategory:AVAudioSessionCategoryPlayback
+                                 error:&setCategoryError];
+        if (!ok) {
+            NSLog(@"%s setCategoryError=%@", __PRETTY_FUNCTION__, setCategoryError);
+        }
+        
         _webView = [[UIWebView alloc] initWithFrame:self.view.frame];
         _webView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
         _webView.backgroundColor = [UIColor clearColor];

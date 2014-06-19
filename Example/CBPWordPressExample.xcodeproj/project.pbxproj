@@ -27,6 +27,7 @@
 		34D3695B18E709AF00E14526 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34D3693D18E709AF00E14526 /* UIKit.framework */; };
 		34D3696318E709AF00E14526 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 34D3696118E709AF00E14526 /* InfoPlist.strings */; };
 		34D3696518E709AF00E14526 /* CBPWordPressExampleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 34D3696418E709AF00E14526 /* CBPWordPressExampleTests.m */; };
+		34E31C5B1953727E00604A39 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34E31C5A1953727E00604A39 /* AVFoundation.framework */; };
 		34E6C1CE1909B5FB00F7B5BD /* CBPCommentDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 34E6C1CD1909B5FB00F7B5BD /* CBPCommentDataSource.m */; };
 		34FE95F41950ED2A0003C814 /* cbpwordpress.js in Resources */ = {isa = PBXBuildFile; fileRef = 34FE95F01950E9BB0003C814 /* cbpwordpress.js */; };
 		C67A29DDF4CD4FD1B3280908 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D58735488124103BBB09705 /* libPods.a */; };
@@ -78,6 +79,7 @@
 		34D3696018E709AF00E14526 /* CBPWordPressExampleTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CBPWordPressExampleTests-Info.plist"; sourceTree = "<group>"; };
 		34D3696218E709AF00E14526 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		34D3696418E709AF00E14526 /* CBPWordPressExampleTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CBPWordPressExampleTests.m; sourceTree = "<group>"; };
+		34E31C5A1953727E00604A39 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		34E6C1CC1909B5FB00F7B5BD /* CBPCommentDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CBPCommentDataSource.h; path = DataSource/CBPCommentDataSource.h; sourceTree = "<group>"; };
 		34E6C1CD1909B5FB00F7B5BD /* CBPCommentDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CBPCommentDataSource.m; path = DataSource/CBPCommentDataSource.m; sourceTree = "<group>"; };
 		34FE95F01950E9BB0003C814 /* cbpwordpress.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = cbpwordpress.js; sourceTree = "<group>"; };
@@ -98,6 +100,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				34E31C5B1953727E00604A39 /* AVFoundation.framework in Frameworks */,
 				34D3693C18E709AF00E14526 /* CoreGraphics.framework in Frameworks */,
 				34D3693E18E709AF00E14526 /* UIKit.framework in Frameworks */,
 				34D3693A18E709AF00E14526 /* Foundation.framework in Frameworks */,
@@ -169,6 +172,7 @@
 		34D3693818E709AF00E14526 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				34E31C5A1953727E00604A39 /* AVFoundation.framework */,
 				34D3693918E709AF00E14526 /* Foundation.framework */,
 				34D3693B18E709AF00E14526 /* CoreGraphics.framework */,
 				34D3693D18E709AF00E14526 /* UIKit.framework */,
@@ -313,6 +317,9 @@
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = "Crayons and Brown Paper";
 				TargetAttributes = {
+					34D3693518E709AF00E14526 = {
+						DevelopmentTeam = 733QMTEL36;
+					};
 					34D3695618E709AF00E14526 = {
 						TestTargetID = 34D3693518E709AF00E14526;
 					};
@@ -529,6 +536,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SYSTEM_APPS_DIR)/Reveal.app/Contents/SharedSupport/iOS-Libraries",
@@ -538,6 +547,7 @@
 				INFOPLIST_FILE = "CBPWordPressExample/CBPWordPressExample-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -548,6 +558,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SYSTEM_APPS_DIR)/Reveal.app/Contents/SharedSupport/iOS-Libraries",
@@ -557,6 +569,7 @@
 				INFOPLIST_FILE = "CBPWordPressExample/CBPWordPressExample-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
