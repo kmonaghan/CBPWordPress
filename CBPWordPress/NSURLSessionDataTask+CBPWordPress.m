@@ -35,14 +35,9 @@
     }];
 }
 
-+ (NSURLSessionDataTask *)fetchPostsWithAuthorId:(NSInteger)authorId withBlock:(void (^)(CBPWordPressPostsContainer *data, NSError *error))block
-{
-    return [NSURLSessionDataTask fetchPostsWithParams:@{@"author_id": @(authorId)} withBlock:block];
-}
-
 + (NSURLSessionDataTask *)fetchPostsWithParams:(NSDictionary *)params withBlock:(void (^)(CBPWordPressPostsContainer *data, NSError *error))block
 {
-    return [[CBPWordPressAPIClient sharedClient] GET:@"/?json=1" parameters:params success:^(NSURLSessionDataTask * __unused task, id JSON) {
+    return [[CBPWordPressAPIClient sharedClient] GET:@"" parameters:[[CBPWordPressAPIClient sharedClient] queryParams:params] success:^(NSURLSessionDataTask * __unused task, id JSON) {
         
         CBPWordPressPostsContainer *container = [CBPWordPressPostsContainer initFromDictionary:JSON];
         
