@@ -33,8 +33,16 @@
                           withString:post.title
                              options:0
                                range:NSMakeRange(0, [html length])];
+    
+    static NSDateFormatter *postDateFormatter;
+    
+    if (!postDateFormatter) {
+        postDateFormatter = [NSDateFormatter new];
+        [postDateFormatter setDateFormat:@"h:mm a, MMMM d, yyyy"];
+    }
+    
     [html replaceOccurrencesOfString:@"$date$"
-                          withString:[post.date description]
+                          withString:[postDateFormatter stringFromDate:post.date]
                              options:0
                                range:NSMakeRange(0, [html length])];
     [html replaceOccurrencesOfString:@"$authorId$"
