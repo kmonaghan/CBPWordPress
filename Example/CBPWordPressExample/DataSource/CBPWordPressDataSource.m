@@ -20,29 +20,29 @@
 - (void)loadMore:(BOOL)more withParams:(NSDictionary *)params withBlock:(void (^)(BOOL result, NSError *error))block
 {
     __weak typeof(self) blockSelf = self;
-
+    
     self.page = (more) ? self.page + 1 : 1;
     
     NSMutableDictionary *postParams = (params) ? params.mutableCopy : @{}.mutableCopy;
     
     postParams[@"page"] = @(self.page);
     
-    [NSURLSessionDataTask fetchPostsWithParams:params
-                                      withBlock:^(CBPWordPressPostsContainer *data, NSError *error) {
-                                          
-                                          if (!error) {
-                                              NSMutableArray *posts = (blockSelf.posts && more) ? blockSelf.posts.mutableCopy : @[].mutableCopy;
-                                              
-                                              [posts addObjectsFromArray:data.posts];
-                                              
-                                              blockSelf.posts = posts;
-                                              
-                                              block(YES, nil);
-                                          } else {
-                                              NSLog(@"Error: %@", error);
-                                              block(NO, error);
-                                          }
-                                      }];
+    [NSURLSessionDataTask fetchPostsWithParams:postParams
+                                     withBlock:^(CBPWordPressPostsContainer *data, NSError *error) {
+                                         
+                                         if (!error) {
+                                             NSMutableArray *posts = (blockSelf.posts && more) ? blockSelf.posts.mutableCopy : @[].mutableCopy;
+                                             
+                                             [posts addObjectsFromArray:data.posts];
+                                             
+                                             blockSelf.posts = posts;
+                                             
+                                             block(YES, nil);
+                                         } else {
+                                             NSLog(@"Error: %@", error);
+                                             block(NO, error);
+                                         }
+                                     }];
 }
 #pragma mark - UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section

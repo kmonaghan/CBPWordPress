@@ -361,7 +361,7 @@
             CBPPostListViewController *vc;
             
             if ([[[request URL] host] hasSuffix:@"author"]) {
-                
+                vc = [[CBPPostListViewController alloc] initWithAuthorId:[[request URL] port]];
             } else if ([[[request URL] host] hasSuffix:@"category"]) {
                 vc = [[CBPPostListViewController alloc] initWithCategoryId:[[request URL] port]];
             } else if ([[[request URL] host] hasSuffix:@"tag"]) {
