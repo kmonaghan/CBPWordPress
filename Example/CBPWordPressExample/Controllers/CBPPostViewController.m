@@ -20,11 +20,15 @@
 
 #import "CBPWordPressDataSource.h"
 
+static const CGFloat CBPLoadPostViewHeight = 5.0;
+
 @interface CBPPostViewController () <UIScrollViewDelegate, UIWebViewDelegate>
 @property (nonatomic, assign) CGFloat baseFontSize;
 @property (nonatomic, weak) CBPWordPressDataSource *dataSource;
 @property (nonatomic) NSInteger index;
 @property (nonatomic) UIBarButtonItem *nextPostButton;
+@property (nonatomic) UILabel * nextTitleLabel;
+@property (nonatomic) UIView *nextView;
 @property (nonatomic) CBPWordPressPost *post;
 @property (nonatomic) UIBarButtonItem *postCommentButton;
 @property (nonatomic) UIBarButtonItem *previousPostButton;
@@ -36,7 +40,7 @@
 @end
 
 @implementation CBPPostViewController
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self)
@@ -48,7 +52,7 @@
     return self;
 }
 
-- (id)initWithPost:(CBPWordPressPost *)post
+- (instancetype)initWithPost:(CBPWordPressPost *)post
 {
     self = [self initWithNibName:nil bundle:nil];
     
@@ -59,7 +63,7 @@
     return self;
 }
 
-- (id)initWithPost:(CBPWordPressPost *)post withDataSource:(CBPWordPressDataSource *)dataSource withIndex:(NSInteger)index
+- (instancetype)initWithPost:(CBPWordPressPost *)post withDataSource:(CBPWordPressDataSource *)dataSource withIndex:(NSInteger)index
 {
     self = [self initWithPost:post];
     
@@ -87,6 +91,8 @@
     [super loadView];
     
     self.view.backgroundColor = [UIColor whiteColor];
+    
+    [self.view addSubview:self.nextView];
     
     [self.view addSubview:self.webView];
     
@@ -300,7 +306,7 @@
     
     UIActivityViewController* activityViewController = [[UIActivityViewController alloc] initWithActivityItems:activityItems applicationActivities:@[[JBWhatsAppActivity new], [GPPShareActivity new]]];
     
-    activityViewController.excludedActivityTypes = @[UIActivityTypePostToWeibo, UIActivityTypeAssignToContact, UIActivityTypeCopyToPasteboard ];
+    activityViewController.excludedActivityTypes = @[UIActivityTypePostToWeibo, UIActivityTypeAssignToContact, UIActivityTypeAirDrop, UIActivityTypePostToTencentWeibo ];
     
     [self presentViewController:activityViewController animated:YES completion:NULL];
 }
@@ -354,7 +360,7 @@
                 || [ext isEqualToString:@"gif"]) {
                 [self showGallery];
             }
-        //Capture CBPWordPRess links
+        //Capture CBPWordPress links
         } else if ([[[request URL] scheme] hasSuffix:@"cbpwordpress"]) {
             CBPPostListViewController *vc;
             
@@ -369,6 +375,7 @@
             if (vc) {
                 [self.navigationController pushViewController:vc animated:YES];
             }
+        //Read More link
         } else if ([[[request URL] absoluteString] hasSuffix:[NSString stringWithFormat:@"%@#more-%ld", self.post.url, (long)self.post.postId]]) {
             __weak typeof(self) weakSelf = self;
 
@@ -454,6 +461,39 @@
 }
 
 #pragma mark -
+- (UILabel *)nextTitleLabel
+{
+    if (_nextTitleLabel) {
+        _nextTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(10.0f, 0, CGRectGetWidth(self.view.frame) - 20.0f, CBPLoadPostViewHeight)];
+        _nextTitleLabel.backgroundColor = [UIColor clearColor];
+        _nextTitleLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline];
+        _nextTitleLabel.numberOfLines = 2;
+        _nextTitleLabel.textAlignment = NSTextAlignmentCenter;
+    }
+    
+    return _nextTitleLabel;
+}
+
+- (UIView *)nextView
+{
+    if (!_nextView) {
+        _nextView = [[UIView alloc] initWithFrame:CGRectMake(0, -CBPLoadPostViewHeight, CGRectGetWidth(self.view.frame), CBPLoadPostViewHeight)];
+        
+        CAGradientLayer *gradient = [CAGradientLayer layer];
+        gradient.frame = _nextView.bounds;
+        gradient.colors = [NSArray arrayWithObjects:(id)[[UIColor whiteColor] CGColor], (id)[[UIColor colorWithRed:0.89f green:0.89f blue:0.89f alpha:1.0f] CGColor], nil];
+        [_nextView.layer insertSublayer:gradient atIndex:0];
+        
+        [_nextView addSubview:self.nextTitleLabel];
+        
+        UIView *bottomBlackLine = [[UIView alloc] initWithFrame:CGRectMake(0, CBPLoadPostViewHeight - 1, CGRectGetWidth(self.view.frame), 1.0f)];
+        bottomBlackLine.backgroundColor = [UIColor lightGrayColor];
+        [_nextView addSubview:bottomBlackLine];
+    }
+    
+    return _nextView;
+}
+
 - (UIWebView *)webView
 {
     if (!_webView) {
