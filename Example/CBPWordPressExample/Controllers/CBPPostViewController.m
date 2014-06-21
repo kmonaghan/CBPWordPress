@@ -9,6 +9,7 @@
 #import <AVFoundation/AVFoundation.h>
 
 #import "NSString+CBPWordPressExample.h"
+#import "NSString+HTML.h"
 
 #import "JBWhatsAppActivity.h"
 #import "GPPShareActivity.h"
@@ -22,7 +23,12 @@
 
 #import "CBPWordPressDataSource.h"
 
-static const CGFloat CBPLoadPostViewHeight = 5.0;
+static const CGFloat CBPLoadPostViewHeight = 50.0;
+static const CGFloat CBPLoadPostViewPadding = 10.0;
+static const CGFloat CBPLoadPostViewMultiplier = 1.5;
+
+static NSString * const kContentOffsetString = @"contentOffset";
+static NSString * const kFrameString = @"frame";
 
 @interface CBPPostViewController () <UIScrollViewDelegate, UIWebViewDelegate>
 @property (nonatomic, assign) CGFloat baseFontSize;
@@ -34,6 +40,8 @@ static const CGFloat CBPLoadPostViewHeight = 5.0;
 @property (nonatomic) CBPWordPressPost *post;
 @property (nonatomic) UIBarButtonItem *postCommentButton;
 @property (nonatomic) UIBarButtonItem *previousPostButton;
+@property (nonatomic) UILabel * previousTitleLabel;
+@property (nonatomic) UIView *previousView;
 @property (nonatomic, assign) BOOL scrollToMore;
 @property (nonatomic) UIScrollView *scrollView;
 @property (nonatomic) NSURL *url;
@@ -92,9 +100,13 @@ static const CGFloat CBPLoadPostViewHeight = 5.0;
 {
     [super loadView];
     
+    self.edgesForExtendedLayout = UIRectEdgeNone;
+    
     self.view.backgroundColor = [UIColor whiteColor];
     
     [self.view addSubview:self.nextView];
+    
+    [self.view addSubview:self.previousView];
     
     [self.view addSubview:self.webView];
     
@@ -123,7 +135,11 @@ static const CGFloat CBPLoadPostViewHeight = 5.0;
     }
     
     [self.scrollView addObserver:self
-                      forKeyPath:@"contentOffset"
+                      forKeyPath:kContentOffsetString
+                         options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld | NSKeyValueObservingOptionPrior
+                         context:NULL];
+    [self.scrollView addObserver:self
+                      forKeyPath:kFrameString
                          options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld | NSKeyValueObservingOptionPrior
                          context:NULL];
 }
@@ -135,7 +151,10 @@ static const CGFloat CBPLoadPostViewHeight = 5.0;
     [self.navigationController setToolbarHidden:YES animated:YES];
     
     [self.scrollView removeObserver:self
-                         forKeyPath:@"contentOffset"
+                         forKeyPath:kContentOffsetString
+                            context:NULL];
+    [self.scrollView removeObserver:self
+                         forKeyPath:kFrameString
                             context:NULL];
 }
 
@@ -154,7 +173,7 @@ static const CGFloat CBPLoadPostViewHeight = 5.0;
     self.nextPostButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"up4-25"]
                                                            style:UIBarButtonItemStylePlain
                                                           target:self
-                                                          action:@selector(nextPostAction)];
+                                                          action:@selector(loadNextAction)];
     self.nextPostButton.enabled = NO;
     [buttons addObject:self.nextPostButton];
     
@@ -163,7 +182,7 @@ static const CGFloat CBPLoadPostViewHeight = 5.0;
     self.previousPostButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"down4-25"]
                                                                style:UIBarButtonItemStylePlain
                                                               target:self
-                                                              action:@selector(previousPostAction)];
+                                                              action:@selector(loadPreviousAction)];
     self.previousPostButton.enabled = NO;
     [buttons addObject:self.previousPostButton];
     
@@ -193,6 +212,9 @@ static const CGFloat CBPLoadPostViewHeight = 5.0;
     [self updateToolbar];
     
     [self.navigationController setToolbarHidden:NO animated:YES];
+    
+    self.previousView.hidden = ![self canLoadPrevious];
+    self.nextView.hidden = ![self canLoadNext];
 }
 
 - (void)loadPost
@@ -206,12 +228,47 @@ static const CGFloat CBPLoadPostViewHeight = 5.0;
                                              
                                              strongSelf.post = post;
                                              
+                                             if (strongSelf.dataSource && (strongSelf.index >= [strongSelf.dataSource.posts count])) {
+                                                 [strongSelf.dataSource addPost:post];
+                                             }
+                                             
                                              [strongSelf displayPost];
                                          } else {
                                              NSLog(@"Error: %@", error);
                                             
                                          }
                                      }];
+}
+
+- (void)loadNextAction
+{
+    if ([self canLoadNext]) {
+        self.index--;
+        
+        self.post = self.dataSource.posts[self.index];
+        
+        [self displayPost];
+    }
+}
+
+- (void)loadPreviousAction
+{
+    if ([self canLoadPrevious]) {
+        self.index++;
+        
+        if (self.index < [self.dataSource.posts count]) {
+            self.post = self.dataSource.posts[self.index];
+            
+            [self displayPost];
+        } else if (self.post.previousURL) {
+            // Update the content inset
+            self.scrollView.contentInset = UIEdgeInsetsMake(0, 0, (CBPLoadPostViewHeight * CBPLoadPostViewMultiplier), 0);
+            
+            self.url = [NSURL URLWithString:self.post.previousURL];
+            
+            [self loadPost];
+        }
+    }
 }
 
 - (void)updateToolbar
@@ -274,32 +331,6 @@ static const CGFloat CBPLoadPostViewHeight = 5.0;
     [self presentViewController:navController animated:YES completion:nil];
 }
 
-- (void)nextPostAction
-{
-    if (self.dataSource) {
-        if (self.index) {
-            self.index--;
-            
-            self.post = self.dataSource.posts[self.index];
-            
-            [self displayPost];
-        }
-    }
-}
-
-- (void)previousPostAction
-{
-    if (self.dataSource) {
-        if (self.index < ([self.dataSource.posts count] - 1)) {
-            self.index++;
-            
-            self.post = self.dataSource.posts[self.index];
-            
-            [self displayPost];
-        }
-    }
-}
-
 - (void)sharePostAction
 {
     WhatsAppMessage *whatsappMsg = [[WhatsAppMessage alloc] initWithMessage:[NSString stringWithFormat:@"%@ %@", self.post.title, self.post.url] forABID:nil];
@@ -344,6 +375,29 @@ static const CGFloat CBPLoadPostViewHeight = 5.0;
     CBPCommentsViewController *vc = [[CBPCommentsViewController alloc] initWithPost:self.post];
     
     [self.navigationController pushViewController:vc animated:YES];
+}
+
+#pragma mark -
+- (BOOL)canLoadNext
+{
+    if ([self.dataSource.posts count] > 1) {
+        if ((self.index > 0) && (self.index < [self.dataSource.posts count])) {
+            return YES;
+        }
+    }
+    
+    return NO;
+}
+
+- (BOOL)canLoadPrevious
+{
+    if (self.dataSource
+        && (((self.index + 1) < [self.dataSource.posts count])
+        || (self.post.previousURL))) {
+        return YES;
+    }
+    
+    return NO;
 }
 
 #pragma mark - UIWebViewDelegate
@@ -416,7 +470,21 @@ static const CGFloat CBPLoadPostViewHeight = 5.0;
 
 - (void)webViewDidStartLoad:(UIWebView *)webView
 {
+    if ([self canLoadNext]) {
+        self.nextTitleLabel.text = [((CBPWordPressPost *)self.dataSource.posts[(self.index - 1)]).titlePlain kv_decodeHTMLCharacterEntities];
+    } else {
+        self.nextTitleLabel.text = nil;
+    }
     
+    if ([self canLoadPrevious]) {
+        if ((self.index + 1) < [self.dataSource.posts count]) {
+            self.previousTitleLabel.text = [((CBPWordPressPost *)self.dataSource.posts[(self.index + 1)]).titlePlain kv_decodeHTMLCharacterEntities];
+        } else if (self.post.previousTitle) {
+            self.previousTitleLabel.text = [self.post.previousTitle kv_decodeHTMLCharacterEntities];
+        }
+    } else {
+        self.previousTitleLabel.text = nil;
+    }
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView
@@ -435,7 +503,7 @@ static const CGFloat CBPLoadPostViewHeight = 5.0;
     
     if (pinchScale < 1)
     {
-        self.baseFontSize = self.baseFontSize - (pinchScale / 1.5f);
+        self.baseFontSize = self.baseFontSize - (pinchScale / CBPLoadPostViewMultiplier);
     }
     else
     {
@@ -456,17 +524,59 @@ static const CGFloat CBPLoadPostViewHeight = 5.0;
 
 #pragma mark - Observers
 - (void) observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-    if ([keyPath isEqualToString:@"contentOffset"])
+    CGFloat frameWidth = CGRectGetWidth(self.view.frame);
+    CGFloat frameHeight = CGRectGetHeight(self.view.frame);
+    
+    if ([keyPath isEqualToString:kContentOffsetString])
     {
+        if (self.scrollView.contentOffset.y == 0)
+        {
+            self.nextView.frame = CGRectMake(0, -CBPLoadPostViewHeight, frameWidth, CBPLoadPostViewHeight);
+            self.previousView.frame = CGRectMake(0, frameHeight, frameWidth, CBPLoadPostViewHeight);
+            return;
+        }
+        
+        if (self.scrollView.contentOffset.y < 0)
+        {
+            CGFloat offset = self.scrollView.contentOffset.y;
+            
+            if (offset < -CBPLoadPostViewHeight) offset = -CBPLoadPostViewHeight;
+            
+            self.nextView.frame = CGRectMake(0, 0 - (CBPLoadPostViewHeight + offset), frameWidth, CBPLoadPostViewHeight);
+        }
+        else if (frameHeight > (self.scrollView.contentSize.height - self.scrollView.contentOffset.y))
+        {
+            CGFloat top = (frameHeight - (self.view.frame.size.height - (self.scrollView.contentSize.height - self.scrollView.contentOffset.y)));
+            if (top < (frameHeight - (CBPLoadPostViewHeight * CBPLoadPostViewMultiplier))) top = (frameHeight - (CBPLoadPostViewHeight * CBPLoadPostViewMultiplier));
+            
+            self.previousView.frame = CGRectMake(0, top , frameWidth, CBPLoadPostViewHeight);
+        }
+    }
+    else if ([keyPath isEqualToString:kFrameString])
+    {
+        self.nextView.frame = CGRectMake(0, -CBPLoadPostViewHeight, frameWidth, CBPLoadPostViewHeight);
+        self.previousView.frame = CGRectMake(0, self.view.frame.size.height, frameWidth, CBPLoadPostViewHeight);
+    }
+}
 
+#pragma mark - UIScrollViewDelegate
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
+{
+    if (scrollView.contentOffset.y <= -CBPLoadPostViewHeight)
+    {
+        [self loadNextAction];
+    }
+    else if ((CGRectGetHeight(self.view.frame) - self.previousView.frame.origin.y) >= (CBPLoadPostViewHeight * CBPLoadPostViewMultiplier))
+    {
+        [self loadPreviousAction];
     }
 }
 
 #pragma mark -
 - (UILabel *)nextTitleLabel
 {
-    if (_nextTitleLabel) {
-        _nextTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(10.0f, 0, CGRectGetWidth(self.view.frame) - 20.0f, CBPLoadPostViewHeight)];
+    if (!_nextTitleLabel) {
+        _nextTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(CBPLoadPostViewPadding, 0, CGRectGetWidth(self.view.frame) - (CBPLoadPostViewPadding * 2), CBPLoadPostViewHeight)];
         _nextTitleLabel.backgroundColor = [UIColor clearColor];
         _nextTitleLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline];
         _nextTitleLabel.numberOfLines = 2;
@@ -491,9 +601,46 @@ static const CGFloat CBPLoadPostViewHeight = 5.0;
         UIView *bottomBlackLine = [[UIView alloc] initWithFrame:CGRectMake(0, CBPLoadPostViewHeight - 1, CGRectGetWidth(self.view.frame), 1.0f)];
         bottomBlackLine.backgroundColor = [UIColor lightGrayColor];
         [_nextView addSubview:bottomBlackLine];
+        
+        _nextView.hidden = YES;
     }
     
     return _nextView;
+}
+
+- (UILabel *)previousTitleLabel
+{
+    if (!_previousTitleLabel) {
+        _previousTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(CBPLoadPostViewPadding, 0, CGRectGetWidth(self.view.frame) - (CBPLoadPostViewPadding * 2), CBPLoadPostViewHeight)];
+        _previousTitleLabel.backgroundColor = [UIColor clearColor];
+        _previousTitleLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline];
+        _previousTitleLabel.numberOfLines = 2;
+        _previousTitleLabel.textAlignment = NSTextAlignmentCenter;
+    }
+    
+    return _previousTitleLabel;
+}
+
+- (UIView *)previousView
+{
+    if (!_previousView) {
+        _previousView = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.view.frame), CGRectGetWidth(self.view.frame), CBPLoadPostViewHeight)];
+        
+        CAGradientLayer *gradient = [CAGradientLayer layer];
+        gradient.frame = _previousView.bounds;
+        gradient.colors = [NSArray arrayWithObjects:(id)[[UIColor colorWithRed:0.89f green:0.89f blue:0.89f alpha:1.0f] CGColor], (id)[[UIColor whiteColor] CGColor], nil];
+        [_previousView.layer insertSublayer:gradient atIndex:0];
+        
+        [_previousView addSubview:self.previousTitleLabel];
+        
+        UIView *bottomBlackLine = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame), 1.0f)];
+        bottomBlackLine.backgroundColor = [UIColor lightGrayColor];
+        [_previousView addSubview:bottomBlackLine];
+        
+        _previousView.hidden = YES;
+    }
+    
+    return _previousView;
 }
 
 - (UIWebView *)webView

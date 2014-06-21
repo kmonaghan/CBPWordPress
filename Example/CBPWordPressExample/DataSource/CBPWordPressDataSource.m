@@ -14,14 +14,37 @@
 
 @interface CBPWordPressDataSource()
 @property (nonatomic) NSInteger page;
+@property (nonatomic) NSMutableDictionary *postIdList;
 @end
 
 @implementation CBPWordPressDataSource
+- (void)addPost:(CBPWordPressPost *)post
+{
+    if (!self.posts) {
+        self.posts = @[];
+    }
+    
+    NSMutableArray *posts = self.posts.mutableCopy;
+    [posts addObject:post];
+    
+    if (!self.postIdList) {
+        self.postIdList = @{}.mutableCopy;
+    }
+    
+    self.postIdList[@(post.postId)] = @(post.postId);
+    self.posts = posts;
+}
+
 - (void)loadMore:(BOOL)more withParams:(NSDictionary *)params withBlock:(void (^)(BOOL result, NSError *error))block
 {
-    __weak typeof(self) blockSelf = self;
+    __weak typeof(self) weakSelf = self;
     
-    self.page = (more) ? self.page + 1 : 1;
+    if (more) {
+        self.page++;
+    } else {
+        self.page = 1;
+        self.postIdList = @{}.mutableCopy;
+    }
     
     NSMutableDictionary *postParams = (params) ? params.mutableCopy : @{}.mutableCopy;
     
@@ -29,13 +52,21 @@
     
     [NSURLSessionDataTask fetchPostsWithParams:postParams
                                      withBlock:^(CBPWordPressPostsContainer *data, NSError *error) {
-                                         
                                          if (!error) {
-                                             NSMutableArray *posts = (blockSelf.posts && more) ? blockSelf.posts.mutableCopy : @[].mutableCopy;
+                                             __strong typeof(weakSelf) strongSelf = weakSelf;
+
+                                             NSMutableArray *posts = (strongSelf.posts && more) ? strongSelf.posts.mutableCopy : @[].mutableCopy;
                                              
-                                             [posts addObjectsFromArray:data.posts];
+                                             for (CBPWordPressPost *post in data.posts) {
+                                                 
+                                                 if (!strongSelf.postIdList[@(post.postId)]) {
+                                                     [posts addObject:post];
+                                                     
+                                                     strongSelf.postIdList[@(post.postId)] = @(post.postId);
+                                                 }
+                                             }
                                              
-                                             blockSelf.posts = posts;
+                                             strongSelf.posts = posts;
                                              
                                              block(YES, nil);
                                          } else {
@@ -44,6 +75,7 @@
                                          }
                                      }];
 }
+
 #pragma mark - UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
