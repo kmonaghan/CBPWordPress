@@ -10,8 +10,12 @@
 
 #import "CBPAppDelegate.h"
 
-#import "CBPPostListViewController.h"
+#import "CBPHomeViewController.h"
 #import "CBPWordPressAPIClient.h"
+
+@interface CBPAppDelegate()
+@property (nonatomic) CBPHomeViewController *viewController;
+@end
 
 @implementation CBPAppDelegate
 
@@ -20,9 +24,9 @@
     // Override point for customization after application launch.
     [CBPWordPressAPIClient rootURI:@"http://broadsheet.ie"];
                                                            
-    CBPPostListViewController *viewController = [CBPPostListViewController new];
+    self.viewController = [CBPHomeViewController new];
     
-    self.navigationController = [[UINavigationController alloc] initWithRootViewController:viewController];
+    self.navigationController = [[UINavigationController alloc] initWithRootViewController:self.viewController];
     self.navigationController.navigationBar.tintColor = [UIColor darkGrayColor];
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
@@ -35,6 +39,8 @@
                                                              diskPath:nil];
     [NSURLCache setSharedURLCache:URLCache];
     
+    [application setMinimumBackgroundFetchInterval:900];
+
     //[GPPSignIn sharedInstance].clientID = @"864709573863-rr1na3aqu5embrr4fc15dkp5i8g7fmdm.apps.googleusercontent.com";
     
     return YES;
@@ -71,6 +77,11 @@
 {
     // handle Google+ Sign In callback URL
     return [[GPPSignIn sharedInstance] handleURL:url sourceApplication:sourceApplication annotation:annotation];
+}
+
+- (void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
+{
+    [self.viewController backgroundUpdateWithCompletionHandler:completionHandler];
 }
 
 @end

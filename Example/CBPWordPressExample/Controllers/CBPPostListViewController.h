@@ -10,7 +10,11 @@
 
 #import "CBPTableViewController.h"
 
+#import "CBPWordPressDataSource.h"
+
 @interface CBPPostListViewController : CBPTableViewController
+@property (nonatomic) CBPWordPressDataSource *dataSource;
+
 - (instancetype)initWithAuthorId:(NSNumber *)authorId;
 - (instancetype)initWithCategoryId:(NSNumber *)categoryId;
 - (instancetype)initWithTagId:(NSNumber *)tagId;

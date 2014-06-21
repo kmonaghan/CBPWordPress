@@ -76,6 +76,35 @@
                                      }];
 }
 
+- (void)updateWithBlock:(void (^)(BOOL result, NSError *error))block
+{
+    __weak typeof(self) weakSelf = self;
+    
+    [NSURLSessionDataTask fetchPostsWithParams:nil
+                                     withBlock:^(CBPWordPressPostsContainer *data, NSError *error) {
+                                         if (!error) {
+                                             __strong typeof(weakSelf) strongSelf = weakSelf;
+                                             
+                                             NSMutableArray *posts = @[].mutableCopy;
+                                             
+                                             for (CBPWordPressPost *post in data.posts) {
+                                                 
+                                                 if (!strongSelf.postIdList[@(post.postId)]) {
+                                                     [posts addObject:post];
+                                                     
+                                                     strongSelf.postIdList[@(post.postId)] = @(post.postId);
+                                                 }
+                                             }
+                                             
+                                             strongSelf.posts = [posts arrayByAddingObjectsFromArray:strongSelf.posts];
+                                             
+                                             block([posts count], nil);
+                                         } else {
+                                             NSLog(@"Error: %@", error);
+                                             block(NO, error);
+                                         }
+                                     }];
+}
 #pragma mark - UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {

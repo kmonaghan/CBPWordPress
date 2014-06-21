@@ -12,14 +12,11 @@
 #import "CBPPostListViewController.h"
 #import "CBPPostViewController.h"
 
-#import "CBPWordPressDataSource.h"
-
 #import "CBPLargePostPreviewTableViewCell.h"
 
 @interface CBPPostListViewController ()
 @property (nonatomic) NSNumber *authorId;
 @property (nonatomic) NSNumber *categoryId;
-@property (nonatomic) CBPWordPressDataSource *dataSource;
 @property (nonatomic) CBPLargePostPreviewTableViewCell *heightMeasuringCell;
 @property (nonatomic) NSNumber *tagId;
 @end
