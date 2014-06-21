@@ -11,13 +11,15 @@
 #import "CBPAppDelegate.h"
 
 #import "CBPPostListViewController.h"
+#import "CBPWordPressAPIClient.h"
 
 @implementation CBPAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
-     
+    [CBPWordPressAPIClient rootURI:@"http://broadsheet.ie"];
+                                                           
     CBPPostListViewController *viewController = [CBPPostListViewController new];
     
     self.navigationController = [[UINavigationController alloc] initWithRootViewController:viewController];

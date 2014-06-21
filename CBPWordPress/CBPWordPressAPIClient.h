@@ -10,6 +10,7 @@
 
 @interface CBPWordPressAPIClient : AFHTTPSessionManager
 + (instancetype)sharedClient;
++ (void)rootURI:(NSString *)URI;
 
 - (NSDictionary *)queryParams:(NSDictionary *)params;
 @end

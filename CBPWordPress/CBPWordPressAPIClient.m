@@ -9,16 +9,24 @@
 #import "CBPWordPressAPIClient.h"
 
 @implementation CBPWordPressAPIClient
+static NSString *rootURI = nil;
 + (instancetype)sharedClient
 {
+    NSAssert(rootURI != nil, @"No root URL set - [CBPWordPressAPIClient rootURI:<your root URL>] should be called before this method");
+    
     static CBPWordPressAPIClient *_sharedClient = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        _sharedClient = [[CBPWordPressAPIClient alloc] initWithBaseURL:[NSURL URLWithString:@"http://localhost"]];
+        _sharedClient = [[CBPWordPressAPIClient alloc] initWithBaseURL:[NSURL URLWithString:rootURI]];
         [_sharedClient.requestSerializer setValue:@"gzip" forHTTPHeaderField:@"Accept-Encoding"];
     });
     
     return _sharedClient;
+}
+
++ (void)rootURI:(NSString *)URI
+{
+    rootURI = URI;
 }
 
 - (NSDictionary *)queryParams:(NSDictionary *)params
