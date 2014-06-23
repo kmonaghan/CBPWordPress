@@ -31,7 +31,7 @@ PODS:
   - SDWebImage/Core (3.6)
   - SORelativeDateTransformer (1.1.10)
   - SVPullToRefresh (0.4.1)
-  - TOWebViewController (2.0.10)
+  - TOWebViewController (2.0.11)
 
 DEPENDENCIES:
   - CBPWordPress (from `../CBPWordPress.podspec`)
@@ -58,6 +58,6 @@ SPEC CHECKSUMS:
   SDWebImage: c6989652c1cdf27cbdf3f56957e2030f825af5bc
   SORelativeDateTransformer: de7936811c9988af8e129a097af48c828f933f5f
   SVPullToRefresh: d5161ebc833a38b465364412e5e307ca80bbb190
-  TOWebViewController: aa86e6ab6e608ba4c416b72ce5796fc0da5d7141
+  TOWebViewController: 8c34044ad88dda030aad550b409eb2a8351014a0
 
 COCOAPODS: 0.33.1

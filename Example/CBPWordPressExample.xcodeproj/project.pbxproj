@@ -14,6 +14,7 @@
 		347E285F190849B2004D3842 /* CBPCommentsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 347E285E190849B2004D3842 /* CBPCommentsViewController.m */; };
 		347E286219084AA1004D3842 /* CBPComposeCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 347E286119084AA1004D3842 /* CBPComposeCommentViewController.m */; };
 		349C67F51956254500D25654 /* CBPHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 349C67F41956254500D25654 /* CBPHomeViewController.m */; };
+		349C67F71958AA7500D25654 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 349C67F61958AA7500D25654 /* Settings.bundle */; };
 		34C2B86418EA0EF8002268BF /* CBPPostListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 34C2B86318EA0EF8002268BF /* CBPPostListViewController.m */; };
 		34C2B86818EA1003002268BF /* CBPWordPressDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 34C2B86718EA1003002268BF /* CBPWordPressDataSource.m */; };
 		34D3693A18E709AF00E14526 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34D3693918E709AF00E14526 /* Foundation.framework */; };
@@ -62,6 +63,7 @@
 		347E286119084AA1004D3842 /* CBPComposeCommentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBPComposeCommentViewController.m; sourceTree = "<group>"; };
 		349C67F31956254500D25654 /* CBPHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBPHomeViewController.h; sourceTree = "<group>"; };
 		349C67F41956254500D25654 /* CBPHomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBPHomeViewController.m; sourceTree = "<group>"; };
+		349C67F61958AA7500D25654 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = Settings.bundle; path = Resources/Settings.bundle; sourceTree = "<group>"; };
 		34C2B86218EA0EF8002268BF /* CBPPostListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBPPostListViewController.h; sourceTree = "<group>"; };
 		34C2B86318EA0EF8002268BF /* CBPPostListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBPPostListViewController.m; sourceTree = "<group>"; };
 		34C2B86618EA1003002268BF /* CBPWordPressDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CBPWordPressDataSource.h; path = DataSource/CBPWordPressDataSource.h; sourceTree = "<group>"; };
@@ -190,13 +192,13 @@
 		34D3693F18E709AF00E14526 /* CBPWordPressExample */ = {
 			isa = PBXGroup;
 			children = (
-				F58217EA192D010D0014AE2E /* Resources */,
 				F58217E5192CFFE70014AE2E /* Categories */,
 				34D3694818E709AF00E14526 /* CBPAppDelegate.h */,
 				34D3694918E709AF00E14526 /* CBPAppDelegate.m */,
 				34C2B86118EA0EF8002268BF /* Controllers */,
 				34C2B86518EA0FE2002268BF /* DataSource */,
 				34D3695118E709AF00E14526 /* Images.xcassets */,
+				F58217EA192D010D0014AE2E /* Resources */,
 				34D3694018E709AF00E14526 /* Supporting Files */,
 				F53D04571923823E001A392E /* Views */,
 			);
@@ -268,6 +270,7 @@
 				34FE95F01950E9BB0003C814 /* cbpwordpress.js */,
 				341C8036195238E900070FD4 /* tag.snippet.html */,
 				341C803819523B8D00070FD4 /* category.snippet.html */,
+				349C67F61958AA7500D25654 /* Settings.bundle */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -359,6 +362,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				349C67F71958AA7500D25654 /* Settings.bundle in Resources */,
 				341C803919523B8D00070FD4 /* category.snippet.html in Resources */,
 				34FE95F41950ED2A0003C814 /* cbpwordpress.js in Resources */,
 				F58217EE192D02F50014AE2E /* template.html in Resources */,

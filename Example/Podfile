@@ -6,3 +6,8 @@ pod 'SVPullToRefresh', '~> 0.4'
 pod 'SORelativeDateTransformer', '~> 1.1'
 pod 'JBWhatsAppActivity', '~> 1.0'
 pod 'GooglePlusShareActivity', '~> 0.2'
+
+post_install do | installer |
+  require 'fileutils'
+  FileUtils.cp_r('Pods/Pods-Acknowledgements.plist', 'CBPWordPressExample/Resources/Settings.bundle/Acknowledgements.plist', :remove_destination => true)
+end
