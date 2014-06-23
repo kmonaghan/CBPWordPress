@@ -18,6 +18,7 @@
 @property (nonatomic) NSNumber *authorId;
 @property (nonatomic) NSNumber *categoryId;
 @property (nonatomic) CBPLargePostPreviewTableViewCell *heightMeasuringCell;
+@property (nonatomic) NSInteger postCount;
 @property (nonatomic) NSNumber *tagId;
 @end
 
@@ -85,6 +86,15 @@
     [self load:NO];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    if (self.postCount < [self.dataSource.posts count]) {
+        [self.tableView reloadData];
+    }
+}
+
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
@@ -96,6 +106,13 @@
         __strong typeof(weakSelf) strongSelf = weakSelf;
         [strongSelf load:NO];
     }];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    self.postCount = [self.dataSource.posts count];
 }
 
 #pragma mark - 
