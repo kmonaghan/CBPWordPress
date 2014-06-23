@@ -17,12 +17,15 @@ PODS:
   - AFNetworking/Serialization (2.0.3)
   - AFNetworking/UIKit (2.0.3):
     - AFNetworking/NSURLConnection
+  - BButton (4.0.1)
   - CBPWordPress (0.1.0):
     - AFNetworking (~> 2.0.0)
   - google-plus-ios-sdk (1.5.0)
   - GooglePlusShareActivity (0.2.4):
     - google-plus-ios-sdk (= 1.5.0)
+  - HTAutocompleteTextField (1.2.6)
   - JBWhatsAppActivity (1.0)
+  - MBProgressHUD (0.8)
   - MHVideoPhotoGallery (1.6.1):
     - SDWebImage (~> 3.6)
   - NSString-HTML (0.0.1)
@@ -34,9 +37,12 @@ PODS:
   - TOWebViewController (2.0.11)
 
 DEPENDENCIES:
+  - BButton (~> 4.0)
   - CBPWordPress (from `../CBPWordPress.podspec`)
   - GooglePlusShareActivity (~> 0.2)
+  - HTAutocompleteTextField (~> 1.2)
   - JBWhatsAppActivity (~> 1.0)
+  - MBProgressHUD (~> 0.8)
   - MHVideoPhotoGallery (~> 1.6)
   - NSString-HTML (~> 0.0)
   - SORelativeDateTransformer (~> 1.1)
@@ -49,10 +55,13 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   AFNetworking: a4d0e9a64de9242986620dafd1b3cee3b413ac5c
+  BButton: 396a5e59648e3f687b7d8201b88ebdbad6e36b59
   CBPWordPress: 31b7daaa8e8c727cac5276db59705b68252ea1e9
   google-plus-ios-sdk: 20ab80284c5ce4616e176b25ed9522cde6f894d3
   GooglePlusShareActivity: 291bce40de044aaefc8dbe32141e21f8de0c13f4
+  HTAutocompleteTextField: 92ca48eb8f2a7fba756fb9f19bc54cba3391b8f4
   JBWhatsAppActivity: d0eeb5b235d297be90935105e5cac2e41240a1ef
+  MBProgressHUD: c356980b0cd097f19acec959b49dca5eb8ec31be
   MHVideoPhotoGallery: 55bedce06c1bd53c6cf1368a9419bc0db0f7f701
   NSString-HTML: 2ccaa6a9886d35f8176ee5e456442bd1524c151b
   SDWebImage: c6989652c1cdf27cbdf3f56957e2030f825af5bc

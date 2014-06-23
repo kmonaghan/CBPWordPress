@@ -6,6 +6,9 @@ pod 'SVPullToRefresh', '~> 0.4'
 pod 'SORelativeDateTransformer', '~> 1.1'
 pod 'JBWhatsAppActivity', '~> 1.0'
 pod 'GooglePlusShareActivity', '~> 0.2'
+pod 'HTAutocompleteTextField', '~> 1.2'
+pod 'MBProgressHUD', '~> 0.8'
+pod 'BButton', '~> 4.0'
 
 post_install do | installer |
   require 'fileutils'

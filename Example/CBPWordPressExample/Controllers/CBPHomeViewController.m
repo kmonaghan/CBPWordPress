@@ -7,6 +7,7 @@
 //
 
 #import "CBPHomeViewController.h"
+#import "CBPSubmitTipViewController.h"
 
 @interface CBPHomeViewController ()
 
@@ -23,6 +24,16 @@
     return self;
 }
 
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCamera
+                                                                                           target:self
+                                                                                           action:@selector(tipAction)];
+}
+
+#pragma mark -
 - (void)backgroundUpdateWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
 {
     [self.dataSource updateWithBlock:^(BOOL result, NSError *error) {
@@ -39,6 +50,18 @@
             completionHandler(UIBackgroundFetchResultNoData);
         };
     }];
+}
+
+#pragma mark -
+- (void)tipAction
+{
+    CBPSubmitTipViewController *vc = [[CBPSubmitTipViewController alloc] initWithStyle:UITableViewStyleGrouped];
+
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:vc];
+    
+    [self.navigationController presentViewController:navController
+                                            animated:YES
+                                          completion:nil];
 }
 
 @end
