@@ -6,16 +6,18 @@
 //  Copyright (c) 2014 Crayons and Brown Paper. All rights reserved.
 //
 
+#import "HTEmailAutocompleteTextField.h"
+
 #import "CBPComposeCommentViewController.h"
 
 @interface CBPComposeCommentViewController () <UITextFieldDelegate, UITextViewDelegate>
-@property (assign, nonatomic) BOOL constraintsCreated;
-@property (copy, nonatomic) commentCompletionBlock completionBlock;
-@property (strong, nonatomic) UITextView *commentTextView;
-@property (strong, nonatomic) UITextField *emailTextField;
-@property (strong, nonatomic) UITextField *nameTextField;
-@property (assign, nonatomic) NSInteger postId;
-@property (strong, nonatomic) UITextField *urlTextField;
+@property (nonatomic, assign) BOOL constraintsCreated;
+@property (nonatomic, copy) commentCompletionBlock completionBlock;
+@property (nonatomic) UITextView *commentTextView;
+@property (nonatomic) HTEmailAutocompleteTextField *emailTextField;
+@property (nonatomic) UITextField *nameTextField;
+@property (nonatomic, assign) NSInteger postId;
+@property (nonatomic) UITextField *urlTextField;
 @end
 
 @implementation CBPComposeCommentViewController
@@ -143,17 +145,23 @@
 }
 
 #pragma mark - Getters
-- (UITextField *)emailTextField
+- (HTEmailAutocompleteTextField *)emailTextField
 {
     if (!_emailTextField) {
-        _emailTextField = [UITextField new];
-        _emailTextField.borderStyle = UITextBorderStyleRoundedRect;
+        _emailTextField = [HTEmailAutocompleteTextField new];
         _emailTextField.translatesAutoresizingMaskIntoConstraints = NO;
-        _emailTextField.placeholder = NSLocalizedString(@"Email Address", @"Placeholder for commenter's email textfield");
+        _emailTextField.borderStyle = UITextBorderStyleRoundedRect;
+        _emailTextField.backgroundColor = [UIColor whiteColor];
+        _emailTextField.keyboardType = UIKeyboardTypeEmailAddress;
         _emailTextField.returnKeyType = UIReturnKeyNext;
+        _emailTextField.placeholder = NSLocalizedString(@"Your email address", @"Placeholder for commenter's email textfield");
+        _emailTextField.delegate = self;
+        _emailTextField.backgroundColor = [UIColor clearColor];
+        _emailTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
         _emailTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
         _emailTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
-        _emailTextField.delegate = self;
+        _emailTextField.autocompleteDisabled = NO;
+        _emailTextField.autocorrectionType = UITextAutocorrectionTypeNo;
         
         [self.view addSubview:_emailTextField];
     }
