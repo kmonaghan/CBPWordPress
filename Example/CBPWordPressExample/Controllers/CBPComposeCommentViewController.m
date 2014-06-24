@@ -133,12 +133,12 @@
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
-    [defaults setObject:self.nameTextField.text forKey:@"comment_name"];
-    [defaults setObject:self.emailTextField.text forKey:@"comment_email"];
+    [defaults setObject:self.nameTextField.text forKey:CBPCommenterName];
+    [defaults setObject:self.emailTextField.text forKey:CBPCommenterEmail];
     
     if ([self.urlTextField.text length])
     {
-        [defaults setObject:self.urlTextField.text forKey:@"comment_url"];
+        [defaults setObject:self.urlTextField.text forKey:CBPCommenterURL];
     }
     
     [defaults synchronize];

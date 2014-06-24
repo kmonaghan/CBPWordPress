@@ -18,9 +18,6 @@
 #import "CBPTextFieldTableViewCell.h"
 #import "CBPTextViewTableViewCell.h"
 
-static NSString * const CBPCommenterName = @"comment_name";
-static NSString * const CBPCommenterEmail = @"comment_email";
-
 @interface CBPSubmitTipViewController () <UIActionSheetDelegate,
                                             UIAlertViewDelegate,
                                             UIImagePickerControllerDelegate,
@@ -479,7 +476,7 @@ static NSString * const CBPCommenterEmail = @"comment_email";
         _messageTextView = [SAMTextView new];
         _messageTextView.backgroundColor = [UIColor clearColor];
         _messageTextView.font = self.emailTextField.font;
-        _messageTextView.contentInset = UIEdgeInsetsMake(5.0f, 15.0f, 5.0f, 15.0f);
+        _messageTextView.contentInset = UIEdgeInsetsMake(5.0f, CBPPadding, 5.0f, CBPPadding);
         _messageTextView.placeholder = NSLocalizedString(@"What have you got for us?", @"Placeholder text for the tip submission");
     }
     

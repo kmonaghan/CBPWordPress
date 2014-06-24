@@ -23,7 +23,7 @@
 - (void)setInputTextField:(UITextField *)inputTextField
 {
     _inputTextField = inputTextField;
-    _inputTextField.frame = CGRectMake(15.0f, 7.0f, CGRectGetWidth(self.contentView.frame) - 30.0f, 30.0f);
+    _inputTextField.frame = CGRectMake(CBPPadding, 7.0f, CGRectGetWidth(self.contentView.frame) - (CBPPadding * 2), 30.0f);
 
     [self.contentView addSubview:_inputTextField];
 }

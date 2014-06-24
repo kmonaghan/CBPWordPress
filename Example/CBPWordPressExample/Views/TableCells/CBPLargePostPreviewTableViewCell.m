@@ -12,8 +12,6 @@
 
 #import "CBPLargePostPreviewTableViewCell.h"
 
-static const CGFloat CBPLargePostPreviewTableViewCellPadding = 15.0;
-
 @interface CBPLargePostPreviewTableViewCell()
 @property (nonatomic, assign) BOOL constraintsUpdated;
 @property (nonatomic) UILabel *postCommentLabel;
@@ -51,15 +49,15 @@ static const CGFloat CBPLargePostPreviewTableViewCellPadding = 15.0;
                                                                                  options:0
                                                                                  metrics:nil
                                                                                    views:views]];
-        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"H:|-(%f)-[postTitleLabel]-(%f)-|", CBPLargePostPreviewTableViewCellPadding, CBPLargePostPreviewTableViewCellPadding]
+        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"H:|-(%f)-[postTitleLabel]-(%f)-|", CBPPadding, CBPPadding]
                                                                                  options:0
                                                                                  metrics:nil
                                                                                    views:views]];
-        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"H:|-(%f)-[postImageView]-(%f)-|", CBPLargePostPreviewTableViewCellPadding, CBPLargePostPreviewTableViewCellPadding]
+        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"H:|-(%f)-[postImageView]-(%f)-|", CBPPadding, CBPPadding]
                                                                                  options:0
                                                                                  metrics:nil
                                                                                    views:views]];
-        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"H:|-(%f)-[postDateLabel]-(>=0)-[postCommentLabel]-(%f)-|", CBPLargePostPreviewTableViewCellPadding, CBPLargePostPreviewTableViewCellPadding]
+        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"H:|-(%f)-[postDateLabel]-(>=0)-[postCommentLabel]-(%f)-|", CBPPadding, CBPPadding]
                                                                                  options:0
                                                                                  metrics:nil
                                                                                    views:views]];
@@ -88,7 +86,7 @@ static const CGFloat CBPLargePostPreviewTableViewCellPadding = 15.0;
     
     // Set the preferredMaxLayoutWidth of the mutli-line bodyLabel based on the evaluated width of the label's frame,
     // as this will allow the text to wrap correctly, and as a result allow the label to take on the correct height.
-    self.postTitleLabel.preferredMaxLayoutWidth = CGRectGetWidth(self.contentView.frame) - (CBPLargePostPreviewTableViewCellPadding * 2);
+    self.postTitleLabel.preferredMaxLayoutWidth = CGRectGetWidth(self.contentView.frame) - (CBPPadding * 2);
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
