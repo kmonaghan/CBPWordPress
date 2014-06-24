@@ -7,6 +7,8 @@
 //
 
 #import "CBPHomeViewController.h"
+
+#import "CBPAboutViewController.h"
 #import "CBPSubmitTipViewController.h"
 
 @interface CBPHomeViewController ()
@@ -27,6 +29,14 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeInfoLight];
+    
+    button.frame = CGRectMake(button.frame.origin.x, button.frame.origin.y, button.frame.size.width + 13, button.frame.size.height);
+    
+    [button addTarget:self action:@selector(aboutAction) forControlEvents:UIControlEventTouchUpInside];
+    
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCamera
                                                                                            target:self
@@ -53,6 +63,17 @@
 }
 
 #pragma mark -
+- (void)aboutAction
+{
+    CBPAboutViewController *vc = [[CBPAboutViewController alloc] initWithStyle:UITableViewStyleGrouped];
+    
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:vc];
+    
+    [self.navigationController presentViewController:navController
+                                            animated:YES
+                                          completion:nil];
+}
+
 - (void)tipAction
 {
     CBPSubmitTipViewController *vc = [[CBPSubmitTipViewController alloc] initWithStyle:UITableViewStyleGrouped];

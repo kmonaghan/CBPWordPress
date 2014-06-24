@@ -17,6 +17,7 @@ PODS:
   - AFNetworking/Serialization (2.0.3)
   - AFNetworking/UIKit (2.0.3):
     - AFNetworking/NSURLConnection
+  - Appirater (2.0.2)
   - BButton (4.0.1)
   - CBPWordPress (0.1.0):
     - AFNetworking (~> 2.0.0)
@@ -38,6 +39,7 @@ PODS:
   - TOWebViewController (2.0.11)
 
 DEPENDENCIES:
+  - Appirater (~> 2.0)
   - BButton (~> 4.0)
   - CBPWordPress (from `../CBPWordPress.podspec`)
   - GooglePlusShareActivity (~> 0.2)
@@ -57,6 +59,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   AFNetworking: a4d0e9a64de9242986620dafd1b3cee3b413ac5c
+  Appirater: a5e00fb01d47a9a6acf4b2f22323b4ccf4f23fbb
   BButton: 396a5e59648e3f687b7d8201b88ebdbad6e36b59
   CBPWordPress: 31b7daaa8e8c727cac5276db59705b68252ea1e9
   google-plus-ios-sdk: 20ab80284c5ce4616e176b25ed9522cde6f894d3

@@ -41,6 +41,14 @@ THE SOFTWARE.
 		</dict>
 		<dict>
 			<key>FooterText</key>
+			<string>Copyright 2013. Arash Payan. This library is distributed under the terms of the MIT/X11.</string>
+			<key>Title</key>
+			<string>Appirater</string>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+		</dict>
+		<dict>
+			<key>FooterText</key>
 			<string>BButton - copyright (c) 2012, Mathieu Bolard, Jesse Squires. All rights reserved.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
