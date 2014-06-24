@@ -43,6 +43,8 @@
 
     //[GPPSignIn sharedInstance].clientID = @"864709573863-rr1na3aqu5embrr4fc15dkp5i8g7fmdm.apps.googleusercontent.com";
     
+    [self setupNotification];
+    
     return YES;
 }
 							
@@ -66,6 +68,7 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
@@ -82,6 +85,56 @@
 - (void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
 {
     [self.viewController backgroundUpdateWithCompletionHandler:completionHandler];
+}
+
+#pragma mark -
+- (void)setupNotification
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    if ([defaults objectForKey:@"localnotification"]) {
+        return;
+    }
+    
+    NSDate *tomorrow = [NSDate dateWithTimeIntervalSinceNow:84600];
+    
+    NSCalendar *calendar = [NSCalendar autoupdatingCurrentCalendar];
+    calendar.timeZone = [NSTimeZone defaultTimeZone];
+    
+    NSDateComponents *dateComps = [calendar components: NSCalendarUnitYear | NSCalendarUnitMonth |  NSCalendarUnitDay fromDate:tomorrow];
+    [dateComps setHour:8];
+    [dateComps setMinute:15];
+    NSDate *itemDate = [calendar dateFromComponents:dateComps];
+    
+    UILocalNotification *localnotifcation = [UILocalNotification new];
+    
+    if (!localnotifcation) {
+        return;
+    }
+    
+    NSLog(@"itemDate: %@", [itemDate description]);
+    localnotifcation.fireDate = itemDate;
+    localnotifcation.timeZone = [NSTimeZone defaultTimeZone];
+    localnotifcation.repeatInterval = NSCalendarUnitWeekday;
+    
+    localnotifcation.alertBody = NSLocalizedString(@"Catch up on all the news that doesn't matter.", nil);
+    localnotifcation.alertAction = NSLocalizedString(@"Read More", nil);
+    
+    localnotifcation.soundName = UILocalNotificationDefaultSoundName;
+    localnotifcation.applicationIconBadgeNumber = 1;
+    
+    [[UIApplication sharedApplication] scheduleLocalNotification:localnotifcation];
+    
+    [dateComps setHour:17];
+    [dateComps setMinute:45];
+    itemDate = [calendar dateFromComponents:dateComps];
+    localnotifcation.fireDate = itemDate;
+
+    [[UIApplication sharedApplication] scheduleLocalNotification:localnotifcation];
+
+    [defaults setObject:@(1) forKey:@"localnotification"];
+    
+    [defaults synchronize];
 }
 
 @end
