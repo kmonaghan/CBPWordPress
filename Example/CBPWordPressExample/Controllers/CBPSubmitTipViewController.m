@@ -11,6 +11,7 @@
 #import "GTMUIImage+Resize.h"
 #import "HTEmailAutocompleteTextField.h"
 #import "MBProgressHUD.h"
+#import "SAMTextView.h"
 
 #import "CBPSubmitTipViewController.h"
 
@@ -21,17 +22,17 @@ static NSString * const CBPCommenterName = @"comment_name";
 static NSString * const CBPCommenterEmail = @"comment_email";
 
 @interface CBPSubmitTipViewController () <UIActionSheetDelegate,
-UIAlertViewDelegate,
-UIImagePickerControllerDelegate,
-UINavigationControllerDelegate,
-UITextFieldDelegate,
-UITextViewDelegate>
+                                            UIAlertViewDelegate,
+                                            UIImagePickerControllerDelegate,
+                                            UINavigationControllerDelegate,
+                                            UITextFieldDelegate,
+                                            UITextViewDelegate>
 @property (nonatomic, assign) BOOL askAboutAttachment;
 @property (nonatomic) UIImage *attachmentImage;
 @property (nonatomic) UIImageView *attachmentImageView;
 @property (nonatomic) HTEmailAutocompleteTextField *emailTextField;
 @property (nonatomic) UITextField *nameTextField;
-@property (nonatomic) UITextView *messageTextView;
+@property (nonatomic) SAMTextView *messageTextView;
 @property (nonatomic) UIImagePickerController *picker;
 @end
 
@@ -347,7 +348,7 @@ UITextViewDelegate>
     {
         CBPTextViewTableViewCell *cell = (CBPTextViewTableViewCell *)[tableView dequeueReusableCellWithIdentifier:CBPTextViewTableViewCellIdentifier];
         
-        cell.inputView = self.messageTextView;
+        cell.inputTextView = self.messageTextView;
         
         return cell;
     }
@@ -356,10 +357,10 @@ UITextViewDelegate>
     
     switch (indexPath.row) {
         case 0:
-            cell.inputField = self.nameTextField;
+            cell.inputTextField = self.nameTextField;
             break;
         case 1:
-            cell.inputField = self.emailTextField;
+            cell.inputTextField = self.emailTextField;
             break;
         default:
             break;
@@ -442,10 +443,10 @@ UITextViewDelegate>
 - (HTEmailAutocompleteTextField *)emailTextField
 {
     if (!_emailTextField) {
-        _emailTextField = [[HTEmailAutocompleteTextField alloc] initWithFrame:CGRectMake(15, 11, 290, 22)];
+        _emailTextField = [HTEmailAutocompleteTextField new];
         _emailTextField.keyboardType = UIKeyboardTypeEmailAddress;
         _emailTextField.returnKeyType = UIReturnKeyNext;
-        _emailTextField.placeholder = NSLocalizedString(@"Your email address", nil);
+        _emailTextField.placeholder = NSLocalizedString(@"Your email address", @"The tip submitters email address");
         _emailTextField.delegate = self;
         _emailTextField.backgroundColor = [UIColor clearColor];
         _emailTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
@@ -461,9 +462,9 @@ UITextViewDelegate>
 - (UITextField *)nameTextField
 {
     if (!_nameTextField) {
-        _nameTextField = [[UITextField alloc] initWithFrame:CGRectMake(15, 11, 290, 30)];
+        _nameTextField = [UITextField new];
         _nameTextField.returnKeyType = UIReturnKeyNext;
-        _nameTextField.placeholder= NSLocalizedString(@"Your name", nil);
+        _nameTextField.placeholder= NSLocalizedString(@"Your name", @"The tip submitters name");
         _nameTextField.autocorrectionType = UITextAutocorrectionTypeNo;
         _nameTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
         _nameTextField.delegate = self;
@@ -475,9 +476,11 @@ UITextViewDelegate>
 - (UITextView *)messageTextView
 {
     if (!_messageTextView) {
-        _messageTextView = [[UITextView alloc] initWithFrame:CGRectMake(0,5,300,122)];
+        _messageTextView = [SAMTextView new];
         _messageTextView.backgroundColor = [UIColor clearColor];
         _messageTextView.font = self.emailTextField.font;
+        _messageTextView.contentInset = UIEdgeInsetsMake(5.0f, 15.0f, 5.0f, 15.0f);
+        _messageTextView.placeholder = NSLocalizedString(@"What have you got for us?", @"Placeholder text for the tip submission");
     }
     
     return _messageTextView;

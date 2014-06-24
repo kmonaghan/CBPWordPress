@@ -12,5 +12,5 @@ static const CGFloat CBPTextFieldTableViewCellHeight = 44.0;
 static NSString * const CBPTextFieldTableViewCellIdentifier = @"CBPTextFieldTableViewCellIdentifier";
 
 @interface CBPTextFieldTableViewCell : UITableViewCell
-@property (nonatomic) UITextField *inputField;
+@property (nonatomic) UITextField *inputTextField;
 @end

@@ -29,6 +29,7 @@ PODS:
   - MHVideoPhotoGallery (1.6.1):
     - SDWebImage (~> 3.6)
   - NSString-HTML (0.0.1)
+  - SAMTextView (0.2.1)
   - SDWebImage (3.6):
     - SDWebImage/Core
   - SDWebImage/Core (3.6)
@@ -45,6 +46,7 @@ DEPENDENCIES:
   - MBProgressHUD (~> 0.8)
   - MHVideoPhotoGallery (~> 1.6)
   - NSString-HTML (~> 0.0)
+  - SAMTextView (~> 0.2)
   - SORelativeDateTransformer (~> 1.1)
   - SVPullToRefresh (~> 0.4)
   - TOWebViewController (~> 2.0.5)
@@ -64,6 +66,7 @@ SPEC CHECKSUMS:
   MBProgressHUD: c356980b0cd097f19acec959b49dca5eb8ec31be
   MHVideoPhotoGallery: 55bedce06c1bd53c6cf1368a9419bc0db0f7f701
   NSString-HTML: 2ccaa6a9886d35f8176ee5e456442bd1524c151b
+  SAMTextView: 1062a784ba7b2080b0c17748001c416b53010b4b
   SDWebImage: c6989652c1cdf27cbdf3f56957e2030f825af5bc
   SORelativeDateTransformer: de7936811c9988af8e129a097af48c828f933f5f
   SVPullToRefresh: d5161ebc833a38b465364412e5e307ca80bbb190

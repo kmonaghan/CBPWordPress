@@ -9,10 +9,21 @@
 #import "CBPTextViewTableViewCell.h"
 
 @implementation CBPTextViewTableViewCell
-
-- (void)layoutSubviews {
-    [super layoutSubviews];
+- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
+{
+    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     
-    [self.contentView addSubview:self.inputView];
+    if (self) {
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
+    }
+    
+    return self;
+}
+
+- (void)setInputTextView:(UITextView *)inputTextView
+{
+    _inputTextView = inputTextView;
+    _inputTextView.frame = CGRectMake(0, 0, CGRectGetWidth(self.contentView.frame), 122.0f);
+    [self.contentView addSubview:inputTextView];
 }
 @end

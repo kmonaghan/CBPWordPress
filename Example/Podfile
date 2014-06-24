@@ -9,6 +9,7 @@ pod 'GooglePlusShareActivity', '~> 0.2'
 pod 'HTAutocompleteTextField', '~> 1.2'
 pod 'MBProgressHUD', '~> 0.8'
 pod 'BButton', '~> 4.0'
+pod 'SAMTextView', '~> 0.2'
 
 post_install do | installer |
   require 'fileutils'
