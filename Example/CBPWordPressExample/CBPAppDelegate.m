@@ -38,12 +38,10 @@
                                                          diskCapacity:20 * 1024 * 1024
                                                              diskPath:nil];
     [NSURLCache setSharedURLCache:URLCache];
-    
-    [application setMinimumBackgroundFetchInterval:900];
 
     //[GPPSignIn sharedInstance].clientID = @"864709573863-rr1na3aqu5embrr4fc15dkp5i8g7fmdm.apps.googleusercontent.com";
     
-    [self setupNotification];
+    [self firstTime:application];
     
     return YES;
 }
@@ -87,12 +85,35 @@
     [self.viewController backgroundUpdateWithCompletionHandler:completionHandler];
 }
 
+- (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification
+{
+    [self.navigationController popToRootViewControllerAnimated:NO];
+}
+
 #pragma mark -
+- (void)firstTime:(UIApplication *)application
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    if ([defaults boolForKey:CBPFirstTime]) {
+        return;
+    }
+
+    [application setMinimumBackgroundFetchInterval:CBPBacgroundFetchInterval];
+    [defaults setBool:YES forKey:CBPBackgroundUpdate];
+    
+    [self setupNotification];
+    
+    [defaults setBool:YES forKey:CBPFirstTime];
+    
+    [defaults synchronize];
+}
+
 - (void)setupNotification
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
-    if ([defaults objectForKey:@"localnotification"]) {
+    if ([defaults boolForKey:CBPLocationNotifcation]) {
         return;
     }
     
@@ -132,7 +153,8 @@
 
     [[UIApplication sharedApplication] scheduleLocalNotification:localnotifcation];
 
-    [defaults setObject:@(1) forKey:@"localnotification"];
+    [defaults setBool:YES forKey:CBPLocationNotifcation];
+    [defaults setBool:YES forKey:CBPDailyReminder];
     
     [defaults synchronize];
 }

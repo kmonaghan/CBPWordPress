@@ -13,6 +13,7 @@
 #import "GPPShareActivity.h"
 
 #import "CBPAboutViewController.h"
+#import "CBPSubmitTipViewController.h"
 #import "CBPSettingsViewController.h"
 
 #define kAppId  @"413093424"
@@ -71,7 +72,7 @@
 {
     switch (section) {
         case 0:
-            return 3;
+            return 4;
             break;
         case 1:
             return 2;
@@ -97,7 +98,7 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier];
     }
     
-    cell.accessoryType = UITableViewCellAccessoryNone;
+    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     
     switch (indexPath.section)
     {
@@ -105,22 +106,16 @@
         {
             switch (indexPath.row) {
                 case 0:
-                {
                     cell.textLabel.text = NSLocalizedString(@"Rate this App", nil);
-                    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-                }
                     break;
                 case 1:
-                {
                     cell.textLabel.text = NSLocalizedString(@"Share this App", nil);
-                    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-                }
                     break;
                 case 2:
-                {
                     cell.textLabel.text = NSLocalizedString(@"Contact Us", nil);
-                    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-                }
+                    break;
+                case 3:
+                    cell.textLabel.text = NSLocalizedString(@"Feedback about the app", nil);
                     break;
                 default:
                     break;
@@ -131,16 +126,10 @@
         {
             switch (indexPath.row) {
                 case 0:
-                {
                     cell.textLabel.text = NSLocalizedString(@"More Apps", nil);
-                    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-                }
                     break;
                 case 1:
-                {
                     cell.textLabel.text = NSLocalizedString(@"About the Developer", nil);
-                    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-                }
                     break;
                 default:
                     break;
@@ -151,10 +140,7 @@
         {
             switch (indexPath.row) {
                 case 0:
-                {
                     cell.textLabel.text = NSLocalizedString(@"Settings", nil);
-                    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-                }
                     break;
                 default:
                     break;
@@ -166,6 +152,7 @@
             switch (indexPath.row) {
                 case 0:
                 {
+                    cell.accessoryType = UITableViewCellAccessoryNone;
                     cell.textLabel.text = NSLocalizedString(@"Version", nil);
                     NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
                     
@@ -203,6 +190,17 @@
                     [self shareAction];
                     break;
                 case 2:
+                {
+                    CBPSubmitTipViewController *vc = [[CBPSubmitTipViewController alloc] initWithStyle:UITableViewStyleGrouped];
+                    
+                    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:vc];
+                    
+                    [self.navigationController presentViewController:navController
+                                                            animated:YES
+                                                          completion:nil];
+                }
+                    break;
+                case 3:
                     [self sendEmail];
                     break;
                 default:

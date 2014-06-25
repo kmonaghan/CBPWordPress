@@ -38,6 +38,21 @@
                                                                                  metrics:nil
                                                                                    views:views]];
         
+        [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.switchLabel
+                                                                     attribute:NSLayoutAttributeCenterY
+                                                                     relatedBy:NSLayoutRelationEqual
+                                                                        toItem:self.contentView
+                                                                     attribute:NSLayoutAttributeCenterY
+                                                                    multiplier:1.0f
+                                                                      constant:0]];
+        [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.itemSwitch
+                                                                     attribute:NSLayoutAttributeCenterY
+                                                                     relatedBy:NSLayoutRelationEqual
+                                                                        toItem:self.contentView
+                                                                     attribute:NSLayoutAttributeCenterY
+                                                                    multiplier:1.0f
+                                                                      constant:0]];
+        
         self.didUpdateConstraints = YES;
     }
     
@@ -70,6 +85,8 @@
     if (!_switchLabel) {
         _switchLabel = [UILabel new];
         _switchLabel.translatesAutoresizingMaskIntoConstraints = NO;
+        
+        [self.contentView addSubview:_switchLabel];
     }
     
     return _switchLabel;

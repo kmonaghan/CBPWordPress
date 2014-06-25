@@ -7,6 +7,7 @@
 //
 
 #import "BButton.h"
+#import "CBPAppDelegate.h"
 #import "HTEmailAutocompleteTextField.h"
 
 #import "CBPSettingsViewController.h"
@@ -15,9 +16,11 @@
 #import "CBPSwitchTableViewCell.h"
 
 @interface CBPSettingsViewController () <UITextFieldDelegate>
+@property (nonatomic) UISwitch *backgroundSwitch;
 @property (nonatomic) HTAutocompleteTextField *emailTextField;
 @property (nonatomic) UIView *footerView;
 @property (nonatomic) UITextField *nameTextField;
+@property (nonatomic) UISwitch *reminderSwitch;
 @property (nonatomic) BButton *saveButton;
 @property (nonatomic) UITextField *urlTextField;
 @end
@@ -50,6 +53,12 @@
     self.nameTextField.text = [defaults objectForKey:CBPCommenterName];
     self.emailTextField.text = [defaults objectForKey:CBPCommenterEmail];
     self.urlTextField.text = [defaults objectForKey:CBPCommenterURL];
+    
+    self.backgroundSwitch = [UISwitch new];
+    self.reminderSwitch = [UISwitch new];
+    
+    self.backgroundSwitch.on = [defaults boolForKey:CBPBackgroundUpdate];
+    self.reminderSwitch.on = [defaults boolForKey:CBPDailyReminder];
 }
 
 - (void)saveAction:(id)sender
@@ -67,6 +76,25 @@
     if ([self.urlTextField.text length]) {
         [defaults setObject:self.urlTextField.text forKey:CBPCommenterURL];
     }
+    
+    UIApplication *application = [UIApplication sharedApplication];
+    
+    if (self.backgroundSwitch.on) {
+        [application setMinimumBackgroundFetchInterval:CBPBacgroundFetchInterval];
+    } else {
+        [application setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalNever];
+    }
+    
+    [defaults setBool:self.backgroundSwitch.on forKey:CBPBackgroundUpdate];
+    
+    if (self.reminderSwitch.on) {
+        [(CBPAppDelegate *)application.delegate setupNotification];
+    } else {
+        [application cancelAllLocalNotifications];
+        [defaults removeObjectForKey:CBPLocationNotifcation];
+    }
+    
+    [defaults setBool:self.reminderSwitch.on forKey:CBPDailyReminder];
     
     [defaults synchronize];
     
@@ -87,7 +115,7 @@
         case 0:
             return 3;
             break;
-        case 2:
+        case 1:
             return 2;
             break;
         default:
@@ -101,10 +129,10 @@
 {
     switch (section) {
         case 0:
-            return @"Comment details";
+            return NSLocalizedString(@"Comment details", nil);
             break;
-        case 2:
-            return @"Text Size";
+        case 1:
+            return NSLocalizedString(@"Content", nil);
             break;
         default:
             break;
@@ -136,7 +164,26 @@
     }
     else if (indexPath.section == 1)
     {
-
+        CBPSwitchTableViewCell *cell = (CBPSwitchTableViewCell *)[tableView dequeueReusableCellWithIdentifier:CBPSwitchTableViewCellIdentifier];
+        
+        switch (indexPath.row) {
+            case 0:
+            {
+                cell.switchLabel.text = NSLocalizedString(@"Refresh stories in the background", nil);
+                cell.itemSwitch.on = self.backgroundSwitch.on;
+            }
+                break;
+            case 1:
+            {
+                cell.switchLabel.text = NSLocalizedString(@"Daily reminder", nil);
+                cell.itemSwitch.on = self.reminderSwitch.on;
+            }
+                break;
+            default:
+                break;
+        }
+        
+        return cell;
     }
     
     return nil;
@@ -232,10 +279,11 @@
 
 - (BButton *)saveButton
 {
-    if (_saveButton) {
+    if (!_saveButton) {
         _saveButton = [[BButton alloc] initWithFrame:CGRectMake(CBPPadding, 3.0f, CGRectGetWidth(self.view.frame) - (CBPPadding * 2), 44.0f)
                                                 type:BButtonTypePrimary
                                                style:BButtonStyleBootstrapV3];
+        [_saveButton setTitle:NSLocalizedString(@"Save", nil) forState:UIControlStateNormal];
     }
     
     return _saveButton;
