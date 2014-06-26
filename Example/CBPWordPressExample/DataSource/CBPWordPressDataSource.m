@@ -87,7 +87,7 @@
                                          if (!error) {
                                              __strong typeof(weakSelf) strongSelf = weakSelf;
                                              
-                                             NSMutableArray *posts = @[].mutableCopy;
+                                             NSMutableArray *posts = (strongSelf.posts) ? strongSelf.posts.mutableCopy : @[].mutableCopy;
                                              
                                              for (CBPWordPressPost *post in data.posts) {
                                                  
@@ -109,6 +109,7 @@
                                          }
                                      }];
 }
+
 #pragma mark - UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
