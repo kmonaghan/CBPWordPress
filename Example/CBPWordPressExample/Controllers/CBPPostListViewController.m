@@ -116,10 +116,8 @@
 }
 
 #pragma mark - 
-- (void)load:(BOOL)more
+- (NSDictionary *)generateParams
 {
-    __weak typeof(self) weakSelf = self;
-    
     NSMutableDictionary *params = @{}.mutableCopy;
     
     if (self.authorId) {
@@ -130,7 +128,14 @@
         params[@"tag_id"] = self.tagId;
     }
     
-    [self.dataSource loadMore:more withParams:params withBlock:^(BOOL result, NSError *error){
+    return params;
+}
+
+- (void)load:(BOOL)more
+{
+    __weak typeof(self) weakSelf = self;
+    
+    [self.dataSource loadMore:more withParams:[self generateParams] withBlock:^(BOOL result, NSError *error){
         if (result) {
             __strong typeof(weakSelf) strongSelf = weakSelf;
             

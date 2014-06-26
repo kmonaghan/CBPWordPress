@@ -18,4 +18,7 @@
 - (instancetype)initWithAuthorId:(NSNumber *)authorId;
 - (instancetype)initWithCategoryId:(NSNumber *)categoryId;
 - (instancetype)initWithTagId:(NSNumber *)tagId;
+
+- (NSDictionary *)generateParams;
+- (void)load:(BOOL)more;
 @end

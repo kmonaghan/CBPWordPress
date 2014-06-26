@@ -13,21 +13,12 @@
 #import "CBPAboutViewController.h"
 #import "CBPSubmitTipViewController.h"
 
-@interface CBPHomeViewController ()
+@interface CBPHomeViewController () <UISearchBarDelegate>
+@property (nonatomic) UISearchBar *searchBar;
 @property (nonatomic) UIImageView *titleImageView;
 @end
 
 @implementation CBPHomeViewController
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -48,11 +39,26 @@
     self.navigationItem.titleView = self.titleImageView;
     
     [self updateHeaderImage];
+    
+    self.tableView.tableHeaderView = self.searchBar;
+    
+    self.tableView.contentOffset = CGPointMake(0, CGRectGetHeight(self.searchBar.frame));
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    [self.searchBar resignFirstResponder];
 }
 
 #pragma mark -
 - (void)backgroundUpdateWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
 {
+    if ([self.searchBar.text length]) {
+        return;
+    }
+    
     [self.dataSource updateWithBlock:^(BOOL result, NSError *error) {
         if (error) {
             completionHandler(UIBackgroundFetchResultFailed);
@@ -93,6 +99,29 @@
 }
 
 #pragma mark -
+- (NSDictionary *)generateParams
+{
+    NSMutableDictionary *params = [super generateParams].mutableCopy;
+    
+    if ([self.searchBar.text length]) {
+        params[@"s"] = self.searchBar.text;
+    }
+    
+    return params;
+}
+
+- (void)load:(BOOL)more
+{
+    if (!more) {
+        [UIView animateWithDuration:0.3f animations:^(void) {
+            self.tableView.contentOffset = CGPointMake(0, CGRectGetHeight(self.searchBar.frame));
+        }];
+    }
+    
+    [super load:more];
+}
+
+#pragma mark -
 - (void)updateHeaderImage
 {
     __weak typeof(self) weakSelf = self;
@@ -114,5 +143,63 @@
                                         failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
                                             NSLog(@"Error: %@", error);
                                         }];
+}
+
+#pragma mark - UIScrollViewDelegate
+- (BOOL)scrollViewShouldScrollToTop:(UIScrollView *)scrollView
+{
+    [scrollView setContentOffset:CGPointMake(0, CGRectGetHeight(self.searchBar.frame)) animated:YES];
+    
+    return NO;
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
+    if ((scrollView.contentOffset.y > 0) && (scrollView.contentOffset.y < CGRectGetHeight(self.searchBar.frame)))
+    {
+        [scrollView setContentOffset:CGPointMake(0, CGRectGetHeight(self.searchBar.frame)) animated:YES];
+    }
+}
+
+#pragma mark - UISearchBarDelegate
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
+{
+    if ([searchBar.text length])
+    {
+        searchBar.showsCancelButton = YES;
+    }
+}
+
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
+{
+    [searchBar resignFirstResponder];
+    
+    if ([searchBar.text length])
+    {
+        [self load:NO];
+    }
+}
+
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
+{
+    [searchBar resignFirstResponder];
+    
+    searchBar.text = @"";
+    
+    searchBar.showsCancelButton = NO;
+    
+    [self load:NO];
+}
+
+#pragma mark -
+- (UISearchBar *)searchBar
+{
+    if (!_searchBar) {
+        _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame), 44.0f)];
+        _searchBar.delegate = self;
+        _searchBar.placeholder = NSLocalizedString(@"Search Broadsheet.ie", nil);
+    }
+    
+    return _searchBar;
 }
 @end

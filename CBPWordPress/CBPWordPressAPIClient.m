@@ -45,6 +45,10 @@ static NSString *rootURI = nil;
     } else {
         queryDictionary[@"json"] = @"1";
     }
+
+    if (params[@"s"]) {
+        queryDictionary[@"s"] = params[@"s"];
+    }
     
     if (params[@"page"]) {
         queryDictionary[@"page"] = params[@"page"];
