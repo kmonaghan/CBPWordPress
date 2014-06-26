@@ -6,13 +6,15 @@
 //  Copyright (c) 2014 Crayons and Brown Paper. All rights reserved.
 //
 
+#import "UIImageView+AFNetworking.h"
+
 #import "CBPHomeViewController.h"
 
 #import "CBPAboutViewController.h"
 #import "CBPSubmitTipViewController.h"
 
 @interface CBPHomeViewController ()
-
+@property (nonatomic) UIImageView *titleImageView;
 @end
 
 @implementation CBPHomeViewController
@@ -41,6 +43,11 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCamera
                                                                                            target:self
                                                                                            action:@selector(tipAction)];
+    self.titleImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed: @"broadsheet_black"]];
+    
+    self.navigationItem.titleView = self.titleImageView;
+    
+    [self updateHeaderImage];
 }
 
 #pragma mark -
@@ -85,4 +92,27 @@
                                           completion:nil];
 }
 
+#pragma mark -
+- (void)updateHeaderImage
+{
+    __weak typeof(self) weakSelf = self;
+    
+    [self.titleImageView setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://broadsheet.ie/logo/iphone_logo.png"]]
+                               placeholderImage:[UIImage imageNamed: @"broadsheet_black"]
+                                        success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+                                            NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+                                            NSString *filePath = [[paths objectAtIndex:0] stringByAppendingPathComponent:@"header.png"];
+
+                                            dispatch_async(dispatch_queue_create("com.crayonsandbrownpaper.myqueue", 0), ^{
+                                                [UIImagePNGRepresentation(image) writeToFile:filePath atomically:YES];
+                                            });
+                                            
+                                            __strong typeof(self) strongSelf = weakSelf;
+                                            strongSelf.titleImageView.image = image;
+                                            strongSelf.navigationItem.titleView = strongSelf.titleImageView;
+                                        }
+                                        failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
+                                            NSLog(@"Error: %@", error);
+                                        }];
+}
 @end
