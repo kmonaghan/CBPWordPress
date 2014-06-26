@@ -62,7 +62,9 @@
                                                  if (!strongSelf.postIdList[@(post.postId)]) {
                                                      [posts addObject:post];
                                                      
-                                                     strongSelf.postIdList[@(post.postId)] = @(post.postId);
+                                                     strongSelf.postIdList[@(post.postId)] = @([posts count] - 1);
+                                                 } else {
+                                                     [posts replaceObjectAtIndex:[strongSelf.postIdList[@(post.postId)] integerValue] withObject:post];
                                                  }
                                              }
                                              
@@ -92,7 +94,9 @@
                                                  if (!strongSelf.postIdList[@(post.postId)]) {
                                                      [posts addObject:post];
                                                      
-                                                     strongSelf.postIdList[@(post.postId)] = @(post.postId);
+                                                     strongSelf.postIdList[@(post.postId)] = @([posts count] - 1);
+                                                 } else {
+                                                     [posts replaceObjectAtIndex:[strongSelf.postIdList[@(post.postId)] integerValue] withObject:post];
                                                  }
                                              }
                                              
