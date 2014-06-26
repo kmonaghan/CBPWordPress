@@ -6,6 +6,7 @@
 //  Copyright (c) 2014 Crayons and Brown Paper. All rights reserved.
 //
 
+#import <SVPullToRefresh/SVPullToRefresh.h>
 #import "UIImageView+AFNetworking.h"
 
 #import "CBPHomeViewController.h"
@@ -73,6 +74,11 @@
     self.tableView.tableHeaderView = self.searchBar;
     
     self.tableView.contentOffset = CGPointMake(0, CGRectGetHeight(self.searchBar.frame));
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(updatePosts)
+                                                 name:UIApplicationWillEnterForegroundNotification
+                                               object:nil];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -80,6 +86,10 @@
     [super viewWillDisappear:animated];
     
     [self.searchBar resignFirstResponder];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:UIApplicationWillEnterForegroundNotification
+                                                  object:nil];
 }
 
 #pragma mark -
@@ -188,6 +198,15 @@
                                         failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
                                             NSLog(@"Error: %@", error);
                                         }];
+}
+
+- (void)updatePosts
+{
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:CBPBackgroundUpdate]) {
+        return;
+    }
+    
+    [self.tableView triggerPullToRefresh];
 }
 
 - (void)showSearchBanner
