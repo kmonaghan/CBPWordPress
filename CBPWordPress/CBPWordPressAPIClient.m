@@ -8,6 +8,8 @@
 
 #import "CBPWordPressAPIClient.h"
 
+#import "CBPWordPressSearchParamters.h"
+
 @implementation CBPWordPressAPIClient
 static NSString *rootURI = nil;
 + (instancetype)sharedClient
@@ -33,29 +35,28 @@ static NSString *rootURI = nil;
 {
     NSMutableDictionary *queryDictionary = @{}.mutableCopy;
     
-    if (params[@"author_id"]) {
-        queryDictionary[@"json"] = @"get_author_posts";
-        queryDictionary[@"author_id"] = params[@"author_id"];
-    } else if (params[@"category_id"]) {
-        queryDictionary[@"json"] = @"get_category_posts";
-        queryDictionary[@"category_id"] = params[@"category_id"];
-    } else if (params[@"tag_id"]) {
-        queryDictionary[@"json"] = @"get_tag_posts";
-        queryDictionary[@"tag_id"] = params[@"tag_id"];
+    if (params[CBPAuthorId]) {
+        queryDictionary[CBPAction] = CBPAuthorPosts;
+        queryDictionary[CBPAuthorId] = params[CBPAuthorId];
+    } else if (params[CBPCategoryId]) {
+        queryDictionary[CBPAction] = CBPCategoryPosts;
+        queryDictionary[CBPCategoryId] = params[CBPCategoryId];
+    } else if (params[CBPSearchQuery]) {
+        queryDictionary[CBPAction] = CBPSearchResults;
+        queryDictionary[CBPSearchQuery] = params[CBPSearchQuery];
+    } else if (params[CBPTagId]) {
+        queryDictionary[CBPAction] = CBPTagPosts;
+        queryDictionary[CBPTagId] = params[CBPTagId];
     } else {
-        queryDictionary[@"json"] = @"1";
-    }
-
-    if (params[@"s"]) {
-        queryDictionary[@"s"] = params[@"s"];
+        queryDictionary[CBPAction] = @"1";
     }
     
-    if (params[@"page"]) {
-        queryDictionary[@"page"] = params[@"page"];
+    if (params[CBPCurrentPage] && ([params[CBPCurrentPage] intValue] > 1)) {
+        queryDictionary[CBPCurrentPage] = params[CBPCurrentPage];
     }
     
-    if (params[@"count"]) {
-        queryDictionary[@"count"] = params[@"count"];
+    if (params[CBPCount] && ([params[CBPCount] intValue] > 1)) {
+        queryDictionary[CBPCount] = params[CBPCount];
     }
               
     return queryDictionary;

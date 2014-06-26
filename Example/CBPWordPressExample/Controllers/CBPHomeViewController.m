@@ -149,7 +149,7 @@
     NSMutableDictionary *params = [super generateParams].mutableCopy;
     
     if ([self.searchBar.text length]) {
-        params[@"s"] = self.searchBar.text;
+        params[CBPSearchQuery] = self.searchBar.text;
     }
     
     return params;

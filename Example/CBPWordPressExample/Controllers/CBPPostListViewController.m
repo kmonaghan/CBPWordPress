@@ -114,11 +114,11 @@
     NSMutableDictionary *params = @{}.mutableCopy;
     
     if (self.authorId) {
-        params[@"author_id"] = self.authorId;
+        params[CBPAuthorId] = self.authorId;
     }else if (self.categoryId) {
-        params[@"category_id"] = self.categoryId;
+        params[CBPCategoryId] = self.categoryId;
     } else if (self.tagId) {
-        params[@"tag_id"] = self.tagId;
+        params[CBPTagId] = self.tagId;
     }
     
     return params;

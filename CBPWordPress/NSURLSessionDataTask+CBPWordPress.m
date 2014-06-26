@@ -14,11 +14,12 @@
 #import "CBPWordPressPost.h"
 #import "CBPWordPressPostContainer.h"
 #import "CBPWordPressPostsContainer.h"
+#import "CBPWordPressSearchParamters.h"
 
 @implementation NSURLSessionDataTask (CBPWordPress)
 + (NSURLSessionDataTask *)fetchPostWithURL:(NSURL *)url withBlock:(void (^)(CBPWordPressPost *post, NSError *error))block
 {
-    return [[CBPWordPressAPIClient sharedClient] GET:[url path] parameters:@{@"json": @1} success:^(NSURLSessionDataTask * __unused task, id JSON) {
+    return [[CBPWordPressAPIClient sharedClient] GET:[url path] parameters:@{CBPAction: @1} success:^(NSURLSessionDataTask * __unused task, id JSON) {
         
         CBPWordPressPostContainer *container = [CBPWordPressPostContainer initFromDictionary:JSON];
         if ([JSON[@"status"] isEqualToString:@"ok"]) {
@@ -53,7 +54,7 @@
 
 + (NSURLSessionDataTask *)fetchPostWithId:(NSInteger)postId withBlock:(void (^)(CBPWordPressPost *post, NSError *error))block
 {
-    return [[CBPWordPressAPIClient sharedClient] GET:@"" parameters:@{@"json": @"get_post", @"post_id": @(postId)} success:^(NSURLSessionDataTask * __unused task, id JSON) {
+    return [[CBPWordPressAPIClient sharedClient] GET:@"" parameters:@{CBPAction: CBPPost, CBPPostId: @(postId)} success:^(NSURLSessionDataTask * __unused task, id JSON) {
         
         if ([JSON[@"status"] isEqualToString:@"ok"]) {
             CBPWordPressPost *post = [CBPWordPressPost initFromDictionary:JSON[@"post"]];
@@ -73,7 +74,7 @@
 
 + (NSURLSessionDataTask *)postComment:(CBPWordPressComment *)comment withBlock:(void (^)(CBPWordPressComment *comment, NSError *error))block
 {
-    return [[CBPWordPressAPIClient sharedClient] GET:@"/?json=respond.submit_comment" parameters:[comment dictionaryRepresentation] success:^(NSURLSessionDataTask * __unused task, id JSON) {
+    return [[CBPWordPressAPIClient sharedClient] POST:@"/?json=respond.submit_comment" parameters:[comment dictionaryRepresentation] success:^(NSURLSessionDataTask * __unused task, id JSON) {
         
         if ([JSON[@"status"] isEqualToString:@"ok"]) {
             CBPWordPressComment *comment = [CBPWordPressComment initFromDictionary:JSON[@"comment"]];
