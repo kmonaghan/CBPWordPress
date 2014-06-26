@@ -84,7 +84,7 @@
     } else {
         [application setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalNever];
     }
-    
+
     [defaults setBool:self.backgroundSwitch.on forKey:CBPBackgroundUpdate];
     
     if (self.reminderSwitch.on) {
@@ -284,6 +284,7 @@
                                                 type:BButtonTypePrimary
                                                style:BButtonStyleBootstrapV3];
         [_saveButton setTitle:NSLocalizedString(@"Save", nil) forState:UIControlStateNormal];
+        [_saveButton addTarget:self action:@selector(saveAction:) forControlEvents:UIControlEventTouchUpInside];
     }
     
     return _saveButton;
