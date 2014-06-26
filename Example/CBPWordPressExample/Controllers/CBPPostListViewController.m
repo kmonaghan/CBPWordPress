@@ -56,13 +56,6 @@
     return self;
 }
 
-- (void)loadView
-{
-    [super loadView];
-    
-    [self.view addSubview:self.tableView];
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -133,6 +126,10 @@
 
 - (void)load:(BOOL)more
 {
+    if (!more) {
+        [self startLoading];
+    }
+    
     __weak typeof(self) weakSelf = self;
     
     [self.dataSource loadMore:more withParams:[self generateParams] withBlock:^(BOOL result, NSError *error){
@@ -146,6 +143,10 @@
             } else {
                 [strongSelf.tableView.pullToRefreshView stopAnimating];
             }
+            
+            [UIView animateWithDuration:0.3f animations:^(){
+                [strongSelf stopLoading];
+            }];
         }
     }];
 }

@@ -9,7 +9,7 @@
 #import "CBPTableViewController.h"
 
 @interface CBPTableViewController ()
-
+@property (nonatomic) UIView *loadingView;
 @end
 
 @implementation CBPTableViewController
@@ -21,6 +21,15 @@
         // Custom initialization
     }
     return self;
+}
+
+- (void)loadView
+{
+    [super loadView];
+
+    [self.view addSubview:self.loadingView];
+    
+    [self.view addSubview:self.tableView];
 }
 
 - (void)viewDidLoad
@@ -49,6 +58,31 @@
 }
 
 #pragma mark -
+- (void)startLoading
+{
+    [self.view bringSubviewToFront:self.loadingView];
+}
+
+- (void)stopLoading
+{
+    [self.view sendSubviewToBack:self.loadingView];
+}
+
+#pragma mark -
+- (UIView *)loadingView
+{
+    if (!_loadingView) {
+        _loadingView = [[UIView alloc] initWithFrame:self.view.frame];
+        
+        UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        spinner.center = _loadingView.center;
+        [spinner startAnimating];
+        
+        [_loadingView addSubview:spinner];
+    }
+    
+    return _loadingView;
+}
 - (UITableView *)tableView
 {
     if (!_tableView) {

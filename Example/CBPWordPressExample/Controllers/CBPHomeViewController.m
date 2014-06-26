@@ -15,10 +15,40 @@
 
 @interface CBPHomeViewController () <UISearchBarDelegate>
 @property (nonatomic) UISearchBar *searchBar;
+@property (nonatomic) UILabel *searchDetailLabel;
+@property (nonatomic) UIView *searchDetailView;
+@property (nonatomic) NSLayoutConstraint *searchDetailViewHeightConstraint;
 @property (nonatomic) UIImageView *titleImageView;
 @end
 
 @implementation CBPHomeViewController
+- (void)loadView
+{
+    [super loadView];
+
+    [self.view addSubview:self.searchDetailView];
+    
+    NSDictionary *views = @{@"topLayoutGuide": self.topLayoutGuide,
+                            @"searchDetailView": self.searchDetailView};
+    
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[topLayoutGuide][searchDetailView]"
+                                                                      options:0
+                                                                      metrics:nil
+                                                                        views:views]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|[searchDetailView]|"
+                                                                      options:0
+                                                                      metrics:nil
+                                                                        views:views]];
+    self.searchDetailViewHeightConstraint = [NSLayoutConstraint constraintWithItem:self.searchDetailView
+                                                                         attribute:NSLayoutAttributeHeight
+                                                                         relatedBy:NSLayoutRelationEqual
+                                                                            toItem:nil
+                                                                         attribute:NSLayoutAttributeNotAnAttribute
+                                                                        multiplier:1.0f
+                                                                          constant:0];
+    [self.view addConstraint:self.searchDetailViewHeightConstraint];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -87,6 +117,21 @@
                                           completion:nil];
 }
 
+- (void)cancelSearchAction
+{
+    [self.searchBar resignFirstResponder];
+    
+    self.searchBar.text = @"";
+    
+    self.searchBar.showsCancelButton = NO;
+    
+    self.searchDetailViewHeightConstraint.constant = 0;
+    
+    [self.view layoutIfNeeded];
+    
+    [self load:NO];
+}
+
 - (void)tipAction
 {
     CBPSubmitTipViewController *vc = [[CBPSubmitTipViewController alloc] initWithStyle:UITableViewStyleGrouped];
@@ -145,6 +190,19 @@
                                         }];
 }
 
+- (void)showSearchBanner
+{
+    self.searchDetailLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Search for: %@", nil), self.searchBar.text];
+    
+    [self.searchDetailLabel sizeToFit];
+    
+    self.searchDetailViewHeightConstraint.constant = CGRectGetHeight(self.searchDetailLabel.frame) + 20.0f;
+    
+    [UIView animateWithDuration:0.3f animations:^(void) {
+        [self.view layoutIfNeeded];
+    }];
+}
+
 #pragma mark - UIScrollViewDelegate
 - (BOOL)scrollViewShouldScrollToTop:(UIScrollView *)scrollView
 {
@@ -176,19 +234,15 @@
     
     if ([searchBar.text length])
     {
+        [self showSearchBanner];
+        
         [self load:NO];
     }
 }
 
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
 {
-    [searchBar resignFirstResponder];
-    
-    searchBar.text = @"";
-    
-    searchBar.showsCancelButton = NO;
-    
-    [self load:NO];
+    [self cancelSearchAction];
 }
 
 #pragma mark -
@@ -201,5 +255,78 @@
     }
     
     return _searchBar;
+}
+
+- (UILabel *)searchDetailLabel
+{
+    if (!_searchDetailLabel) {
+        _searchDetailLabel = [UILabel new];
+        _searchDetailLabel.backgroundColor = [UIColor clearColor];
+        _searchDetailLabel.translatesAutoresizingMaskIntoConstraints = NO;
+        _searchDetailLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+        _searchDetailLabel.numberOfLines = 0;
+    }
+    
+    return _searchDetailLabel;
+}
+
+- (UIView *)searchDetailView
+{
+    if (!_searchDetailView) {
+        _searchDetailView = [UIView new];
+        _searchDetailView.translatesAutoresizingMaskIntoConstraints = NO;
+        _searchDetailView.backgroundColor = [UIColor colorWithRed:0.7882f green:0.7882f blue:0.8078f alpha:1.0f];
+        _searchDetailView.clipsToBounds = YES;
+        
+        [_searchDetailView addSubview:self.searchDetailLabel];
+        
+        UIButton *cancelSearch = [UIButton buttonWithType:UIButtonTypeSystem];
+        [cancelSearch addTarget:self action:@selector(cancelSearchAction) forControlEvents:UIControlEventTouchUpInside];
+        [cancelSearch setTitle:NSLocalizedString(@"Cancel", nil) forState:UIControlStateNormal];
+        cancelSearch.translatesAutoresizingMaskIntoConstraints = NO;
+        [cancelSearch sizeToFit];
+        
+        [_searchDetailView addSubview:cancelSearch];
+        
+        UIView *seperator = [UIView new];
+        seperator.translatesAutoresizingMaskIntoConstraints = NO;
+        seperator.backgroundColor = [UIColor colorWithRed:0.7215f green:0.7215f blue:0.7254f alpha:1.0f];
+        
+        [_searchDetailView addSubview:seperator];
+        
+        NSDictionary *views = @{@"searchDetailLabel": self.searchDetailLabel,
+                                @"cancelSearch": cancelSearch,
+                                @"seperator": seperator};
+        
+        [_searchDetailView addConstraint:[NSLayoutConstraint constraintWithItem:self.searchDetailLabel
+                                                                      attribute:NSLayoutAttributeCenterY
+                                                                      relatedBy:NSLayoutRelationEqual
+                                                                         toItem:_searchDetailView
+                                                                      attribute:NSLayoutAttributeCenterY
+                                                                     multiplier:1.0f
+                                                                       constant:0]];
+        [_searchDetailView addConstraint:[NSLayoutConstraint constraintWithItem:cancelSearch
+                                                                      attribute:NSLayoutAttributeCenterY
+                                                                      relatedBy:NSLayoutRelationEqual
+                                                                         toItem:_searchDetailView
+                                                                      attribute:NSLayoutAttributeCenterY
+                                                                     multiplier:1.0f
+                                                                       constant:0]];
+        [_searchDetailView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[seperator(<=0.5)]|"
+                                                                                  options:0
+                                                                                  metrics:nil
+                                                                                    views:views]];
+        [_searchDetailView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-[searchDetailLabel]-[cancelSearch]-|"
+                                                                                  options:0
+                                                                                  metrics:nil
+                                                                                    views:views]];
+        [_searchDetailView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-[seperator]-|"
+                                                                                  options:0
+                                                                                  metrics:nil
+                                                                                    views:views]];
+        self.searchDetailLabel.preferredMaxLayoutWidth = CGRectGetWidth(cancelSearch.frame) + (8 * 3);
+    }
+    
+    return _searchDetailView;
 }
 @end

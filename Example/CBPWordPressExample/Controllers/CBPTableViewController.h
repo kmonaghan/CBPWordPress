@@ -10,4 +10,7 @@
 
 @interface CBPTableViewController : UIViewController <UITableViewDelegate>
 @property (nonatomic) UITableView *tableView;
+
+- (void)startLoading;
+- (void)stopLoading;
 @end
