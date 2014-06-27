@@ -156,9 +156,7 @@
                     cell.textLabel.text = NSLocalizedString(@"Version", nil);
                     NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
                     
-                    NSString *majorVersion = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
-                    NSString *minorVersion = [infoDictionary objectForKey:@"CFBundleVersion"];
-                    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ (%@)", majorVersion, minorVersion];
+                    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", [infoDictionary objectForKey:@"CFBundleShortVersionString"]];
                 }
                     break;
                 default:
