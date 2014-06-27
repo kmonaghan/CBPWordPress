@@ -35,7 +35,7 @@ PODS:
     - SDWebImage/Core
   - SDWebImage/Core (3.6)
   - SORelativeDateTransformer (1.1.10)
-  - SVPullToRefresh (0.4.1)
+  - SVPullToRefresh (HEAD based on 0.4.1)
   - TOWebViewController (2.0.11)
 
 DEPENDENCIES:
@@ -50,7 +50,7 @@ DEPENDENCIES:
   - NSString-HTML (~> 0.0)
   - SAMTextView (~> 0.2)
   - SORelativeDateTransformer (~> 1.1)
-  - SVPullToRefresh (~> 0.4)
+  - SVPullToRefresh (HEAD)
   - TOWebViewController (~> 2.0.5)
 
 EXTERNAL SOURCES:
