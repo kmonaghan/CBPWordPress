@@ -88,19 +88,29 @@
                                              __strong typeof(weakSelf) strongSelf = weakSelf;
                                              
                                              NSMutableArray *posts = (strongSelf.posts) ? strongSelf.posts.mutableCopy : @[].mutableCopy;
+                                             NSMutableArray *newPosts = @[].mutableCopy;
                                              
                                              for (CBPWordPressPost *post in data.posts) {
                                                  
                                                  if (!strongSelf.postIdList[@(post.postId)]) {
-                                                     [posts addObject:post];
-                                                     
-                                                     strongSelf.postIdList[@(post.postId)] = @([posts count] - 1);
+                                                     [newPosts addObject:post];
                                                  } else {
                                                      [posts replaceObjectAtIndex:[strongSelf.postIdList[@(post.postId)] integerValue] withObject:post];
                                                  }
                                              }
                                              
-                                             strongSelf.posts = [posts arrayByAddingObjectsFromArray:strongSelf.posts];
+                                             strongSelf.posts = [newPosts arrayByAddingObjectsFromArray:posts];
+                                             
+                                             NSMutableDictionary *postIdList = @{}.mutableCopy;
+                                             
+                                             NSInteger index = 0;
+                                             for (CBPWordPressPost *post in strongSelf.posts)
+                                             {
+                                                 postIdList[@(post.postId)] = @(index);
+                                                 index++;
+                                             }
+                                             
+                                             strongSelf.postIdList = postIdList;
                                              
                                              block([posts count], nil);
                                          } else {
