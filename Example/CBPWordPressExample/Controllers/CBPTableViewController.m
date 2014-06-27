@@ -73,6 +73,7 @@
 {
     if (!_loadingView) {
         _loadingView = [[UIView alloc] initWithFrame:self.view.frame];
+        _loadingView.backgroundColor = [UIColor whiteColor];
         
         UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
         spinner.center = _loadingView.center;
