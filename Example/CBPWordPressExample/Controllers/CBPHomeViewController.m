@@ -142,6 +142,16 @@
     [self load:NO];
 }
 
+- (void)stopLoading:(BOOL)more
+{
+    [super stopLoading:more];
+    
+    if (!more) {
+        //Because the tableview sits under the navbar, we just need to offset by the statusbar height to hide the search
+        [self.tableView setContentOffset:CGPointMake(0, -20.0f) animated:YES];
+    }
+}
+
 - (void)tipAction
 {
     CBPSubmitTipViewController *vc = [[CBPSubmitTipViewController alloc] initWithStyle:UITableViewStyleGrouped];
@@ -225,7 +235,7 @@
 #pragma mark - UIScrollViewDelegate
 - (BOOL)scrollViewShouldScrollToTop:(UIScrollView *)scrollView
 {
-    [scrollView setContentOffset:CGPointMake(0, CGRectGetHeight(self.searchBar.frame)) animated:YES];
+    [scrollView setContentOffset:CGPointMake(0, -20) animated:YES];
     
     return NO;
 }

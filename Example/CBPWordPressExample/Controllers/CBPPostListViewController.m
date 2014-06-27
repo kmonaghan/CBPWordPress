@@ -138,17 +138,20 @@
             
             [strongSelf.tableView reloadData];
             
-            if (more) {
-                [strongSelf.tableView.infiniteScrollingView stopAnimating];
-            } else {
-                [strongSelf.tableView.pullToRefreshView stopAnimating];
-            }
-            
-            [UIView animateWithDuration:0.3f animations:^(){
-                [strongSelf stopLoading];
-            }];
+            [strongSelf stopLoading:more];
         }
     }];
+}
+
+- (void)stopLoading:(BOOL)more
+{
+    [super stopLoading];
+    
+    if (more) {
+        [self.tableView.infiniteScrollingView stopAnimating];
+    } else {
+        [self.tableView.pullToRefreshView stopAnimating];
+    }
 }
 
 #pragma mark - UITableViewDelegate
