@@ -21,7 +21,6 @@
 		349C68101958CC2900D25654 /* CBPTextViewTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 349C680C1958CC2900D25654 /* CBPTextViewTableViewCell.m */; };
 		34BC742B195A128300C162E8 /* CBPAboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 34BC742A195A128300C162E8 /* CBPAboutViewController.m */; };
 		34BC742E195A15BF00C162E8 /* CBPSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 34BC742D195A15BF00C162E8 /* CBPSettingsViewController.m */; };
-		34BC7432195A1AC000C162E8 /* CBPSwitchTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 34BC7431195A1AC000C162E8 /* CBPSwitchTableViewCell.m */; };
 		34C2B86418EA0EF8002268BF /* CBPPostListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 34C2B86318EA0EF8002268BF /* CBPPostListViewController.m */; };
 		34C2B86818EA1003002268BF /* CBPWordPressDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 34C2B86718EA1003002268BF /* CBPWordPressDataSource.m */; };
 		34D3693A18E709AF00E14526 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34D3693918E709AF00E14526 /* Foundation.framework */; };
@@ -85,8 +84,6 @@
 		34BC742C195A15BF00C162E8 /* CBPSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBPSettingsViewController.h; sourceTree = "<group>"; };
 		34BC742D195A15BF00C162E8 /* CBPSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBPSettingsViewController.m; sourceTree = "<group>"; };
 		34BC742F195A191500C162E8 /* CBPConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CBPConstants.h; sourceTree = "<group>"; };
-		34BC7430195A1AC000C162E8 /* CBPSwitchTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBPSwitchTableViewCell.h; sourceTree = "<group>"; };
-		34BC7431195A1AC000C162E8 /* CBPSwitchTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBPSwitchTableViewCell.m; sourceTree = "<group>"; };
 		34C2B86218EA0EF8002268BF /* CBPPostListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBPPostListViewController.h; sourceTree = "<group>"; };
 		34C2B86318EA0EF8002268BF /* CBPPostListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBPPostListViewController.m; sourceTree = "<group>"; };
 		34C2B86618EA1003002268BF /* CBPWordPressDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CBPWordPressDataSource.h; path = DataSource/CBPWordPressDataSource.h; sourceTree = "<group>"; };
@@ -306,8 +303,6 @@
 				F53E4E291926596D00932EC3 /* CBPCommentTableViewCell.m */,
 				F53D0459192382CE001A392E /* CBPLargePostPreviewTableViewCell.h */,
 				F53D045A192382CE001A392E /* CBPLargePostPreviewTableViewCell.m */,
-				34BC7430195A1AC000C162E8 /* CBPSwitchTableViewCell.h */,
-				34BC7431195A1AC000C162E8 /* CBPSwitchTableViewCell.m */,
 				349C68081958CC2900D25654 /* CBPTextFieldTableViewCell.h */,
 				349C68091958CC2900D25654 /* CBPTextFieldTableViewCell.m */,
 				349C680B1958CC2900D25654 /* CBPTextViewTableViewCell.h */,
@@ -487,7 +482,6 @@
 				3417327819070AA000DAAE85 /* CBPPostViewController.m in Sources */,
 				347E286219084AA1004D3842 /* CBPComposeCommentViewController.m in Sources */,
 				34C2B86818EA1003002268BF /* CBPWordPressDataSource.m in Sources */,
-				34BC7432195A1AC000C162E8 /* CBPSwitchTableViewCell.m in Sources */,
 				349C68071958CAF000D25654 /* GTMUIImage+Resize.m in Sources */,
 				F58217E8192D00130014AE2E /* NSString+CBPWordPressExample.m in Sources */,
 				34BC742E195A15BF00C162E8 /* CBPSettingsViewController.m in Sources */,

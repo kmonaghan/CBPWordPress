@@ -13,7 +13,8 @@
 #import "CBPSettingsViewController.h"
 
 #import "CBPTextFieldTableViewCell.h"
-#import "CBPSwitchTableViewCell.h"
+
+static NSString * const CBPSwitchTableViewCellIdentifier = @"CBPSwitchTableViewCellIdentifier";
 
 @interface CBPSettingsViewController () <UITextFieldDelegate>
 @property (nonatomic) UISwitch *backgroundSwitch;
@@ -46,7 +47,6 @@
     self.tableView.tableFooterView = self.footerView;
     
     [self.tableView registerClass:[CBPTextFieldTableViewCell class] forCellReuseIdentifier:CBPTextFieldTableViewCellIdentifier];
-    [self.tableView registerClass:[CBPSwitchTableViewCell class] forCellReuseIdentifier:CBPSwitchTableViewCellIdentifier];
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 
@@ -161,22 +161,25 @@
         }
         
         return cell;
-    }
-    else if (indexPath.section == 1)
-    {
-        CBPSwitchTableViewCell *cell = (CBPSwitchTableViewCell *)[tableView dequeueReusableCellWithIdentifier:CBPSwitchTableViewCellIdentifier];
+    } else if (indexPath.section == 1) {
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CBPSwitchTableViewCellIdentifier];
+        
+        if (!cell) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CBPSwitchTableViewCellIdentifier];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        }
         
         switch (indexPath.row) {
             case 0:
             {
-                cell.switchLabel.text = NSLocalizedString(@"Refresh stories in the background", nil);
-                cell.itemSwitch.on = self.backgroundSwitch.on;
+                cell.textLabel.text = NSLocalizedString(@"Refresh in the background", nil);
+                cell.accessoryView = self.backgroundSwitch;
             }
                 break;
             case 1:
             {
-                cell.switchLabel.text = NSLocalizedString(@"Daily reminder", nil);
-                cell.itemSwitch.on = self.reminderSwitch.on;
+                cell.textLabel.text = NSLocalizedString(@"Daily reminder", nil);
+                cell.accessoryView = self.reminderSwitch;
             }
                 break;
             default:
@@ -195,7 +198,7 @@
 {
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
     switch (indexPath.section) {
-        case 1:
+        case 0:
             switch (indexPath.row) {
                 case 0:
                     [self.nameTextField becomeFirstResponder];
@@ -223,10 +226,10 @@
     {
         [self.emailTextField becomeFirstResponder];
         return NO;
-    }
-    else if (textField == self.emailTextField)
-    {
+    } else if (textField == self.emailTextField) {
         [self.urlTextField becomeFirstResponder];
+    } else {
+        [textField resignFirstResponder];
     }
     
     return YES;
@@ -302,6 +305,7 @@
         _urlTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
         _urlTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
     }
+    
     return _urlTextField;
 }
 @end
