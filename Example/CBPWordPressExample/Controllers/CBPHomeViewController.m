@@ -69,8 +69,6 @@
     
     self.navigationItem.titleView = self.titleImageView;
     
-    [self updateHeaderImage];
-    
     self.tableView.tableHeaderView = self.searchBar;
     
     self.tableView.contentOffset = CGPointMake(0, CGRectGetHeight(self.searchBar.frame));
@@ -79,6 +77,13 @@
                                              selector:@selector(updatePosts)
                                                  name:UIApplicationWillEnterForegroundNotification
                                                object:nil];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    [self updateHeaderImage];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -189,13 +194,32 @@
 #pragma mark -
 - (void)updateHeaderImage
 {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    NSDate *lastHeaderUpdate = [defaults objectForKey:CBPLastHeaderUpdate];
+    
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *filePath = [[paths objectAtIndex:0] stringByAppendingPathComponent:@"header.png"];
+    
+    UIImage *headerImage = [UIImage imageWithData:[NSData dataWithContentsOfFile:filePath]];
+    
+    if (headerImage) {
+        self.titleImageView.image = headerImage;
+        self.navigationItem.titleView = self.titleImageView;
+        
+        return;
+    }
+    
+    if (lastHeaderUpdate && [lastHeaderUpdate timeIntervalSinceNow] < 84600) {
+        return;
+    }
+    
     __weak typeof(self) weakSelf = self;
     
     [self.titleImageView setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://broadsheet.ie/logo/iphone_logo.png"]]
                                placeholderImage:[UIImage imageNamed: @"broadsheet_black"]
                                         success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
-                                            NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-                                            NSString *filePath = [[paths objectAtIndex:0] stringByAppendingPathComponent:@"header.png"];
+                                            
 
                                             dispatch_async(dispatch_queue_create("com.crayonsandbrownpaper.myqueue", 0), ^{
                                                 [UIImagePNGRepresentation(image) writeToFile:filePath atomically:YES];
@@ -204,6 +228,9 @@
                                             __strong typeof(self) strongSelf = weakSelf;
                                             strongSelf.titleImageView.image = image;
                                             strongSelf.navigationItem.titleView = strongSelf.titleImageView;
+                                            
+                                            [defaults setObject:[NSDate date] forKey:CBPLastHeaderUpdate];
+                                            [defaults synchronize];
                                         }
                                         failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
                                             NSLog(@"Error: %@", error);
