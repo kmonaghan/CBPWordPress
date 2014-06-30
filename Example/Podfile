@@ -4,13 +4,13 @@ pod 'NSString-HTML', '~> 0.0'
 pod 'MHVideoPhotoGallery', '~> 1.6'
 pod 'SVPullToRefresh', :head
 pod 'SORelativeDateTransformer', '~> 1.1'
-pod 'JBWhatsAppActivity', '~> 1.0'
 pod 'GooglePlusShareActivity', '~> 0.2'
 pod 'HTAutocompleteTextField', '~> 1.2'
 pod 'MBProgressHUD', '~> 0.8'
 pod 'BButton', '~> 4.0'
 pod 'SAMTextView', '~> 0.2'
 pod 'Appirater', '~> 2.0'
+pod 'SSCWhatsAppActivity', '~> 1.0'
 
 post_install do | installer |
   require 'fileutils'

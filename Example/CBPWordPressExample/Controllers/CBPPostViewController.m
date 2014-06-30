@@ -11,7 +11,7 @@
 #import "NSString+CBPWordPressExample.h"
 #import "NSString+HTML.h"
 
-#import "JBWhatsAppActivity.h"
+#import "SSCWhatsAppActivity.h"
 #import "GPPShareActivity.h"
 #import "MHGallery.h"
 #import "TOWebViewController.h"
@@ -333,11 +333,10 @@ static NSString * const kFrameString = @"frame";
 
 - (void)sharePostAction
 {
-    WhatsAppMessage *whatsappMsg = [[WhatsAppMessage alloc] initWithMessage:[NSString stringWithFormat:@"%@ %@", self.post.title, self.post.url] forABID:nil];
+    NSArray* activityItems = @[self.post.title,
+                               [NSURL URLWithString:self.post.url]];
     
-    NSArray* activityItems = @[ self.post.title, [NSURL URLWithString:self.post.url], whatsappMsg ];
-    
-    UIActivityViewController* activityViewController = [[UIActivityViewController alloc] initWithActivityItems:activityItems applicationActivities:@[[JBWhatsAppActivity new], [GPPShareActivity new]]];
+    UIActivityViewController* activityViewController = [[UIActivityViewController alloc] initWithActivityItems:activityItems applicationActivities:@[[SSCWhatsAppActivity new], [GPPShareActivity new]]];
     
     activityViewController.excludedActivityTypes = @[UIActivityTypePostToWeibo, UIActivityTypeAssignToContact, UIActivityTypeAirDrop, UIActivityTypePostToTencentWeibo ];
     

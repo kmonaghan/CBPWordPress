@@ -9,7 +9,7 @@
 #import <MessageUI/MessageUI.h>
 
 #import "Appirater.h"
-#import "JBWhatsAppActivity.h"
+#import "SSCWhatsAppActivity.h"
 #import "GPPShareActivity.h"
 
 #import "CBPAboutViewController.h"
@@ -45,14 +45,11 @@
 
 - (void)shareAction
 {
-    WhatsAppMessage *whatsappMsg = [[WhatsAppMessage alloc] initWithMessage:[NSString stringWithFormat:@"%@ is a great little app from @CrayonsBrownPap: http://itunes.apple.com/ie/app/id%@", [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleName"], kAppId] forABID:nil];
-    
     NSArray* activityItems = @[[NSString stringWithFormat:@"Loving the %@ app", [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleName"]],
-                               [NSURL URLWithString:[NSString stringWithFormat:@"https://itunes.apple.com/ie/app/id%@?mt=8", kAppId]],
-                               whatsappMsg ];
+                               [NSURL URLWithString:[NSString stringWithFormat:@"https://itunes.apple.com/ie/app/id%@?mt=8", kAppId]]];
     
     UIActivityViewController* activityViewController = [[UIActivityViewController alloc] initWithActivityItems:activityItems
-                                                                                         applicationActivities:@[[JBWhatsAppActivity new],
+                                                                                         applicationActivities:@[[SSCWhatsAppActivity new],
                                                                                                                  [GPPShareActivity new]]];
     
     activityViewController.excludedActivityTypes = @[UIActivityTypePostToWeibo, UIActivityTypeAssignToContact, UIActivityTypeAirDrop, UIActivityTypePostToTencentWeibo, UIActivityTypePrint ];
