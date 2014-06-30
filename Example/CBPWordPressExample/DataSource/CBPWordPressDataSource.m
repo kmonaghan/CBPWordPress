@@ -13,8 +13,10 @@
 #import "CBPLargePostPreviewTableViewCell.h"
 
 @interface CBPWordPressDataSource()
+@property (nonatomic, assign, readwrite) NSInteger lastFetchedPostIndex;
 @property (nonatomic) NSInteger page;
 @property (nonatomic) NSMutableDictionary *postIdList;
+@property (nonatomic, readwrite) NSArray *posts;
 @end
 
 @implementation CBPWordPressDataSource
@@ -44,6 +46,7 @@
     } else {
         self.page = 1;
         self.postIdList = @{}.mutableCopy;
+        self.lastFetchedPostIndex = 0;
     }
     
     NSMutableDictionary *postParams = (params) ? params.mutableCopy : @{}.mutableCopy;
@@ -76,6 +79,16 @@
                                              block(NO, error);
                                          }
                                      }];
+}
+
+- (CBPWordPressPost *)postAtIndex:(NSInteger)index
+{
+    if (index >= [self.posts count]) {
+        return nil;
+    }
+    
+    self.lastFetchedPostIndex = index;
+    return self.posts[index];
 }
 
 - (void)updateWithBlock:(void (^)(BOOL result, NSError *error))block
@@ -111,7 +124,7 @@
                                              }
                                              
                                              strongSelf.postIdList = postIdList;
-                                             
+
                                              block([posts count], nil);
                                          } else {
                                              NSLog(@"Error: %@", error);

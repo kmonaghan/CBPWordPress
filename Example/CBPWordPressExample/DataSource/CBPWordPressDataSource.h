@@ -9,9 +9,11 @@
 #import <Foundation/Foundation.h>
 
 @interface CBPWordPressDataSource : NSObject <UITableViewDataSource>
-@property (strong, nonatomic) NSArray *posts;
+@property (nonatomic, assign, readonly) NSInteger lastFetchedPostIndex;
+@property (nonatomic, readonly) NSArray *posts;
 
 - (void)addPost:(CBPWordPressPost *)post;
 - (void)loadMore:(BOOL)more withParams:(NSDictionary *)params withBlock:(void (^)(BOOL result, NSError *error))block;
+- (CBPWordPressPost *)postAtIndex:(NSInteger)index;
 - (void)updateWithBlock:(void (^)(BOOL result, NSError *error))block;
 @end

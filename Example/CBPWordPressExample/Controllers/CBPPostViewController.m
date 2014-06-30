@@ -245,7 +245,7 @@ static NSString * const kFrameString = @"frame";
     if ([self canLoadNext]) {
         self.index--;
         
-        self.post = self.dataSource.posts[self.index];
+        self.post = [self.dataSource postAtIndex:self.index];
         
         [self displayPost];
     }
@@ -257,7 +257,7 @@ static NSString * const kFrameString = @"frame";
         self.index++;
         
         if (self.index < [self.dataSource.posts count]) {
-            self.post = self.dataSource.posts[self.index];
+            self.post = [self.dataSource postAtIndex:self.index];
             
             [self displayPost];
         } else if (self.post.previousURL) {
@@ -471,14 +471,14 @@ static NSString * const kFrameString = @"frame";
 - (void)webViewDidStartLoad:(UIWebView *)webView
 {
     if ([self canLoadNext]) {
-        self.nextTitleLabel.text = [((CBPWordPressPost *)self.dataSource.posts[(self.index - 1)]).titlePlain kv_decodeHTMLCharacterEntities];
+        self.nextTitleLabel.text = [[self.dataSource postAtIndex:(self.index - 1)].titlePlain kv_decodeHTMLCharacterEntities];
     } else {
         self.nextTitleLabel.text = nil;
     }
     
     if ([self canLoadPrevious]) {
         if ((self.index + 1) < [self.dataSource.posts count]) {
-            self.previousTitleLabel.text = [((CBPWordPressPost *)self.dataSource.posts[(self.index + 1)]).titlePlain kv_decodeHTMLCharacterEntities];
+            self.previousTitleLabel.text = [[self.dataSource postAtIndex:self.index + 1].titlePlain kv_decodeHTMLCharacterEntities];
         } else if (self.post.previousTitle) {
             self.previousTitleLabel.text = [self.post.previousTitle kv_decodeHTMLCharacterEntities];
         }

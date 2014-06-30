@@ -19,6 +19,7 @@
 @property (nonatomic) UILabel *searchDetailLabel;
 @property (nonatomic) UIView *searchDetailView;
 @property (nonatomic) NSLayoutConstraint *searchDetailViewHeightConstraint;
+@property (nonatomic, assign) BOOL syncCellPosition;
 @property (nonatomic) UIImageView *titleImageView;
 @end
 
@@ -84,6 +85,14 @@
     [super viewWillAppear:animated];
     
     [self updateHeaderImage];
+    
+    if (self.syncCellPosition && [self.dataSource.posts count]) {
+        self.syncCellPosition = NO;
+        
+        [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.dataSource.lastFetchedPostIndex inSection:0]
+                              atScrollPosition:UITableViewScrollPositionBottom
+                                      animated:YES];
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -299,6 +308,14 @@
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
 {
     [self cancelSearchAction];
+}
+
+#pragma mark - UITableViewDelegate
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath;
+{
+    self.syncCellPosition = YES;
+    
+    [super tableView:tableView didSelectRowAtIndexPath:indexPath];
 }
 
 #pragma mark -
