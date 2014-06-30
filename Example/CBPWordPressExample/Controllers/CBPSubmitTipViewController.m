@@ -476,8 +476,17 @@
         _messageTextView = [SAMTextView new];
         _messageTextView.backgroundColor = [UIColor clearColor];
         _messageTextView.font = self.emailTextField.font;
-        _messageTextView.contentInset = UIEdgeInsetsMake(5.0f, CBPPadding, 5.0f, CBPPadding);
-        _messageTextView.placeholder = NSLocalizedString(@"What have you got for us?", @"Placeholder text for the tip submission");
+        _messageTextView.contentInset = UIEdgeInsetsMake(5.0f, 10.0f, 5.0f, 10.0f);
+        
+        NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc]initWithString:NSLocalizedString(@"What have you got for us?", @"Placeholder text for the tip submission")];
+        [attributedString addAttribute:NSForegroundColorAttributeName
+                       value:[UIColor colorWithWhite:0.8 alpha:1.0f]
+                       range:NSMakeRange(0, [attributedString length])];
+        [attributedString addAttribute:NSFontAttributeName
+                                 value:self.emailTextField.font
+                                 range:NSMakeRange(0,[attributedString length])];
+
+        _messageTextView.attributedPlaceholder = attributedString;
     }
     
     return _messageTextView;
