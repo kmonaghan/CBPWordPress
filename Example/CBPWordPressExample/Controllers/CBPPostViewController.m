@@ -56,7 +56,11 @@ static NSString * const kFrameString = @"frame";
     if (self)
     {
         // Custom initialization
-        _baseFontSize = [UIFontDescriptor preferredFontDescriptorWithTextStyle:UIFontTextStyleBody].pointSize;
+        _baseFontSize = [[NSUserDefaults standardUserDefaults] floatForKey:CBPUserFontSize];
+
+        if (!_baseFontSize) {
+            _baseFontSize = [UIFontDescriptor preferredFontDescriptorWithTextStyle:UIFontTextStyleBody].pointSize;
+        }
     }
     
     return self;
@@ -207,7 +211,8 @@ static NSString * const kFrameString = @"frame";
 #pragma mark -
 - (void)displayPost
 {
-    [self.webView loadHTMLString:[NSString cbp_HTMLStringFor:self.post] baseURL:[NSURL fileURLWithPath:[[NSBundle mainBundle] bundlePath]]];
+    [self.webView loadHTMLString:[NSString cbp_HTMLStringFor:self.post withFontSize:self.baseFontSize]
+                         baseURL:[NSURL fileURLWithPath:[[NSBundle mainBundle] bundlePath]]];
     
     [self updateToolbar];
     
@@ -489,7 +494,7 @@ static NSString * const kFrameString = @"frame";
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
     if (self.scrollToMore) {
-        [self.webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"scrollIntoView(%ld)", self.post.postId]];
+        [self.webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"scrollIntoView(%ld)", (long)self.post.postId]];
         
         self.scrollToMore = NO;
     }
@@ -500,23 +505,20 @@ static NSString * const kFrameString = @"frame";
 {
     CGFloat pinchScale = gestureRecognizer.scale;
     
-    if (pinchScale < 1)
-    {
+    if (pinchScale < 1) {
         self.baseFontSize = self.baseFontSize - (pinchScale / CBPLoadPostViewMultiplier);
-    }
-    else
-    {
+    } else {
         self.baseFontSize = self.baseFontSize + (pinchScale / 2);
     }
     
-    if (self.baseFontSize < 16.0f)
-    {
-        self.baseFontSize = 16.0f;
+    if (self.baseFontSize < CBPMinimumFontSize) {
+        self.baseFontSize = CBPMinimumFontSize;
+    } else if (self.baseFontSize >= CBPMaximiumFontSize) {
+        self.baseFontSize = CBPMaximiumFontSize;
     }
-    else if (self.baseFontSize >= 32.0f)
-    {
-        self.baseFontSize = 32.0f;
-    }
+    
+    [[NSUserDefaults standardUserDefaults] setFloat:self.baseFontSize forKey:CBPUserFontSize];
+    [[NSUserDefaults standardUserDefaults] synchronize];
     
     [self.webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"changeFontSize('%f')", self.baseFontSize]];
 }
@@ -645,7 +647,7 @@ static NSString * const kFrameString = @"frame";
 - (UIWebView *)webView
 {
     if (!_webView) {
-        //this is to allow video to use sound even if the ute button is toggled
+        //this is to allow video to use sound even if the mute button is toggled
         //via: http://stackoverflow.com/a/12414719/806442
         
         AVAudioSession *audioSession = [AVAudioSession sharedInstance];
@@ -664,10 +666,12 @@ static NSString * const kFrameString = @"frame";
         _webView.mediaPlaybackRequiresUserAction = YES;
         _webView.delegate = self;
         
-        UIPinchGestureRecognizer *pinch = [[UIPinchGestureRecognizer alloc] initWithTarget:self
-                                                                                    action:@selector(pinchAction:)];
+        if ([[NSUserDefaults standardUserDefaults] floatForKey:CBPUserFontSize]) {
+            UIPinchGestureRecognizer *pinch = [[UIPinchGestureRecognizer alloc] initWithTarget:self
+                                                                                        action:@selector(pinchAction:)];
         
-        [_webView addGestureRecognizer:pinch];
+            [_webView addGestureRecognizer:pinch];
+        }
     }
     
     return _webView;

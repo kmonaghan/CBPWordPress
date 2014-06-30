@@ -6,6 +6,7 @@
 //  Copyright (c) 2014 Crayons and Brown Paper. All rights reserved.
 //
 
+
 static NSString * const CBPBackgroundUpdate = @"background_update";
 static NSString * const CBPCommenterEmail = @"comment_email";
 static NSString * const CBPCommenterName = @"comment_name";
@@ -14,6 +15,9 @@ static NSString * const CBPDailyReminder = @"daily_reminder";
 static NSString * const CBPLastHeaderUpdate = @"last_header_update";
 static NSString * const CBPFirstTime = @"first_time";
 static NSString * const CBPLocationNotifcation = @"location_notification";
+static NSString * const CBPUserFontSize = @"fontsize";
 
+static const NSInteger CBPBackgroundFetchInterval = 900;
 static const CGFloat CBPPadding = 15.0;
-static const NSInteger CBPBacgroundFetchInterval = 900;
+static const CGFloat CBPMaximiumFontSize = 32.0;
+static const CGFloat CBPMinimumFontSize = 16.0;

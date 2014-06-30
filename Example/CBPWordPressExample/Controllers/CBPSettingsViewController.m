@@ -12,6 +12,7 @@
 
 #import "CBPSettingsViewController.h"
 
+#import "CBPSliderTableViewCell.h"
 #import "CBPTextFieldTableViewCell.h"
 
 static NSString * const CBPSwitchTableViewCellIdentifier = @"CBPSwitchTableViewCellIdentifier";
@@ -23,6 +24,9 @@ static NSString * const CBPSwitchTableViewCellIdentifier = @"CBPSwitchTableViewC
 @property (nonatomic) UITextField *nameTextField;
 @property (nonatomic) UISwitch *reminderSwitch;
 @property (nonatomic) BButton *saveButton;
+@property (nonatomic) UILabel *sampleTextLabel;
+@property (nonatomic) UISwitch *systemFontSwitch;
+@property (nonatomic) UISlider *userFontSizeSlider;
 @property (nonatomic) UITextField *urlTextField;
 @end
 
@@ -45,7 +49,8 @@ static NSString * const CBPSwitchTableViewCellIdentifier = @"CBPSwitchTableViewC
     
     self.tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
     self.tableView.tableFooterView = self.footerView;
-    
+
+    [self.tableView registerClass:[CBPSliderTableViewCell class] forCellReuseIdentifier:CBPSliderTableViewCellIdentifier];
     [self.tableView registerClass:[CBPTextFieldTableViewCell class] forCellReuseIdentifier:CBPTextFieldTableViewCellIdentifier];
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -56,11 +61,17 @@ static NSString * const CBPSwitchTableViewCellIdentifier = @"CBPSwitchTableViewC
     
     self.backgroundSwitch = [UISwitch new];
     self.reminderSwitch = [UISwitch new];
+    self.systemFontSwitch = [UISwitch new];
+    [self.systemFontSwitch addTarget:self action:@selector(systemFontValueChanged) forControlEvents:UIControlEventValueChanged];
     
     self.backgroundSwitch.on = [defaults boolForKey:CBPBackgroundUpdate];
     self.reminderSwitch.on = [defaults boolForKey:CBPDailyReminder];
+    self.systemFontSwitch.on = ([defaults floatForKey:CBPUserFontSize]) ? NO : YES;
+    
+    self.userFontSizeSlider.value = ([defaults floatForKey:CBPUserFontSize])? [defaults floatForKey:CBPUserFontSize] : CBPMinimumFontSize;
 }
 
+#pragma mark -
 - (void)saveAction:(id)sender
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -80,7 +91,7 @@ static NSString * const CBPSwitchTableViewCellIdentifier = @"CBPSwitchTableViewC
     UIApplication *application = [UIApplication sharedApplication];
     
     if (self.backgroundSwitch.on) {
-        [application setMinimumBackgroundFetchInterval:CBPBacgroundFetchInterval];
+        [application setMinimumBackgroundFetchInterval:CBPBackgroundFetchInterval];
     } else {
         [application setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalNever];
     }
@@ -96,9 +107,25 @@ static NSString * const CBPSwitchTableViewCellIdentifier = @"CBPSwitchTableViewC
     
     [defaults setBool:self.reminderSwitch.on forKey:CBPDailyReminder];
     
+    if (self.systemFontSwitch.on) {
+        [defaults removeObjectForKey:CBPUserFontSize];
+    } else {
+        [defaults setFloat:self.userFontSizeSlider.value forKey:CBPUserFontSize];
+    }
+
     [defaults synchronize];
     
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)systemFontValueChanged
+{
+    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationFade];
+}
+
+- (void)userFontSliderChanged
+{
+    
 }
 
 #pragma mark - UITableViewDataSource
@@ -116,7 +143,7 @@ static NSString * const CBPSwitchTableViewCellIdentifier = @"CBPSwitchTableViewC
             return 3;
             break;
         case 1:
-            return 2;
+            return (self.systemFontSwitch.on) ? 3 : 4;
             break;
         default:
             break;
@@ -162,6 +189,14 @@ static NSString * const CBPSwitchTableViewCellIdentifier = @"CBPSwitchTableViewC
         
         return cell;
     } else if (indexPath.section == 1) {
+        
+        if (indexPath.row == 3) {
+            CBPSliderTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CBPSliderTableViewCellIdentifier];
+            cell.slider = self.userFontSizeSlider;
+            
+            return cell;
+        }
+        
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CBPSwitchTableViewCellIdentifier];
         
         if (!cell) {
@@ -180,6 +215,12 @@ static NSString * const CBPSwitchTableViewCellIdentifier = @"CBPSwitchTableViewC
             {
                 cell.textLabel.text = NSLocalizedString(@"Daily reminder", nil);
                 cell.accessoryView = self.reminderSwitch;
+            }
+                break;
+            case 2:
+            {
+                cell.textLabel.text = NSLocalizedString(@"Use iOS dynamic font sizes", nil);
+                cell.accessoryView = self.systemFontSwitch;
             }
                 break;
             default:
@@ -291,6 +332,40 @@ static NSString * const CBPSwitchTableViewCellIdentifier = @"CBPSwitchTableViewC
     }
     
     return _saveButton;
+}
+
+- (UISlider *)userFontSizeSlider
+{
+    if (!_userFontSizeSlider) {
+        _userFontSizeSlider = [UISlider new];
+        
+        _userFontSizeSlider.minimumValue = CBPMinimumFontSize;
+        _userFontSizeSlider.maximumValue = CBPMaximiumFontSize;
+        
+        [_userFontSizeSlider addTarget:self action:@selector(userFontSliderChanged) forControlEvents:UIControlEventValueChanged];
+        
+        UILabel *smallLabel = [UILabel new];
+        smallLabel.font = [UIFont systemFontOfSize:CBPMinimumFontSize];
+        smallLabel.text = @"A";
+        [smallLabel sizeToFit];
+        
+        UIGraphicsBeginImageContextWithOptions(smallLabel.frame.size, NO, 0.0);
+        [smallLabel.layer renderInContext: UIGraphicsGetCurrentContext()];
+        _userFontSizeSlider.minimumValueImage = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+        
+        UILabel *largeLabel = [UILabel new];
+        largeLabel.font = [UIFont systemFontOfSize:CBPMaximiumFontSize];
+        largeLabel.text = @"A";
+        [largeLabel sizeToFit];
+        
+        UIGraphicsBeginImageContextWithOptions(largeLabel.frame.size, NO, 0.0);
+        [largeLabel.layer renderInContext: UIGraphicsGetCurrentContext()];
+        _userFontSizeSlider.maximumValueImage = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+    }
+    
+    return _userFontSizeSlider;
 }
 
 - (UITextField *)urlTextField
