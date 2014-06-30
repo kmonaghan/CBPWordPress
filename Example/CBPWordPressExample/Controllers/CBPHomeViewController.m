@@ -215,8 +215,6 @@
     if (headerImage) {
         self.titleImageView.image = headerImage;
         self.navigationItem.titleView = self.titleImageView;
-        
-        return;
     }
     
     if (lastHeaderUpdate && [lastHeaderUpdate timeIntervalSinceNow] < 84600) {
