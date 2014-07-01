@@ -120,12 +120,18 @@ static NSString * const CBPSwitchTableViewCellIdentifier = @"CBPSwitchTableViewC
 
 - (void)systemFontValueChanged
 {
-    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationFade];
-}
-
-- (void)userFontSliderChanged
-{
+    [self.tableView beginUpdates];
     
+    if (self.systemFontSwitch.on) {
+        [self.tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:3 inSection:1]] withRowAnimation:UITableViewRowAnimationFade];
+    } else {
+        [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:3 inSection:1]] withRowAnimation:UITableViewRowAnimationFade];
+    }
+    [self.tableView endUpdates];
+
+    if (!self.systemFontSwitch.on) {
+        [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:3 inSection:1] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+    }
 }
 
 #pragma mark - UITableViewDataSource
@@ -234,6 +240,14 @@ static NSString * const CBPSwitchTableViewCellIdentifier = @"CBPSwitchTableViewC
 }
 
 #pragma mark - UITableViewDelegate
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath;
+{
+    if ((indexPath.section == 1) && (indexPath.row == 3)) {
+        return CBPSliderTableViewCellHeight;
+    }
+    
+    return 44.0f;
+}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -341,9 +355,7 @@ static NSString * const CBPSwitchTableViewCellIdentifier = @"CBPSwitchTableViewC
         
         _userFontSizeSlider.minimumValue = CBPMinimumFontSize;
         _userFontSizeSlider.maximumValue = CBPMaximiumFontSize;
-        
-        [_userFontSizeSlider addTarget:self action:@selector(userFontSliderChanged) forControlEvents:UIControlEventValueChanged];
-        
+                
         UILabel *smallLabel = [UILabel new];
         smallLabel.font = [UIFont systemFontOfSize:CBPMinimumFontSize];
         smallLabel.text = @"A";
