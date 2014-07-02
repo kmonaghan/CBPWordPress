@@ -317,18 +317,18 @@ static NSString * const kFrameString = @"frame";
 #pragma mark - Button Actions
 - (void)composeCommentAction
 {
-    __weak typeof(self) blockSelf = self;
+    __weak typeof(self) weakSelf = self;
     
     CBPComposeCommentViewController *vc = [[CBPComposeCommentViewController alloc] initWithPostId:self.post.postId
                                                                               withCompletionBlock:^(CBPWordPressComment *comment, NSError *error) {
-                                                                                  [blockSelf.navigationController dismissViewControllerAnimated:YES
+                                                                                  __strong typeof(weakSelf) strongSelf = weakSelf;
+                                                                                  [strongSelf.navigationController dismissViewControllerAnimated:YES
                                                                                                                                      completion:^() {
-                                                                                                                                         
                                                                                                                                          if (error) {
-                                                                                                                                             
-                                                                                                                                         } else if (comment) {
-                                                                                                                                             
-                                                                                                                                         }}];
+                                                                                                                                             return;
+                                                                                                                                         }
+                                                                                                            
+                                                                                                                                     }];
                                                                               }];
     
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:vc];

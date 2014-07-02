@@ -30,12 +30,14 @@
 
 - (void)loadWithBlock:(void (^)(BOOL result, NSError *error))block
 {
-    __weak typeof(self) blockSelf = self;
+    __weak typeof(self) weakSelf = self;
     
     [NSURLSessionDataTask fetchPostWithId:self.post.postId
                                 withBlock:^(CBPWordPressPost *post, NSError *error){
+                                    __strong typeof(weakSelf) strongSelf = weakSelf;
+                                    
                                     if (post) {
-                                    blockSelf.post = post;
+                                        strongSelf.post = post;
                                     
                                         block(YES, nil);
                                     } else {
@@ -59,7 +61,8 @@
     cell.avatarURI = comment.avatar;
     cell.commentator = comment.name;
     cell.commentDate = comment.date;
-    cell.comment = comment.content;
+    cell.commentAttributedString = comment.contentAttributedString;
+    cell.commentId = comment.commentId;
     cell.delegate = self.linkDelegate;
     
     return cell;

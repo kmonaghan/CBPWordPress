@@ -8,18 +8,21 @@
 
 #import <UIKit/UIKit.h>
 
-static const CGFloat CBPCommentTableViewCellHeight = 70.0;
+static const CGFloat CBPCommentTableViewCellHeight = 102.0;
 static NSString * const CBPCommentTableViewCellIdentifier = @"CBPCommentTableViewCellIdentifier";
 
 @protocol CBPCommentTableViewCellDelegate
 - (void)openURL:(NSURL *)URL;
+- (void)replyToComment:(NSInteger)commentId;
 @end
 
 @interface CBPCommentTableViewCell : UITableViewCell
 @property (nonatomic) NSString *avatarURI;
 @property (nonatomic, assign, readonly) CGFloat cellHeight;
 @property (nonatomic) NSString *comment;
+@property (nonatomic) NSAttributedString *commentAttributedString;
 @property (nonatomic) NSString *commentator;
 @property (nonatomic) NSDate *commentDate;
+@property (nonatomic, assign) NSInteger commentId;
 @property (nonatomic, weak) id<CBPCommentTableViewCellDelegate> delegate;
 @end

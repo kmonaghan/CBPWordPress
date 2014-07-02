@@ -6,6 +6,7 @@
 //  Copyright (c) 2014 Crayons and Brown Paper. All rights reserved.
 //
 
+#import <SVPullToRefresh/SVPullToRefresh.h>
 #import "TOWebViewController.h"
 
 #import "CBPCommentsViewController.h"
@@ -23,16 +24,6 @@
 @end
 
 @implementation CBPCommentsViewController
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
 - (id)initWithPost:(CBPWordPressPost *)post
 {
     self = [self initWithNibName:nil bundle:nil];
@@ -46,9 +37,8 @@
 
 - (void)loadView
 {
+    self.edgesForExtendedLayout = UIRectEdgeNone;
     [super loadView];
-    
-    [self.view addSubview:self.tableView];
 }
 
 - (void)viewDidLoad
@@ -62,8 +52,18 @@
     self.tableView.dataSource = self.dataSource;
     self.tableView.rowHeight = CBPCommentTableViewCellHeight;
     self.tableView.estimatedRowHeight = CBPCommentTableViewCellHeight;
+    self.tableView.contentOffset = CGPointMake(0, -64.0f);
     
     [self.tableView registerClass:[CBPCommentTableViewCell class] forCellReuseIdentifier:CBPCommentTableViewCellIdentifier];
+    
+    UIView *header = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame), 0.5f)];
+    header.backgroundColor = [UIColor lightGrayColor];
+    
+    self.tableView.tableHeaderView = header;
+    
+    UIView *footer = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame), 0.5f)];
+    
+    self.tableView.tableFooterView = footer;
     
     if ([self.post.commentStatus isEqualToString:@"open"]) {
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose
@@ -73,26 +73,59 @@
     }
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    __weak typeof(self) weakSelf = self;
+    
+    // setup pull-to-refresh
+    [self.tableView addPullToRefreshWithActionHandler:^{
+        __strong typeof(weakSelf) strongSelf = weakSelf;
+        [strongSelf load:NO];
+    }];
+}
+
 #pragma mark - Button Actions
 - (void)composeCommentAction
 {
-    __weak typeof(self) blockSelf = self;
+    __weak typeof(self) weakSelf = self;
     
     CBPComposeCommentViewController *vc = [[CBPComposeCommentViewController alloc] initWithPostId:self.post.postId
                                                                               withCompletionBlock:^(CBPWordPressComment *comment, NSError *error) {
-                                                                                  [blockSelf.navigationController dismissViewControllerAnimated:YES
+                                                                                  __strong typeof(weakSelf) strongSelf = weakSelf;
+                                                                                  [weakSelf.navigationController dismissViewControllerAnimated:YES
                                                                                                                                      completion:^() {
-                                                                                                                                         
                                                                                                                                          if (error) {
-                                                                                                                                             
-                                                                                                                                         } else if (comment) {
-                                                                                                                                             
-                                                                                                                                         }}];
+                                                                                                                                             [strongSelf errorLoading:error];
+                                                                                                                                             return;
+                                                                                                                                         }
+                                                                                                                                     
+                                                                                                                                         [strongSelf showMessage:NSLocalizedString(@"Comment submitted", nil)];
+                                                                                                                                     }];
                                                                               }];
     
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:vc];
     
     [self presentViewController:navController animated:YES completion:nil];
+}
+
+- (void)load:(BOOL)more
+{
+    __weak typeof(self) weakSelf = self;
+    [self.dataSource loadWithBlock:^(BOOL result, NSError *error) {
+        __strong typeof(weakSelf) strongSelf = weakSelf;
+        
+        [strongSelf stopLoading];
+        
+        [strongSelf.tableView.pullToRefreshView stopAnimating];
+        
+        if (error) {
+            return;
+        }
+        
+        [strongSelf.tableView reloadData];
+    }];
 }
 
 #pragma mark - UITableViewDelegate
@@ -128,8 +161,7 @@
     [self.heightMeasuringCell layoutIfNeeded];
     
     // Get the actual height required for the cell
-    //CGFloat height = [self.heightMeasuringCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height;
-    CGFloat height = self.heightMeasuringCell.cellHeight;
+    CGFloat height = [self.heightMeasuringCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height;
 
     // Add an extra point to the height to account for the cell separator, which is added between the bottom
     // of the cell's contentView and the bottom of the table view cell.
@@ -143,5 +175,29 @@
 {
     TOWebViewController *webBrowser = [[TOWebViewController alloc] initWithURL:URL];
     [self.navigationController pushViewController:webBrowser animated:YES];
+}
+
+- (void)replyToComment:(NSInteger)commentId
+{
+    __weak typeof(self) weakSelf = self;
+    
+    CBPComposeCommentViewController *vc = [[CBPComposeCommentViewController alloc] initWithPostId:self.post.postId
+                                                                                    withCommentId:commentId
+                                                                              withCompletionBlock:^(CBPWordPressComment *comment, NSError *error) {
+                                                                                  __strong typeof(weakSelf) strongSelf = weakSelf;
+                                                                                  [strongSelf.navigationController dismissViewControllerAnimated:YES
+                                                                                                                                     completion:^() {
+                                                                                                                                         if (error) {
+                                                                                                                                             [strongSelf errorLoading:error];
+                                                                                                                                             return;
+                                                                                                                                         }
+                                                                                                                                         
+                                                                                                                                         [strongSelf showMessage:NSLocalizedString(@"Comment submitted", nil)];
+                                                                                                                                     }];
+                                                                              }];
+    
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:vc];
+    
+    [self presentViewController:navController animated:YES completion:nil];
 }
 @end

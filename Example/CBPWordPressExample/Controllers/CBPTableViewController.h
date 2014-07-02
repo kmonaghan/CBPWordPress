@@ -12,6 +12,7 @@
 @property (nonatomic) UITableView *tableView;
 
 - (void)errorLoading:(NSError *)error;
+- (void)showMessage:(NSString *)message;
 - (void)startLoading;
 - (void)stopLoading;
 @end

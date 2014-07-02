@@ -6,29 +6,25 @@
 //  Copyright (c) 2014 Crayons and Brown Paper. All rights reserved.
 //
 
+#import "TSMessage.h"
+
 #import "CBPTableViewController.h"
 
 @interface CBPTableViewController ()
 @property (nonatomic) UILabel *errorLabel;
 @property (nonatomic) UIView *errorView;
 @property (nonatomic) UIView *loadingView;
+@property (nonatomic) UIButton *reloadButton;
 @end
 
 @implementation CBPTableViewController
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
 
 - (void)loadView
 {
     [super loadView];
 
+    [self.view addSubview:self.errorView];
+    
     [self.view addSubview:self.loadingView];
     
     [self.view addSubview:self.tableView];
@@ -70,6 +66,21 @@
     [self stopLoading];
 }
 
+- (void)reload
+{
+    
+}
+
+- (void)showMessage:(NSString *)message
+{
+    [TSMessage showNotificationInViewController:self
+                                           title:message
+                                        subtitle:nil
+                                            type:TSMessageNotificationTypeSuccess
+                                        duration:5.0f
+                            canBeDismissedByUser:YES];
+}
+
 - (void)startLoading
 {
     [self.view bringSubviewToFront:self.loadingView];
@@ -87,8 +98,9 @@
 - (UILabel *)errorLabel
 {
     if (!_errorLabel) {
-        _errorLabel = [UILabel new];
+        _errorLabel = [[UILabel alloc] initWithFrame:CGRectMake(CBPPadding, 0, CGRectGetWidth(self.view.frame) - (CBPPadding * 2), 20.0f)];
         _errorLabel.numberOfLines = 0;
+        _errorLabel.textAlignment = NSTextAlignmentCenter;
         _errorLabel.preferredMaxLayoutWidth = CGRectGetWidth(self.view.frame) - (CBPPadding * 2);
         _errorLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleHeadline];
     }
@@ -105,8 +117,7 @@
         self.errorLabel.center = _errorView.center;
         
         [_errorView addSubview:self.errorLabel];
-        
-        [self.view addSubview:self.errorView];
+        [_errorView addSubview:self.reloadButton];
     }
     
     return _errorView;
@@ -127,10 +138,25 @@
     
     return _loadingView;
 }
+
+- (UIButton *)reloadButton
+{
+    if (!_reloadButton) {
+        _reloadButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_reloadButton addTarget:self action:@selector(reload) forControlEvents:UIControlEventTouchUpInside];
+        [_reloadButton setTitle:NSLocalizedString(@"Reload", nil) forState:UIControlStateNormal];
+        _reloadButton.titleLabel.textColor = [UIColor blackColor];
+        [_reloadButton sizeToFit];
+    }
+    
+    return _reloadButton;
+}
+
 - (UITableView *)tableView
 {
     if (!_tableView) {
         _tableView = [[UITableView alloc] initWithFrame:self.view.frame style:UITableViewStylePlain];
+        _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         _tableView.delegate = self;
     }
     
