@@ -158,12 +158,12 @@
 
 - (void)stopLoading:(BOOL)more
 {
-    [super stopLoading:more];
-    
     if (!more) {
-        //Because the tableview sits under the navbar, we just need to offset by the statusbar height to hide the search
-        [self.tableView setContentOffset:CGPointMake(0, -20.0f) animated:YES];
+        CGFloat offset = -20.0f - ((self.searchBar.text) ? CGRectGetHeight(self.searchDetailView.frame): 0);
+        [self.tableView setContentOffset:CGPointMake(0, offset) animated:NO];
     }
+    
+    [super stopLoading:more];
 }
 
 - (void)tipAction
