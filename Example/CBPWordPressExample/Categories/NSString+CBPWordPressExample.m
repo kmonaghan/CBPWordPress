@@ -159,6 +159,14 @@
     html = [html stringByReplacingOccurrencesOfString:@"\"//platform.twitter.com/"
                                            withString:@"\"http://platform.twitter.com/"].mutableCopy;
     
+    if (([html rangeOfString:@"\"//player.vimeo.com"].location != NSNotFound))
+    {
+        [html replaceOccurrencesOfString:@"\"//player.vimeo.com"
+                              withString:@"\"http://player.vimeo.com"
+                                 options:0
+                                   range:NSMakeRange(0, [html length])];
+    }
+    
     
     return html;
 }
