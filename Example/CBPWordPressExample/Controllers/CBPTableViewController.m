@@ -9,6 +9,8 @@
 #import "CBPTableViewController.h"
 
 @interface CBPTableViewController ()
+@property (nonatomic) UILabel *errorLabel;
+@property (nonatomic) UIView *errorView;
 @property (nonatomic) UIView *loadingView;
 @end
 
@@ -58,9 +60,22 @@
 }
 
 #pragma mark -
+- (void)errorLoading:(NSError *)error
+{
+    self.errorLabel.text = error.localizedDescription;
+    [self.errorLabel sizeToFit];
+    
+    [self.view bringSubviewToFront:self.errorView];
+    
+    [self stopLoading];
+}
+
 - (void)startLoading
 {
     [self.view bringSubviewToFront:self.loadingView];
+    [self.view sendSubviewToBack:self.errorView];
+    
+    self.errorLabel.text = nil;
 }
 
 - (void)stopLoading
@@ -69,6 +84,34 @@
 }
 
 #pragma mark -
+- (UILabel *)errorLabel
+{
+    if (!_errorLabel) {
+        _errorLabel = [UILabel new];
+        _errorLabel.numberOfLines = 0;
+        _errorLabel.preferredMaxLayoutWidth = CGRectGetWidth(self.view.frame) - (CBPPadding * 2);
+        _errorLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleHeadline];
+    }
+    
+    return _errorLabel;
+}
+
+- (UIView *)errorView
+{
+    if (!_errorView) {
+        _errorView = [[UIView alloc] initWithFrame:self.view.frame];
+        _errorView.backgroundColor = [UIColor whiteColor];
+        
+        self.errorLabel.center = _errorView.center;
+        
+        [_errorView addSubview:self.errorLabel];
+        
+        [self.view addSubview:self.errorView];
+    }
+    
+    return _errorView;
+}
+
 - (UIView *)loadingView
 {
     if (!_loadingView) {

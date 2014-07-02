@@ -11,6 +11,7 @@
 @interface CBPTableViewController : UIViewController <UITableViewDelegate>
 @property (nonatomic) UITableView *tableView;
 
+- (void)errorLoading:(NSError *)error;
 - (void)startLoading;
 - (void)stopLoading;
 @end
