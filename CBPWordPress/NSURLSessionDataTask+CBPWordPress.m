@@ -57,7 +57,7 @@
     return [[CBPWordPressAPIClient sharedClient] GET:@"" parameters:@{CBPAction: CBPPost, CBPPostId: @(postId)} success:^(NSURLSessionDataTask * __unused task, id JSON) {
         
         if ([JSON[@"status"] isEqualToString:@"ok"]) {
-            CBPWordPressPost *post = [CBPWordPressPost initFromDictionary:JSON];
+            CBPWordPressPost *post = [CBPWordPressPost initFromDictionary:JSON[@"post"]];
             
             if (block) {
                 block(post, nil);
