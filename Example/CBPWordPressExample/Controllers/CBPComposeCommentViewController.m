@@ -7,13 +7,18 @@
 //
 
 #import "HTEmailAutocompleteTextField.h"
+#import "MBProgressHUD.h"
+#import "SAMTextView.h"
 
 #import "CBPComposeCommentViewController.h"
 
+#import "CBPTextFieldTableViewCell.h"
+#import "CBPTextViewTableViewCell.h"
+
 @interface CBPComposeCommentViewController () <UITextFieldDelegate, UITextViewDelegate>
-@property (nonatomic, assign) BOOL constraintsCreated;
 @property (nonatomic, copy) commentCompletionBlock completionBlock;
-@property (nonatomic) UITextView *commentTextView;
+@property (nonatomic, assign) NSInteger commentId;
+@property (nonatomic) SAMTextView *commentTextView;
 @property (nonatomic) HTEmailAutocompleteTextField *emailTextField;
 @property (nonatomic) UITextField *nameTextField;
 @property (nonatomic, assign) NSInteger postId;
@@ -24,11 +29,21 @@
 
 - (instancetype)initWithPostId:(NSInteger)postId withCompletionBlock:(commentCompletionBlock)block
 {
-    self = [super initWithNibName:nil bundle:nil];
+    self = [super initWithStyle:UITableViewStyleGrouped];
     if (self) {
         // Custom initialization
         _postId = postId;
         _completionBlock = block;
+    }
+    return self;
+}
+
+- (instancetype)initWithPostId:(NSInteger)postId withCommentId:(NSInteger)commentId withCompletionBlock:(commentCompletionBlock)block
+{
+    self = [self initWithPostId:postId withCompletionBlock:block];
+    if (self) {
+        // Custom initialization
+        _commentId = commentId;
     }
     return self;
 }
@@ -42,40 +57,7 @@
     [self updateViewConstraints];
 }
 
-- (void)updateViewConstraints
-{
-    [super updateViewConstraints];
-    
-    if (!self.constraintsCreated) {
-        NSDictionary *views = @{@"topLayoutGuide": self.topLayoutGuide,
-                                @"nameTextField": self.nameTextField,
-                                @"emailTextField": self.emailTextField,
-                                @"urlTextField": self.urlTextField,
-                                @"commentTextView": self.commentTextView};
-        
-        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[topLayoutGuide]-[nameTextField]-[emailTextField]-[urlTextField]-[commentTextView(200)]"
-                                                                          options:0
-                                                                          metrics:nil
-                                                                            views:views]];
-        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-[nameTextField]-|"
-                                                                          options:0
-                                                                          metrics:nil
-                                                                            views:views]];
-        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-[emailTextField]-|"
-                                                                          options:0
-                                                                          metrics:nil
-                                                                            views:views]];
-        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-[urlTextField]-|"
-                                                                          options:0
-                                                                          metrics:nil
-                                                                            views:views]];
-        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-[commentTextView]-|"
-                                                                          options:0
-                                                                          metrics:nil
-                                                                            views:views]];
-        self.constraintsCreated = YES;
-    }
-}
+
 
 - (void)viewDidLoad
 {
@@ -88,12 +70,32 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemReply
                                                                                            target:self
                                                                                            action:@selector(replyAction)];
+    
+    [self.tableView registerClass:[CBPTextFieldTableViewCell class] forCellReuseIdentifier:CBPTextFieldTableViewCellIdentifier];
+    [self.tableView registerClass:[CBPTextViewTableViewCell class] forCellReuseIdentifier:CBPTextViewTableViewCellIdentifier];
+    
+    //[self makeFooter];
+    
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    self.nameTextField.text = [defaults objectForKey:CBPCommenterName];
+    self.emailTextField.text = [defaults objectForKey:CBPCommenterEmail];
+    self.urlTextField.text = [defaults objectForKey:CBPCommenterURL];
 }
 
-- (void)didReceiveMemoryWarning
+- (void)viewDidAppear:(BOOL)animated
 {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    [super viewDidAppear:animated];
+    
+    if (![self.nameTextField.text length]) {
+        [self.nameTextField becomeFirstResponder];
+    } else if (![self.emailTextField.text length]) {
+        [self.emailTextField becomeFirstResponder];
+    } else if (![self.urlTextField.text length]) {
+        [self.urlTextField becomeFirstResponder];
+    } else {
+        [self.commentTextView becomeFirstResponder];
+    }
 }
 
 #pragma mark - Button Actions
@@ -104,9 +106,15 @@
 
 - (void)replyAction
 {
+    self.tableView.tableHeaderView = nil;
+    
+    if (![self validate]) {
+        return;
+    }
+    
     [self syncDetails];
     
-    __weak typeof(self) blockSelf = self;
+    __weak typeof(self) weakSelf = self;
     
     CBPWordPressComment *newComment = [CBPWordPressComment new];
     newComment.postId = self.postId;
@@ -118,14 +126,59 @@
         newComment.url = self.urlTextField.text;
     }
     
+    if (self.commentId) {
+        newComment.parent = self.commentId;
+    }
+    
     [NSURLSessionDataTask postComment:newComment
                             withBlock:^(CBPWordPressComment *comment, NSError *error){
                                 NSLog(@"%@", [comment dictionaryRepresentation]);
                                 
                                 if (comment) {
-                                    blockSelf.completionBlock(comment, nil);
+                                    __strong typeof(weakSelf) strongSelf = weakSelf;
+                                    strongSelf.completionBlock(comment, nil);
                                 }
                             }];
+}
+
+- (BOOL)validate
+{
+    BOOL result = YES;
+    NSMutableString *errorMessage = @"".mutableCopy;
+    if (![self.nameTextField.text length]) {
+        result = NO;
+        
+        [errorMessage appendString:@"Please enter your name\n"];
+    }
+    
+    if (![self.emailTextField.text length]) {
+        result = NO;
+        [errorMessage appendString:@"Please enter an email address\n"];
+    }
+    
+    if (![self.commentTextView.text length]) {
+        result = NO;
+        [errorMessage appendString:@"Please enter a comment"];
+    }
+    
+    if (!result){
+        UILabel *errorLabel = [UILabel new];
+        errorLabel.text = errorMessage;
+        errorLabel.numberOfLines = 0;
+        errorLabel.frame = CGRectMake(10, 10, 300, 22);
+        [errorLabel sizeToFit];
+        errorLabel.backgroundColor = [UIColor clearColor];
+        
+        UIView *header = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, errorLabel.frame.size.height + 20)];
+        
+        [header addSubview:errorLabel];
+        
+        self.tableView.tableHeaderView = header;
+        
+        [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+    }
+    
+    return result;
 }
 
 #pragma mark -
@@ -144,13 +197,85 @@
     [defaults synchronize];
 }
 
+#pragma mark - UITableViewDataSource
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    // Return the number of sections.
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    // Return the number of rows in the section.
+    return 4;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.row == 3)
+    {
+        CBPTextViewTableViewCell *cell = (CBPTextViewTableViewCell *)[tableView dequeueReusableCellWithIdentifier:CBPTextViewTableViewCellIdentifier];
+        
+        cell.inputTextView = self.commentTextView;
+        
+        return cell;
+    }
+    
+    CBPTextFieldTableViewCell *cell = (CBPTextFieldTableViewCell *)[tableView dequeueReusableCellWithIdentifier:CBPTextFieldTableViewCellIdentifier];
+    
+    switch (indexPath.row) {
+        case 0:
+            cell.inputTextField = self.nameTextField;
+            break;
+        case 1:
+            cell.inputTextField = self.emailTextField;
+            break;
+        case 2:
+            cell.inputTextField = self.urlTextField;
+            break;
+        default:
+            break;
+    }
+    return cell;
+}
+
+
+#pragma mark - Table view delegate
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.row == 3)
+    {
+        return CBPTextViewTableViewCellHeight;
+    }
+    
+    return CBPTextFieldTableViewCellHeight;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    switch (indexPath.row) {
+        case 0:
+            [self.nameTextField becomeFirstResponder];
+            break;
+        case 1:
+            [self.emailTextField becomeFirstResponder];
+            break;
+        case 2:
+            [self.urlTextField becomeFirstResponder];
+            break;
+        case 3:
+            [self.commentTextView becomeFirstResponder];
+        default:
+            break;
+    }
+}
+
 #pragma mark - Getters
 - (HTEmailAutocompleteTextField *)emailTextField
 {
     if (!_emailTextField) {
         _emailTextField = [HTEmailAutocompleteTextField new];
-        _emailTextField.translatesAutoresizingMaskIntoConstraints = NO;
-        _emailTextField.borderStyle = UITextBorderStyleRoundedRect;
         _emailTextField.backgroundColor = [UIColor whiteColor];
         _emailTextField.keyboardType = UIKeyboardTypeEmailAddress;
         _emailTextField.returnKeyType = UIReturnKeyNext;
@@ -172,8 +297,6 @@
 {
     if (!_nameTextField) {
         _nameTextField = [UITextField new];
-        _nameTextField.borderStyle = UITextBorderStyleRoundedRect;
-        _nameTextField.translatesAutoresizingMaskIntoConstraints = NO;
         _nameTextField.placeholder = NSLocalizedString(@"Your name", @"Placeholder for commenter's name textfield");
         _nameTextField.returnKeyType = UIReturnKeyNext;
         _nameTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
@@ -185,14 +308,22 @@
     return _nameTextField;
 }
 
-- (UITextView *)commentTextView
+- (SAMTextView *)commentTextView
 {
     if (!_commentTextView) {
-        _commentTextView = [UITextView new];
-        _commentTextView.font = [UIFont systemFontOfSize:17.0f];
-        _commentTextView.translatesAutoresizingMaskIntoConstraints = NO;
-        _commentTextView.layer.cornerRadius = 4.0f;
+        _commentTextView = [SAMTextView new];
+        _commentTextView.font = self.emailTextField.font;
+        _commentTextView.contentInset = UIEdgeInsetsMake(5.0f, 10.0f, 5.0f, 10.0f);
         
+        NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc]initWithString:NSLocalizedString(@"What have you to say?", @"Placeholder text for the comment submission")];
+        [attributedString addAttribute:NSForegroundColorAttributeName
+                                 value:[UIColor colorWithWhite:0.8 alpha:1.0f]
+                                 range:NSMakeRange(0, [attributedString length])];
+        [attributedString addAttribute:NSFontAttributeName
+                                 value:self.emailTextField.font
+                                 range:NSMakeRange(0,[attributedString length])];
+        
+        _commentTextView.attributedPlaceholder = attributedString;
         [self.view addSubview:_commentTextView];
     }
     
@@ -203,8 +334,6 @@
 {
     if (!_urlTextField) {
         _urlTextField = [UITextField new];
-        _urlTextField.borderStyle = UITextBorderStyleRoundedRect;
-        _urlTextField.translatesAutoresizingMaskIntoConstraints = NO;
         _urlTextField.placeholder = NSLocalizedString(@"Your website", @"Placeholder for commenter's website textfield");
         _urlTextField.returnKeyType = UIReturnKeyNext;
         _urlTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
