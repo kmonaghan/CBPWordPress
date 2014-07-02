@@ -96,4 +96,21 @@
 
 }
 
+- (NSAttributedString *)contentAttributedString
+{
+    if (!_contentAttributedString) {
+        NSError *error;
+        
+        _contentAttributedString = [[NSAttributedString alloc] initWithData:[self.content dataUsingEncoding:NSISOLatin1StringEncoding]
+                                         options:@{NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType}
+                              documentAttributes:nil
+                                                                      error:&error];
+        
+        if (error) {
+            _contentAttributedString = nil;
+        }
+    }
+    
+    return _contentAttributedString;
+}
 @end

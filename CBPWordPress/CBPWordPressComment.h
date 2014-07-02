@@ -15,6 +15,7 @@
 @property (nonatomic) CBPWordPressAuthor *author;
 @property (nonatomic, strong) NSString *avatar;
 @property (nonatomic, strong) NSString *content;
+@property (nonatomic, strong) NSAttributedString *contentAttributedString;
 @property (nonatomic, strong) NSDate *date;
 @property (nonatomic, strong) NSString *email;
 @property (nonatomic, assign) NSInteger commentId;
