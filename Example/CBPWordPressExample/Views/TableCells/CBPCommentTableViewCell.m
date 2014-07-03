@@ -6,18 +6,22 @@
 //  Copyright (c) 2014 Crayons and Brown Paper. All rights reserved.
 //
 
+#import "TTTAttributedLabel.h"
 #import "UIImageView+AFNetworking.h"
 
 #import "CBPCommentTableViewCell.h"
 
-static const CGFloat CBPCommentTableViewCellPadding = 15.0;
+static const CGFloat CBPCommentTableViewCellAvatarHeight = 40.0;
+static NSDateFormatter *commentDateFormatter = nil;
 
-@interface CBPCommentTableViewCell() <UITextViewDelegate>
+@interface CBPCommentTableViewCell() <TTTAttributedLabelDelegate>
 @property (nonatomic) UIImageView *avatarImageView;
 @property (nonatomic, assign) BOOL constraintsUpdated;
-@property (nonatomic) UITextView *commentTextView;
+@property (nonatomic) UIView *commentHeaderView;
+@property (nonatomic) TTTAttributedLabel *commentLabel;
 @property (nonatomic) UILabel *commentatorLabel;
 @property (nonatomic) UILabel *commentDateLabel;
+@property (nonatomic) UIButton *replyButton;
 @end
 
 @implementation CBPCommentTableViewCell
@@ -40,34 +44,24 @@ static const CGFloat CBPCommentTableViewCellPadding = 15.0;
         //See https://github.com/smileyborg/TableViewCellWithAutoLayout/blob/master/TableViewCellWithAutoLayout/TableViewController/RJTableViewCell.m#L77
         self.contentView.bounds = CGRectMake(0.0f, 0.0f, CGRectGetWidth(self.frame), CBPCommentTableViewCellHeight);
         
-        NSDictionary *views = @{@"avatarImageView": self.avatarImageView,
-                                @"commentTextView": self.commentTextView,
-                                @"commentatorLabel": self.commentatorLabel,
-                                @"commentDateLabel": self.commentDateLabel};
+        NSDictionary *views = @{@"commentHeaderView": self.commentHeaderView,
+                                @"commentLabel": self.commentLabel
+                                };
         
-        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"V:|-(%f)-[avatarImageView(40)]-(10)-[commentTextView]-(%f)-|", CBPCommentTableViewCellPadding, CBPCommentTableViewCellPadding]
-                                                                                 options:0
-                                                                                 metrics:nil
-                                                                                   views:views]];
         
-        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"V:|-(%f)-[commentatorLabel]-(>=0)-[commentDateLabel]", CBPCommentTableViewCellPadding]
+        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"V:|[commentHeaderView][commentLabel]-(%f)-|", CBPPadding]
                                                                                  options:0
                                                                                  metrics:nil
                                                                                    views:views]];
-        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"H:|-(%f)-[avatarImageView(40)]-(%f)-[commentatorLabel]-(%f)-|", CBPCommentTableViewCellPadding, CBPCommentTableViewCellPadding, CBPCommentTableViewCellPadding]
+        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"|-(%f)-[commentHeaderView]-(%f)-|", CBPPadding, CBPPadding]
                                                                                  options:0
                                                                                  metrics:nil
                                                                                    views:views]];
-        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"H:|-(%f)-[avatarImageView]-(%f)-[commentDateLabel]-(%f)-|", CBPCommentTableViewCellPadding, CBPCommentTableViewCellPadding, CBPCommentTableViewCellPadding]
+        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"|-(%f)-[commentLabel]-(%f)-|", CBPPadding, CBPPadding]
                                                                                  options:0
                                                                                  metrics:nil
                                                                                    views:views]];
-        
-        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"H:|-(%f)-[commentTextView]-(%f)-|", CBPCommentTableViewCellPadding, CBPCommentTableViewCellPadding]
-                                                                                 options:0
-                                                                                 metrics:nil
-                                                                                   views:views]];
-        
+
         self.constraintsUpdated = YES;
     }
     
@@ -83,7 +77,7 @@ static const CGFloat CBPCommentTableViewCellPadding = 15.0;
     [self.contentView setNeedsLayout];
     [self.contentView layoutIfNeeded];
     
-    [self.commentTextView sizeToFit];
+    self.commentLabel.preferredMaxLayoutWidth = CGRectGetWidth(self.contentView.frame) - (CBPPadding * 2);
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
@@ -99,11 +93,21 @@ static const CGFloat CBPCommentTableViewCellPadding = 15.0;
     
     [self.avatarImageView cancelImageRequestOperation];
     self.avatarImageView.image = [UIImage imageNamed:@"default_avatar_image"];
-    self.commentTextView.text = nil;
+    self.commentLabel.text = nil;
     self.commentatorLabel.text = nil;
     self.commentDateLabel.text = nil;
-    
-    [self setNeedsUpdateConstraints];
+}
+
+#pragma mark -
+- (void)replyAction
+{
+    [self.delegate replyToComment:self.commentId];
+}
+
+#pragma mark - TTTAttributedLabelDelegate
+- (void)attributedLabel:(TTTAttributedLabel *)label didSelectLinkWithURL:(NSURL *)url
+{
+    [self.delegate openURL:url];
 }
 
 #pragma mark -
@@ -117,19 +121,27 @@ static const CGFloat CBPCommentTableViewCellPadding = 15.0;
 {
     NSError *error;
     
-    NSMutableAttributedString *attributedComment = [[NSAttributedString alloc] initWithData:[comment dataUsingEncoding:NSUTF8StringEncoding]
+    NSMutableAttributedString *attributedComment = [[NSAttributedString alloc] initWithData:[comment dataUsingEncoding:NSISOLatin1StringEncoding]
                                                                                     options:@{NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType}
                                                                          documentAttributes:nil
                                                                                       error:&error].mutableCopy;
     [attributedComment addAttribute:NSFontAttributeName value:[UIFont preferredFontForTextStyle:UIFontTextStyleBody] range:NSMakeRange(0, attributedComment.length)];
     
-    self.commentTextView.attributedText = attributedComment;
+    self.commentLabel.attributedText = attributedComment;
     
-    if (error) {
-        NSLog(@"error turning comment into attributed string: %@", error);
-    }
+    [self.commentLabel sizeToFit];
+}
 
-    [self setNeedsUpdateConstraints];
+- (void)setCommentAttributedString:(NSAttributedString *)commentAttributedString
+{
+    NSMutableAttributedString *attributedComment = commentAttributedString.mutableCopy;
+    [attributedComment addAttribute:NSFontAttributeName value:[UIFont preferredFontForTextStyle:UIFontTextStyleBody] range:NSMakeRange(0, attributedComment.length)];
+    
+    _commentAttributedString = attributedComment;
+    
+    self.commentLabel.attributedText = attributedComment;
+    
+    [self.commentLabel sizeToFit];
 }
 
 - (void)setCommentator:(NSString *)commentator
@@ -140,7 +152,11 @@ static const CGFloat CBPCommentTableViewCellPadding = 15.0;
 
 - (void)setCommentDate:(NSDate *)commentDate
 {
-    self.commentDateLabel.text = [commentDate description];
+    if (!commentDateFormatter) {
+        commentDateFormatter = [NSDateFormatter new];
+        [commentDateFormatter setDateFormat:@"yyyy-MM-dd HH:mm"];
+    }
+    self.commentDateLabel.text = [commentDateFormatter stringFromDate:commentDate];
     [self.commentDateLabel sizeToFit];
 }
 
@@ -149,30 +165,10 @@ static const CGFloat CBPCommentTableViewCellPadding = 15.0;
     if (!_avatarImageView) {
         _avatarImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"default_avatar_image"]];
         _avatarImageView.translatesAutoresizingMaskIntoConstraints = NO;
-        
-        [self.contentView addSubview:_avatarImageView];
+        _avatarImageView.contentMode = UIViewContentModeScaleAspectFit;
     }
     
     return _avatarImageView;
-}
-
-- (UITextView *)commentTextView
-{
-    if (!_commentTextView) {
-        _commentTextView = [UITextView new];
-        _commentTextView.translatesAutoresizingMaskIntoConstraints = NO;
-        _commentTextView.editable = NO;
-        _commentTextView.scrollEnabled = NO;
-        _commentTextView.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
-        _commentTextView.dataDetectorTypes = UIDataDetectorTypeAll;
-        _commentTextView.delegate = self;
-        
-        _commentTextView.backgroundColor = [UIColor lightGrayColor];
-        
-        [self.contentView addSubview:_commentTextView];
-    }
-    
-    return _commentTextView;
 }
 
 - (UILabel *)commentatorLabel
@@ -181,8 +177,6 @@ static const CGFloat CBPCommentTableViewCellPadding = 15.0;
         _commentatorLabel = [UILabel new];
         _commentatorLabel.translatesAutoresizingMaskIntoConstraints = NO;
         _commentatorLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline];
-        
-        [self.contentView addSubview:_commentatorLabel];
     }
     
     return _commentatorLabel;
@@ -194,25 +188,88 @@ static const CGFloat CBPCommentTableViewCellPadding = 15.0;
         _commentDateLabel = [UILabel new];
         _commentDateLabel.translatesAutoresizingMaskIntoConstraints = NO;
         _commentDateLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline];
-        
-        [self.contentView addSubview:_commentDateLabel];
     }
     
     return _commentDateLabel;
 }
 
-#pragma mark - UITextViewDelegate
-- (BOOL)textView:(UITextView *)textView shouldInteractWithURL:(NSURL *)URL inRange:(NSRange)characterRange
+- (UIView *)commentHeaderView
 {
-    [self.delegate openURL:URL];
+    if (!_commentHeaderView) {
+        _commentHeaderView = [UIView new];
+        _commentHeaderView.translatesAutoresizingMaskIntoConstraints = NO;
+        
+        [_commentHeaderView addSubview:self.avatarImageView];
+        [_commentHeaderView addSubview:self.commentatorLabel];
+        [_commentHeaderView addSubview:self.commentDateLabel];
+        [_commentHeaderView addSubview:self.replyButton];
+        
+        NSDictionary *views = @{@"avatarImageView": self.avatarImageView,
+                                @"commentatorLabel": self.commentatorLabel,
+                                @"commentDateLabel": self.commentDateLabel,
+                                @"replyButton": self.replyButton};
+        
+        [_commentHeaderView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"V:|-(%f)-[commentatorLabel]-(>=0)-[commentDateLabel]-(%f)-|", CBPPadding, CBPPadding]
+                                                                                   options:0
+                                                                                   metrics:nil
+                                                                                     views:views]];
+        [_commentHeaderView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[replyButton]"
+                                                                                   options:0
+                                                                                   metrics:nil
+                                                                                     views:views]];
+        [_commentHeaderView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"[avatarImageView(%f)]", CBPCommentTableViewCellAvatarHeight]
+                                                                                   options:0
+                                                                                   metrics:nil
+                                                                                     views:views]];
+        [_commentHeaderView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"H:|[avatarImageView(%f)]-(%f)-[commentatorLabel]-(>=0)-[replyButton]|", CBPCommentTableViewCellAvatarHeight, CBPPadding]
+                                                                                   options:0
+                                                                                   metrics:nil
+                                                                                     views:views]];
+        [_commentHeaderView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"H:|[avatarImageView(%f)]-(%f)-[commentDateLabel]-(>=0)-[replyButton]|", CBPCommentTableViewCellAvatarHeight, CBPPadding]
+                                                                                   options:0
+                                                                                   metrics:nil
+                                                                                     views:views]];
+        [_commentHeaderView addConstraint:[NSLayoutConstraint constraintWithItem:self.avatarImageView
+                                                                       attribute:NSLayoutAttributeCenterY
+                                                                       relatedBy:NSLayoutRelationEqual
+                                                                          toItem:_commentHeaderView
+                                                                       attribute:NSLayoutAttributeCenterY
+                                                                      multiplier:1.0f
+                                                                        constant:0]];
+        
+        [self.contentView addSubview:_commentHeaderView];
+        
+        
+    }
     
-    return NO;
+    return _commentHeaderView;
 }
 
-#pragma mark - 
-- (CGFloat)cellHeight
+- (TTTAttributedLabel *)commentLabel
 {
-    return CGRectGetMaxY(self.commentTextView.frame) + CBPCommentTableViewCellPadding;
+    if (!_commentLabel) {
+        _commentLabel = [TTTAttributedLabel new];
+        _commentLabel.translatesAutoresizingMaskIntoConstraints = NO;
+        _commentLabel.numberOfLines = 0;
+        _commentLabel.delegate = self;
+        [self.contentView addSubview:_commentLabel];
+    }
+    
+    return _commentLabel;
+}
+
+- (UIButton *)replyButton
+{
+    if (!_replyButton) {
+        _replyButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        _replyButton.translatesAutoresizingMaskIntoConstraints = NO;
+        [_replyButton setTitle:@"Reply" forState:UIControlStateNormal];
+        [_replyButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [_replyButton addTarget:self action:@selector(replyAction) forControlEvents:UIControlEventTouchUpInside];
+        [_replyButton sizeToFit];
+    }
+    
+    return _replyButton;
 }
 
 @end

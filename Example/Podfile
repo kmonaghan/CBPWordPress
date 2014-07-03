@@ -11,6 +11,8 @@ pod 'BButton', '~> 4.0'
 pod 'SAMTextView', '~> 0.2'
 pod 'Appirater', '~> 2.0'
 pod 'SSCWhatsAppActivity', '~> 1.0'
+pod 'TTTAttributedLabel', '~> 1.10'
+pod 'TSMessages', '~> 0.9'
 
 post_install do | installer |
   require 'fileutils'

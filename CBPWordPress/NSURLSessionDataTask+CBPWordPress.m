@@ -74,7 +74,11 @@
 
 + (NSURLSessionDataTask *)postComment:(CBPWordPressComment *)comment withBlock:(void (^)(CBPWordPressComment *comment, NSError *error))block
 {
+    NSLog(@"[comment dictionaryRepresentation]: %@", [comment dictionaryRepresentation]);
+    
     return [[CBPWordPressAPIClient sharedClient] POST:@"/?json=respond.submit_comment" parameters:[comment dictionaryRepresentation] success:^(NSURLSessionDataTask * __unused task, id JSON) {
+        
+        NSLog(@"JSON: %@", JSON);
         
         if ([JSON[@"status"] isEqualToString:@"ok"]) {
             CBPWordPressComment *comment = [CBPWordPressComment initFromDictionary:JSON[@"comment"]];

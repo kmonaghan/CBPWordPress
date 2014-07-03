@@ -39,7 +39,7 @@
                                                              diskPath:nil];
     [NSURLCache setSharedURLCache:URLCache];
 
-    //[GPPSignIn sharedInstance].clientID = @"864709573863-rr1na3aqu5embrr4fc15dkp5i8g7fmdm.apps.googleusercontent.com";
+    [GPPSignIn sharedInstance].clientID = @"864709573863-rr1na3aqu5embrr4fc15dkp5i8g7fmdm.apps.googleusercontent.com";
     
     [self firstTime:application];
     
@@ -99,7 +99,7 @@
         return;
     }
 
-    [application setMinimumBackgroundFetchInterval:CBPBacgroundFetchInterval];
+    [application setMinimumBackgroundFetchInterval:CBPBackgroundFetchInterval];
     [defaults setBool:YES forKey:CBPBackgroundUpdate];
     
     [self setupNotification];
@@ -133,7 +133,6 @@
         return;
     }
     
-    NSLog(@"itemDate: %@", [itemDate description]);
     localnotifcation.fireDate = itemDate;
     localnotifcation.timeZone = [NSTimeZone defaultTimeZone];
     localnotifcation.repeatInterval = NSCalendarUnitWeekday;

@@ -24,6 +24,7 @@ PODS:
   - google-plus-ios-sdk (1.5.0)
   - GooglePlusShareActivity (0.2.4):
     - google-plus-ios-sdk (= 1.5.0)
+  - HexColors (2.2.1)
   - HTAutocompleteTextField (1.2.6)
   - MBProgressHUD (0.8)
   - MHVideoPhotoGallery (1.6.1):
@@ -36,7 +37,10 @@ PODS:
   - SORelativeDateTransformer (1.1.10)
   - SSCWhatsAppActivity (1.0)
   - SVPullToRefresh (HEAD based on 0.4.1)
-  - TOWebViewController (2.0.11)
+  - TOWebViewController (2.0.12)
+  - TSMessages (0.9.9):
+    - HexColors
+  - TTTAttributedLabel (1.10.1)
 
 DEPENDENCIES:
   - Appirater (~> 2.0)
@@ -52,6 +56,8 @@ DEPENDENCIES:
   - SSCWhatsAppActivity (~> 1.0)
   - SVPullToRefresh (HEAD)
   - TOWebViewController (~> 2.0.5)
+  - TSMessages (~> 0.9)
+  - TTTAttributedLabel (~> 1.10)
 
 EXTERNAL SOURCES:
   CBPWordPress:
@@ -64,6 +70,7 @@ SPEC CHECKSUMS:
   CBPWordPress: 31b7daaa8e8c727cac5276db59705b68252ea1e9
   google-plus-ios-sdk: 20ab80284c5ce4616e176b25ed9522cde6f894d3
   GooglePlusShareActivity: 291bce40de044aaefc8dbe32141e21f8de0c13f4
+  HexColors: 01384d2bbe8dc4ffa43c3b4135db6e976952d153
   HTAutocompleteTextField: 92ca48eb8f2a7fba756fb9f19bc54cba3391b8f4
   MBProgressHUD: c356980b0cd097f19acec959b49dca5eb8ec31be
   MHVideoPhotoGallery: 55bedce06c1bd53c6cf1368a9419bc0db0f7f701
@@ -73,6 +80,8 @@ SPEC CHECKSUMS:
   SORelativeDateTransformer: de7936811c9988af8e129a097af48c828f933f5f
   SSCWhatsAppActivity: a0194b86913400fbb05605ac9f0c83874f3ca377
   SVPullToRefresh: d5161ebc833a38b465364412e5e307ca80bbb190
-  TOWebViewController: 8c34044ad88dda030aad550b409eb2a8351014a0
+  TOWebViewController: 6835e64ddfd79f178a65ee46a5041c075a5aa77d
+  TSMessages: 2999ef55e532378692e9d14d32da2bb60e285129
+  TTTAttributedLabel: 94bb04f1e005616002dd2cee0262a0082e533627
 
 COCOAPODS: 0.33.1

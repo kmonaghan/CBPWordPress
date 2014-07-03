@@ -10,7 +10,7 @@
 
 @implementation NSString (CBPWordPressExample)
 
-+ (NSString *)cbp_HTMLStringFor:(CBPWordPressPost *)post
++ (NSString *)cbp_HTMLStringFor:(CBPWordPressPost *)post withFontSize:(CGFloat)fontSize
 {
     static NSString *HTMLTemplate;
     
@@ -29,6 +29,10 @@
     
     NSMutableString *html = HTMLTemplate.mutableCopy;
     
+    [html replaceOccurrencesOfString:@"$fontsize$"
+                          withString:[@(fontSize) stringValue]
+                             options:0
+                               range:NSMakeRange(0, [html length])];
     [html replaceOccurrencesOfString:@"$title$"
                           withString:post.title
                              options:0

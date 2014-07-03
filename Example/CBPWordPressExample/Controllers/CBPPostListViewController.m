@@ -124,6 +124,15 @@
     return params;
 }
 
+- (void)errorLoading:(NSError *)error wasLoadingMore:(BOOL)more
+{
+    if (!more) {
+        [super errorLoading:error];
+    }
+    
+    [self stopLoading:more];
+}
+
 - (void)load:(BOOL)more
 {
     if (!more) {
@@ -133,12 +142,14 @@
     __weak typeof(self) weakSelf = self;
     
     [self.dataSource loadMore:more withParams:[self generateParams] withBlock:^(BOOL result, NSError *error){
+        __strong typeof(weakSelf) strongSelf = weakSelf;
+
         if (result) {
-            __strong typeof(weakSelf) strongSelf = weakSelf;
-            
             [strongSelf.tableView reloadData];
             
             [strongSelf stopLoading:more];
+        } else {
+            [strongSelf errorLoading:error wasLoadingMore:more];
         }
     }];
 }

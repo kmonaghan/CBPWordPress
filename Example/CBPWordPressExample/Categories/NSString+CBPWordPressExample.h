@@ -9,5 +9,5 @@
 #import <Foundation/Foundation.h>
 
 @interface NSString (CBPWordPressExample)
-+ (NSString *)cbp_HTMLStringFor:(CBPWordPressPost *)post;
++ (NSString *)cbp_HTMLStringFor:(CBPWordPressPost *)post withFontSize:(CGFloat)fontSize;
 @end

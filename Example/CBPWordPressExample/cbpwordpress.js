@@ -11,3 +11,8 @@ function scrollIntoView(postId) {
         e.scrollIntoView();
     }
 }
+
+function changeFontSize(newSize)
+{
+    document.getElementById("singlentry").style.fontSize = newSize + "px";
+}
