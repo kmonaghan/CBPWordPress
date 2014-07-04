@@ -9,10 +9,13 @@
 #import <UIKit/UIKit.h>
 
 @interface CBPTableViewController : UIViewController <UITableViewDelegate>
+@property (nonatomic, assign) BOOL canInfiniteLoad;
+@property (nonatomic, assign) BOOL canPullToRefresh;
 @property (nonatomic) UITableView *tableView;
 
 - (void)errorLoading:(NSError *)error;
+- (void)load:(BOOL)more;
 - (void)showMessage:(NSString *)message;
 - (void)startLoading;
-- (void)stopLoading;
+- (void)stopLoading:(BOOL)more;
 @end

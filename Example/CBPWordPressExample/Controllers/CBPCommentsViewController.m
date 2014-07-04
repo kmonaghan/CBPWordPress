@@ -24,21 +24,17 @@
 @end
 
 @implementation CBPCommentsViewController
-- (id)initWithPost:(CBPWordPressPost *)post
+- (instancetype)initWithPost:(CBPWordPressPost *)post
 {
     self = [self initWithNibName:nil bundle:nil];
     
     if (self) {
+        self.canPullToRefresh = YES;
+        
         _post = post;
     }
     
     return self;
-}
-
-- (void)loadView
-{
-    self.edgesForExtendedLayout = UIRectEdgeNone;
-    [super loadView];
 }
 
 - (void)viewDidLoad
@@ -116,9 +112,7 @@
     [self.dataSource loadWithBlock:^(BOOL result, NSError *error) {
         __strong typeof(weakSelf) strongSelf = weakSelf;
         
-        [strongSelf stopLoading];
-        
-        [strongSelf.tableView.pullToRefreshView stopAnimating];
+        [strongSelf stopLoading:more];
         
         if (error) {
             return;

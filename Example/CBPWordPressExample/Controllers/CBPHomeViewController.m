@@ -15,6 +15,7 @@
 #import "CBPSubmitTipViewController.h"
 
 @interface CBPHomeViewController () <UISearchBarDelegate>
+@property (nonatomic, assign) BOOL backgroundFetchInProgress;
 @property (nonatomic) UISearchBar *searchBar;
 @property (nonatomic) UILabel *searchDetailLabel;
 @property (nonatomic) UIView *searchDetailView;
@@ -156,16 +157,6 @@
     [self load:NO];
 }
 
-- (void)stopLoading:(BOOL)more
-{
-    if (!more) {
-        CGFloat offset = -20.0f - ((self.searchBar.text) ? CGRectGetHeight(self.searchDetailView.frame): 0);
-        [self.tableView setContentOffset:CGPointMake(0, offset) animated:NO];
-    }
-    
-    [super stopLoading:more];
-}
-
 - (void)tipAction
 {
     CBPSubmitTipViewController *vc = [[CBPSubmitTipViewController alloc] initWithStyle:UITableViewStyleGrouped];
@@ -178,6 +169,17 @@
 }
 
 #pragma mark -
+- (void)errorLoading:(NSError *)error
+{
+    if (self.backgroundFetchInProgress) {
+        self.backgroundFetchInProgress = NO;
+    
+        return;
+    }
+    
+    [super errorLoading:error];
+}
+
 - (NSDictionary *)generateParams
 {
     NSMutableDictionary *params = [super generateParams].mutableCopy;
@@ -198,6 +200,18 @@
     }
     
     [super load:more];
+}
+
+- (void)stopLoading:(BOOL)more
+{
+    [super stopLoading:more];
+    
+    if (!more) {
+        CGFloat offset = ([self.searchBar.text length]) ? 0 : CGRectGetHeight(self.searchBar.frame);
+        [self.tableView setContentOffset:CGPointMake(0, offset) animated:YES];
+    }
+    
+    self.backgroundFetchInProgress = NO;
 }
 
 #pragma mark -
@@ -250,6 +264,8 @@
         return;
     }
     
+    self.backgroundFetchInProgress = YES;
+    
     [self.tableView triggerPullToRefresh];
 }
 
@@ -259,7 +275,9 @@
     
     [self.searchDetailLabel sizeToFit];
     
-    self.searchDetailViewHeightConstraint.constant = CGRectGetHeight(self.searchDetailLabel.frame) + 20.0f;
+    CGFloat height = CGRectGetHeight(self.searchDetailLabel.frame) + 20.0f;
+    
+    self.searchDetailViewHeightConstraint.constant = (height > 44.0f) ? height : 44.0f;
     
     [UIView animateWithDuration:0.3f animations:^(void) {
         [self.view layoutIfNeeded];

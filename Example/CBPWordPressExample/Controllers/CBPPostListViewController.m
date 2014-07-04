@@ -7,7 +7,6 @@
 //
 
 #import "NSString+HTML.h"
-#import <SVPullToRefresh/SVPullToRefresh.h>
 
 #import "CBPPostListViewController.h"
 #import "CBPPostViewController.h"
@@ -23,6 +22,18 @@
 @end
 
 @implementation CBPPostListViewController
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    
+    if (self) {
+        self.canInfiniteLoad = YES;
+        self.canPullToRefresh = YES;
+    }
+    
+    return self;
+}
+
 - (instancetype)initWithAuthorId:(NSNumber *)authorId
 {
     self = [super initWithNibName:nil bundle:nil];
@@ -69,13 +80,6 @@
     
     [self.tableView registerClass:[CBPLargePostPreviewTableViewCell class] forCellReuseIdentifier:CBPLargePostPreviewTableViewCellIdentifier];
     
-    __weak typeof(self) weakSelf = self;
-
-    // setup infinite scrolling
-    [self.tableView addInfiniteScrollingWithActionHandler:^{
-        [weakSelf load:YES];
-    }];
-    
     [self load:NO];
 }
 
@@ -86,19 +90,6 @@
     if (self.postCount < [self.dataSource.posts count]) {
         [self.tableView reloadData];
     }
-}
-
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-    
-    __weak typeof(self) weakSelf = self;
-
-    // setup pull-to-refresh
-    [self.tableView addPullToRefreshWithActionHandler:^{
-        __strong typeof(weakSelf) strongSelf = weakSelf;
-        [strongSelf load:NO];
-    }];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -135,9 +126,7 @@
 
 - (void)load:(BOOL)more
 {
-    if (!more) {
-        [self startLoading];
-    }
+    [super load:more];
     
     __weak typeof(self) weakSelf = self;
     
@@ -152,17 +141,6 @@
             [strongSelf errorLoading:error wasLoadingMore:more];
         }
     }];
-}
-
-- (void)stopLoading:(BOOL)more
-{
-    [super stopLoading];
-    
-    if (more) {
-        [self.tableView.infiniteScrollingView stopAnimating];
-    } else {
-        [self.tableView.pullToRefreshView stopAnimating];
-    }
 }
 
 #pragma mark - UITableViewDelegate

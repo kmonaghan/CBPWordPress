@@ -20,6 +20,4 @@
 - (instancetype)initWithTagId:(NSNumber *)tagId;
 
 - (NSDictionary *)generateParams;
-- (void)load:(BOOL)more;
-- (void)stopLoading:(BOOL)more;
 @end

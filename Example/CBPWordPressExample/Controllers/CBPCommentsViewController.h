@@ -13,5 +13,5 @@
 @class CBPWordPressPost;
 
 @interface CBPCommentsViewController : CBPTableViewController
-- (id)initWithPost:(CBPWordPressPost *)post;
+- (instancetype)initWithPost:(CBPWordPressPost *)post;
 @end
