@@ -2,12 +2,13 @@
   "images" : [
     {
       "idiom" : "universal",
-      "scale" : "1x"
+      "scale" : "1x",
+      "filename" : "default-post-image.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "post_default_image.png"
+      "filename" : "default-post-image@2x.png"
     }
   ],
   "info" : {
