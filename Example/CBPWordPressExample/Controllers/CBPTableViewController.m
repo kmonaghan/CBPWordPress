@@ -42,29 +42,24 @@
                                                  name:UIContentSizeCategoryDidChangeNotification
                                                object:nil];
     
-    if (self.canInfiniteLoad) {
-        __weak typeof(self) weakSelf = self;
-        
-        // setup infinite scrolling
-        [self.tableView addInfiniteScrollingWithActionHandler:^{
-            [weakSelf load:YES];
-        }];
-    }
-}
+    __weak typeof(self) weakSelf = self;
 
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-    
     if (self.canPullToRefresh) {
-        __weak typeof(self) weakSelf = self;
-        
         // setup pull-to-refresh
         [self.tableView addPullToRefreshWithActionHandler:^{
             __strong typeof(weakSelf) strongSelf = weakSelf;
             [strongSelf load:NO];
         }];
     }
+    
+    if (self.canInfiniteLoad) {
+        // setup infinite scrolling
+        [self.tableView addInfiniteScrollingWithActionHandler:^{
+            [weakSelf load:YES];
+        }];
+    }
+    
+    [self stopLoading:NO];
 }
 
 - (void)viewDidDisappear:(BOOL)animated
