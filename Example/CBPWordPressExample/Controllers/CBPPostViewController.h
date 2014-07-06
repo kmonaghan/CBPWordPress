@@ -14,4 +14,5 @@
 @interface CBPPostViewController : UIViewController
 - (id)initWithPost:(CBPWordPressPost *)post;
 - (id)initWithPost:(CBPWordPressPost *)post withDataSource:(CBPWordPressDataSource *)dataSource withIndex:(NSInteger)index;
+- (instancetype)initWithURL:(NSURL *)url;
 @end

@@ -12,6 +12,7 @@
 #import "CBPHomeViewController.h"
 
 #import "CBPAboutViewController.h"
+#import "CBPPostViewController.h"
 #import "CBPSubmitTipViewController.h"
 
 @interface CBPHomeViewController () <UISearchBarDelegate>
@@ -155,6 +156,25 @@
     [self.view layoutIfNeeded];
     
     [self load:NO];
+}
+
+- (void)openURL:(NSURL *)url
+{
+    UIViewController *vc;
+    
+    if ([[url host] hasSuffix:@"author"]) {
+        vc = [[CBPPostListViewController alloc] initWithAuthorId:[url port]];
+    } else if ([[url host] hasSuffix:@"category"]) {
+        vc = [[CBPPostListViewController alloc] initWithCategoryId:[url port]];
+    } else if ([[url host] hasSuffix:@"tag"]) {
+        vc = [[CBPPostListViewController alloc] initWithTagId:[url port]];
+    } else if ([[url host] hasSuffix:@"broadsheet.ie"] && [[url path] hasPrefix:@"/20"]) {
+        vc = [[CBPPostViewController alloc] initWithURL:url];
+    }
+    
+    if (vc) {
+        [self.navigationController pushViewController:vc animated:YES];
+    }
 }
 
 - (void)tipAction

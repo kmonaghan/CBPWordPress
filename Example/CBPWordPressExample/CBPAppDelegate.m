@@ -76,6 +76,14 @@
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
 {
+    NSLog(@"sourceApplication: %@", sourceApplication);
+    
+    if ([[url host] hasSuffix:@"broadsheet.ie"]) {
+        [self.viewController openURL:url];
+        
+        return YES;
+    }
+    
     // handle Google+ Sign In callback URL
     return [[GPPSignIn sharedInstance] handleURL:url sourceApplication:sourceApplication annotation:annotation];
 }
