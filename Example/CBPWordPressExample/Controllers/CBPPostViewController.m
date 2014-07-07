@@ -348,8 +348,16 @@ static NSString * const kFrameString = @"frame";
     [self presentViewController:activityViewController animated:YES completion:NULL];
 }
 
-- (void)showGallery
-{
+- (void)showGallery:(NSString *)uri
+{    
+    NSUInteger index = [self.post.attachments indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
+        if ([[(CBPWordPressAttachment *)obj url] isEqualToString:uri]) {
+            *stop = YES;
+            return YES;
+        }
+        return NO;
+    }];
+    
     NSMutableArray *galleryData = @[].mutableCopy;
     
     for (CBPWordPressAttachment *attachment in self.post.attachments) {
@@ -362,9 +370,13 @@ static NSString * const kFrameString = @"frame";
     MHGalleryController *gallery = [MHGalleryController galleryWithPresentationStyle:MHGalleryViewModeImageViewerNavigationBarShown];
     gallery.galleryItems = galleryData;
     
+    if (index != NSNotFound) {
+        gallery.presentationIndex = index;
+    }
+    
     __weak MHGalleryController *blockGallery = gallery;
     
-    gallery.finishedCallback = ^(NSUInteger currentIndex,UIImage *image,MHTransitionDismissMHGallery *interactiveTransition,MHGalleryViewMode viewMode) {
+    gallery.finishedCallback = ^(NSUInteger currentIndex, UIImage *image,MHTransitionDismissMHGallery *interactiveTransition, MHGalleryViewMode viewMode) {
         
         dispatch_async(dispatch_get_main_queue(), ^{
             [blockGallery dismissViewControllerAnimated:YES dismissImageView:nil completion:nil];
@@ -418,7 +430,7 @@ static NSString * const kFrameString = @"frame";
             if ([ext isEqualToString:@"jpg"] || [ext isEqualToString:@"jpeg"]
                 || [ext isEqualToString:@"png"]
                 || [ext isEqualToString:@"gif"]) {
-                [self showGallery];
+                [self showGallery:[[request URL] absoluteString]];
             }
         //Capture CBPWordPress links
         } else if ([[[request URL] scheme] hasSuffix:@"cbpwordpress"]) {
