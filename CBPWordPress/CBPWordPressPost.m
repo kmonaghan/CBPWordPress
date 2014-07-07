@@ -101,8 +101,14 @@
         [self setValue:value forKey:@"commentCount"];
     } else if ([key isEqualToString:@"comment_status"]) {
         [self setValue:value forKey:@"commentStatus"];
+    } else if ([key isEqualToString:@"custom_fields"]) {
+        [self setValue:value forKey:@"customFields"];
     } else if ([key isEqualToString:@"id"]) {
         [self setValue:value forKey:@"postId"];
+    } else if ([key isEqualToString:@"thumbnail_images"]) {
+        [self setValue:value forKey:@"thumbnailImages"];
+    } else if ([key isEqualToString:@"thumbnail_size"]) {
+        [self setValue:value forKey:@"thumbnailSize"];
     } else if ([key isEqualToString:@"title_plain"]) {
         [self setValue:value forKey:@"titlePlain"];
     } else if ([key isEqualToString:@"next_title"]) {
@@ -150,6 +156,10 @@
         [dictionary setObject:self.content forKey:@"content"];
     }
     
+    if (self.customFields) {
+        [dictionary setObject:self.content forKey:@"custom_fields"];
+    }
+    
     if (self.date) {
         [dictionary setObject:self.date forKey:@"date"];
     }
@@ -178,6 +188,14 @@
     
     if (self.thumbnail) {
         [dictionary setObject:self.thumbnail forKey:@"thumbnail"];
+    }
+    
+    if (self.thumbnailImages) {
+        [dictionary setObject:self.thumbnail forKey:@"thumbnail_images"];
+    }
+    
+    if (self.thumbnailSize) {
+        [dictionary setObject:self.thumbnail forKey:@"thumbnail_size"];
     }
     
     if (self.title) {

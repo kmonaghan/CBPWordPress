@@ -19,6 +19,7 @@
 @property (nonatomic) NSString *commentStatus;
 @property (nonatomic) NSArray *comments;
 @property (nonatomic) NSString *content;
+@property (nonatomic) NSDictionary *customFields;
 @property (nonatomic) NSDate *date;
 @property (nonatomic) NSString *excerpt;
 @property (nonatomic, assign) NSInteger postId;
@@ -32,6 +33,8 @@
 @property (nonatomic) NSString *status;
 @property (nonatomic) NSArray *tags;
 @property (nonatomic) NSString *thumbnail;
+@property (nonatomic) NSDictionary *thumbnailImages;
+@property (nonatomic) NSString *thumbnailSize;
 @property (nonatomic) NSString *title;
 @property (nonatomic) NSString *titlePlain;
 @property (nonatomic) NSString *type;
