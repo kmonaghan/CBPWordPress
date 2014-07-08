@@ -15,5 +15,6 @@
 - (void)addPost:(CBPWordPressPost *)post;
 - (void)loadMore:(BOOL)more withParams:(NSDictionary *)params withBlock:(void (^)(BOOL result, NSError *error))block;
 - (CBPWordPressPost *)postAtIndex:(NSInteger)index;
+- (void)replacePost:(CBPWordPressPost *)post;
 - (void)updateWithBlock:(void (^)(BOOL result, NSError *error))block;
 @end

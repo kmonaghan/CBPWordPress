@@ -509,6 +509,10 @@ static NSString * const kFrameString = @"frame";
         [self.webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"scrollIntoView(%ld)", (long)self.post.postId]];
         
         self.scrollToMore = NO;
+        
+        if (self.dataSource) {
+            [self.dataSource replacePost:self.post];
+        }
     }
 }
 

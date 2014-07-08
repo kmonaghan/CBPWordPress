@@ -20,6 +20,29 @@
 @end
 
 @implementation CBPWordPressDataSource
+- (void)replacePost:(CBPWordPressPost *)post
+{
+    NSMutableArray *posts = self.posts.mutableCopy;
+
+    NSIndexSet *hits = [self.posts indexesOfObjectsWithOptions:NSEnumerationConcurrent passingTest:^BOOL(CBPWordPressPost *currentPost, NSUInteger idx, BOOL *stop) {
+        if (currentPost.postId == post.postId) {
+            
+            *stop = YES;
+            
+            return YES;
+        }
+        return NO;
+    }];
+    
+    NSInteger index = [hits firstIndex];
+    
+    if (index != NSNotFound) {
+        [posts replaceObjectAtIndex:index withObject:post];
+    }
+    
+    self.posts = posts;
+}
+
 - (void)addPost:(CBPWordPressPost *)post
 {
     if (!self.posts) {
