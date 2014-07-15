@@ -72,19 +72,29 @@
 {
     __weak typeof(self) weakSelf = self;
     
+    commentCompletionBlock block = ^(CBPWordPressComment *comment, NSError *error) {
+        __strong typeof(weakSelf) strongSelf = weakSelf;
+        
+        if (comment) {
+            [strongSelf.post addComment:comment];
+            
+            [strongSelf.tableView beginUpdates];
+            
+            [strongSelf.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:strongSelf.post.commentCount - 1
+                                                                              inSection:0]]
+                                        withRowAnimation:UITableViewRowAnimationFade];
+            
+            [strongSelf.tableView endUpdates];
+        }
+        
+        [weakSelf.navigationController dismissViewControllerAnimated:YES
+                                                          completion:^() {
+                                                              [strongSelf showMessage:NSLocalizedString(@"Comment submitted", nil)];
+                                                          }];
+    };
+    
     CBPComposeCommentViewController *vc = [[CBPComposeCommentViewController alloc] initWithPostId:self.post.postId
-                                                                              withCompletionBlock:^(CBPWordPressComment *comment, NSError *error) {
-                                                                                  __strong typeof(weakSelf) strongSelf = weakSelf;
-                                                                                  [weakSelf.navigationController dismissViewControllerAnimated:YES
-                                                                                                                                     completion:^() {
-                                                                                                                                         if (error) {
-                                                                                                                                             [strongSelf errorLoading:error];
-                                                                                                                                             return;
-                                                                                                                                         }
-                                                                                                                                     
-                                                                                                                                         [strongSelf showMessage:NSLocalizedString(@"Comment submitted", nil)];
-                                                                                                                                     }];
-                                                                              }];
+                                                                              withCompletionBlock:block];
     
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:vc];
     

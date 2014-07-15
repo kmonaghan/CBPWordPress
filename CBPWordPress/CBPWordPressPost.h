@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @class CBPWordPressAuthor;
+@class CBPWordPressComment;
 
 @interface CBPWordPressPost : NSObject
 
@@ -42,7 +43,9 @@
 
 
 + (instancetype)initFromDictionary:(NSDictionary *)aDictionary;
+
+- (void)addComment:(CBPWordPressComment *)comment;
+- (NSDictionary *)dictionaryRepresentation;
 - (void)setAttributesFromDictionary:(NSDictionary *)aDictionary;
 
-- (NSDictionary *)dictionaryRepresentation;
 @end

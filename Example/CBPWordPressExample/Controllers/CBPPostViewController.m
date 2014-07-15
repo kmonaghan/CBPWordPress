@@ -319,17 +319,26 @@ static NSString * const kFrameString = @"frame";
 {
     __weak typeof(self) weakSelf = self;
     
+    commentCompletionBlock block = ^(CBPWordPressComment *comment, NSError *error) {
+        __strong typeof(weakSelf) strongSelf = weakSelf;
+        
+        if (comment) {
+            [strongSelf.post addComment:comment];
+            strongSelf.postCommentButton.enabled = YES;
+        }
+        
+        [strongSelf.navigationController dismissViewControllerAnimated:YES
+                                                            completion:^() {
+                                                                if (error) {
+                                                                    return;
+                                                                }
+                                                                
+                                                                [strongSelf showMessage:NSLocalizedString(@"Comment submitted", nil)];
+                                                            }];
+    };
+    
     CBPComposeCommentViewController *vc = [[CBPComposeCommentViewController alloc] initWithPostId:self.post.postId
-                                                                              withCompletionBlock:^(CBPWordPressComment *comment, NSError *error) {
-                                                                                  __strong typeof(weakSelf) strongSelf = weakSelf;
-                                                                                  [strongSelf.navigationController dismissViewControllerAnimated:YES
-                                                                                                                                     completion:^() {
-                                                                                                                                         if (error) {
-                                                                                                                                             return;
-                                                                                                                                         }
-                                                                                                            
-                                                                                                                                     }];
-                                                                              }];
+                                                                              withCompletionBlock:block];
     
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:vc];
     

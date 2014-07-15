@@ -132,12 +132,16 @@
     
     [NSURLSessionDataTask postComment:newComment
                             withBlock:^(CBPWordPressComment *comment, NSError *error){
-                                NSLog(@"%@", [comment dictionaryRepresentation]);
-                                
-                                if (comment) {
-                                    __strong typeof(weakSelf) strongSelf = weakSelf;
-                                    strongSelf.completionBlock(comment, nil);
+                                __strong typeof(weakSelf) strongSelf = weakSelf;
+
+                                if (error) {
+                                    [strongSelf showMessage:NSLocalizedString(@"There was a problem trying to post the comment, try again in a second.", nil)];
+                                    
+                                    return;
                                 }
+                                
+                                strongSelf.completionBlock(comment, nil);
+                                
                             }];
 }
 

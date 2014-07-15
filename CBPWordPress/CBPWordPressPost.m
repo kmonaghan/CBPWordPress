@@ -125,6 +125,15 @@
     }
 }
 
+- (void)addComment:(CBPWordPressComment *)comment
+{
+    NSMutableArray *newComments = self.comments.mutableCopy;
+    [newComments addObject:comment];
+    self.commentCount = [newComments count];
+    
+    self.comments = newComments;
+}
+
 - (NSDictionary *)dictionaryRepresentation
 {
     
