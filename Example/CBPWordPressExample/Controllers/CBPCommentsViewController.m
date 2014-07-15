@@ -48,7 +48,6 @@
     self.tableView.dataSource = self.dataSource;
     self.tableView.rowHeight = CBPCommentTableViewCellHeight;
     self.tableView.estimatedRowHeight = CBPCommentTableViewCellHeight;
-    self.tableView.contentOffset = CGPointMake(0, -64.0f);
     
     [self.tableView registerClass:[CBPCommentTableViewCell class] forCellReuseIdentifier:CBPCommentTableViewCellIdentifier];
     
@@ -65,21 +64,7 @@
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose
                                                                                                target:self
                                                                                                action:@selector(composeCommentAction)];
-        
     }
-}
-
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-    
-    __weak typeof(self) weakSelf = self;
-    
-    // setup pull-to-refresh
-    [self.tableView addPullToRefreshWithActionHandler:^{
-        __strong typeof(weakSelf) strongSelf = weakSelf;
-        [strongSelf load:NO];
-    }];
 }
 
 #pragma mark - Button Actions
@@ -137,11 +122,11 @@
     }
     
     CBPWordPressComment *comment = self.post.comments[indexPath.row];
-
+    
     self.heightMeasuringCell.commentator = comment.name;
     self.heightMeasuringCell.commentDate = comment.date;
-    self.heightMeasuringCell.comment = comment.content;
-
+    self.heightMeasuringCell.commentAttributedString = comment.contentAttributedString;
+    
     // The cell's width must be set to the same size it will end up at once it is in the table view.
     // This is important so that we'll get the correct height for different table view widths, since our cell's
     // height depends on its width due to the multi-line UILabel word wrapping. Don't need to do this above in

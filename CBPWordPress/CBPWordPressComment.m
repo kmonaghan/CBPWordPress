@@ -101,7 +101,7 @@
     if (!_contentAttributedString) {
         NSError *error;
         
-        _contentAttributedString = [[NSAttributedString alloc] initWithData:[self.content dataUsingEncoding:NSISOLatin1StringEncoding]
+        _contentAttributedString = [[NSAttributedString alloc] initWithData:[self.content dataUsingEncoding:NSWindowsCP1252StringEncoding]
                                          options:@{NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType}
                               documentAttributes:nil
                                                                       error:&error];
