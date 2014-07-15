@@ -13,6 +13,7 @@
 		341C803919523B8D00070FD4 /* category.snippet.html in Resources */ = {isa = PBXBuildFile; fileRef = 341C803819523B8D00070FD4 /* category.snippet.html */; };
 		347E285F190849B2004D3842 /* CBPCommentsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 347E285E190849B2004D3842 /* CBPCommentsViewController.m */; };
 		347E286219084AA1004D3842 /* CBPComposeCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 347E286119084AA1004D3842 /* CBPComposeCommentViewController.m */; };
+		349BC6D61975E236008CA989 /* UIViewController+CBPWordPressExample.m in Sources */ = {isa = PBXBuildFile; fileRef = 349BC6D51975E236008CA989 /* UIViewController+CBPWordPressExample.m */; };
 		349C67F51956254500D25654 /* CBPHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 349C67F41956254500D25654 /* CBPHomeViewController.m */; };
 		349C67F71958AA7500D25654 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 349C67F61958AA7500D25654 /* Settings.bundle */; };
 		349C67FC1958AC9200D25654 /* CBPSubmitTipViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 349C67FB1958AC9200D25654 /* CBPSubmitTipViewController.m */; };
@@ -68,6 +69,8 @@
 		347E285E190849B2004D3842 /* CBPCommentsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBPCommentsViewController.m; sourceTree = "<group>"; };
 		347E286019084AA1004D3842 /* CBPComposeCommentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBPComposeCommentViewController.h; sourceTree = "<group>"; };
 		347E286119084AA1004D3842 /* CBPComposeCommentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBPComposeCommentViewController.m; sourceTree = "<group>"; };
+		349BC6D41975E236008CA989 /* UIViewController+CBPWordPressExample.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+CBPWordPressExample.h"; sourceTree = "<group>"; };
+		349BC6D51975E236008CA989 /* UIViewController+CBPWordPressExample.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+CBPWordPressExample.m"; sourceTree = "<group>"; };
 		349C67F31956254500D25654 /* CBPHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBPHomeViewController.h; sourceTree = "<group>"; };
 		349C67F41956254500D25654 /* CBPHomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBPHomeViewController.m; sourceTree = "<group>"; };
 		349C67F61958AA7500D25654 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = Settings.bundle; path = Resources/Settings.bundle; sourceTree = "<group>"; };
@@ -322,6 +325,8 @@
 			children = (
 				F58217E6192D00130014AE2E /* NSString+CBPWordPressExample.h */,
 				F58217E7192D00130014AE2E /* NSString+CBPWordPressExample.m */,
+				349BC6D41975E236008CA989 /* UIViewController+CBPWordPressExample.h */,
+				349BC6D51975E236008CA989 /* UIViewController+CBPWordPressExample.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -505,6 +510,7 @@
 				F53E4E2A1926596D00932EC3 /* CBPCommentTableViewCell.m in Sources */,
 				34BC742B195A128300C162E8 /* CBPAboutViewController.m in Sources */,
 				349C67F51956254500D25654 /* CBPHomeViewController.m in Sources */,
+				349BC6D61975E236008CA989 /* UIViewController+CBPWordPressExample.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

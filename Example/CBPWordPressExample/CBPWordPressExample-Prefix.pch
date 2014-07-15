@@ -15,4 +15,5 @@
     #import <Foundation/Foundation.h>
     #import "CBPWordPress.h"
     #import "CBPConstants.h"
+    #import "UIViewController+CBPWordPressExample.h"
 #endif

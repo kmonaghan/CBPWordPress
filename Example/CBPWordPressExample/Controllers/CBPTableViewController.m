@@ -7,7 +7,6 @@
 //
 
 #import <SVPullToRefresh/SVPullToRefresh.h>
-#import "TSMessage.h"
 
 #import "CBPTableViewController.h"
 
@@ -99,16 +98,6 @@
 - (void)reload
 {
     [self load:NO];
-}
-
-- (void)showMessage:(NSString *)message
-{
-    [TSMessage showNotificationInViewController:self
-                                          title:message
-                                       subtitle:nil
-                                           type:TSMessageNotificationTypeSuccess
-                                       duration:5.0f
-                           canBeDismissedByUser:YES];
 }
 
 - (void)startLoading

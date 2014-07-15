@@ -15,7 +15,6 @@
 
 - (void)errorLoading:(NSError *)error;
 - (void)load:(BOOL)more;
-- (void)showMessage:(NSString *)message;
 - (void)startLoading;
 - (void)stopLoading:(BOOL)more;
 @end
