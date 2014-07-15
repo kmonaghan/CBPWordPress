@@ -16,7 +16,6 @@
 #import "CBPSubmitTipViewController.h"
 
 @interface CBPHomeViewController () <UISearchBarDelegate>
-@property (nonatomic, assign) BOOL backgroundFetchInProgress;
 @property (nonatomic) UISearchBar *searchBar;
 @property (nonatomic) UILabel *searchDetailLabel;
 @property (nonatomic) UIView *searchDetailView;
@@ -191,12 +190,6 @@
 #pragma mark -
 - (void)errorLoading:(NSError *)error
 {
-    if (self.backgroundFetchInProgress) {
-        self.backgroundFetchInProgress = NO;
-    
-        return;
-    }
-    
     [super errorLoading:error];
 }
 
@@ -230,8 +223,6 @@
         CGFloat offset = ([self.searchBar.text length]) ? 0 : CGRectGetHeight(self.searchBar.frame);
         [self.tableView setContentOffset:CGPointMake(0, offset) animated:YES];
     }
-    
-    self.backgroundFetchInProgress = NO;
 }
 
 #pragma mark -
@@ -283,8 +274,6 @@
     if ([[NSUserDefaults standardUserDefaults] boolForKey:CBPBackgroundUpdate]) {
         return;
     }
-    
-    self.backgroundFetchInProgress = YES;
     
     [self.tableView triggerPullToRefresh];
 }
