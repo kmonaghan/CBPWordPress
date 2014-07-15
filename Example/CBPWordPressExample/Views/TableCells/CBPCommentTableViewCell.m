@@ -45,8 +45,7 @@ static NSDateFormatter *commentDateFormatter = nil;
         self.contentView.bounds = CGRectMake(0.0f, 0.0f, CGRectGetWidth(self.frame), CBPCommentTableViewCellHeight);
         
         NSDictionary *views = @{@"commentHeaderView": self.commentHeaderView,
-                                @"commentLabel": self.commentLabel
-                                };
+                                @"commentLabel": self.commentLabel};
         
         
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"V:|[commentHeaderView][commentLabel]-(%f)-|", CBPPadding]
@@ -78,13 +77,8 @@ static NSDateFormatter *commentDateFormatter = nil;
     [self.contentView layoutIfNeeded];
     
     self.commentLabel.preferredMaxLayoutWidth = CGRectGetWidth(self.contentView.frame) - (CBPPadding * 2);
-}
-
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated
-{
-    [super setSelected:selected animated:animated];
-    
-    // Configure the view for the selected state
+    self.commentatorLabel.preferredMaxLayoutWidth = CGRectGetWidth(self.commentHeaderView.frame) - CBPCommentTableViewCellAvatarHeight - CBPPadding - CGRectGetWidth(self.replyButton.frame);
+    self.commentDateLabel.preferredMaxLayoutWidth = CGRectGetWidth(self.commentHeaderView.frame) - CBPCommentTableViewCellAvatarHeight - CBPPadding - CGRectGetWidth(self.replyButton.frame);
 }
 
 - (void)prepareForReuse
@@ -127,7 +121,7 @@ static NSDateFormatter *commentDateFormatter = nil;
                                                                                       error:&error].mutableCopy;
     [attributedComment addAttribute:NSFontAttributeName value:[UIFont preferredFontForTextStyle:UIFontTextStyleBody] range:NSMakeRange(0, attributedComment.length)];
     
-    self.commentLabel.attributedText = attributedComment;
+    [self.commentLabel setText:attributedComment];
     
     [self.commentLabel sizeToFit];
 }
@@ -139,7 +133,7 @@ static NSDateFormatter *commentDateFormatter = nil;
     
     _commentAttributedString = attributedComment;
     
-    self.commentLabel.attributedText = attributedComment;
+    [self.commentLabel setText:attributedComment];
     
     [self.commentLabel sizeToFit];
 }
@@ -252,6 +246,8 @@ static NSDateFormatter *commentDateFormatter = nil;
         _commentLabel.translatesAutoresizingMaskIntoConstraints = NO;
         _commentLabel.numberOfLines = 0;
         _commentLabel.delegate = self;
+        _commentLabel.enabledTextCheckingTypes = NSTextCheckingTypeLink;
+
         [self.contentView addSubview:_commentLabel];
     }
     
@@ -263,7 +259,7 @@ static NSDateFormatter *commentDateFormatter = nil;
     if (!_replyButton) {
         _replyButton = [UIButton buttonWithType:UIButtonTypeCustom];
         _replyButton.translatesAutoresizingMaskIntoConstraints = NO;
-        [_replyButton setTitle:@"Reply" forState:UIControlStateNormal];
+        [_replyButton setTitle:NSLocalizedString(@"Reply", nil) forState:UIControlStateNormal];
         [_replyButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         [_replyButton addTarget:self action:@selector(replyAction) forControlEvents:UIControlEventTouchUpInside];
         [_replyButton sizeToFit];
