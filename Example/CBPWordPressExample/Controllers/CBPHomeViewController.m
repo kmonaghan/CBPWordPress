@@ -305,13 +305,6 @@
 }
 
 #pragma mark - UIScrollViewDelegate
-- (BOOL)scrollViewShouldScrollToTop:(UIScrollView *)scrollView
-{
-    [scrollView setContentOffset:CGPointMake(0, -20) animated:YES];
-    
-    return NO;
-}
-
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
     if ((scrollView.contentOffset.y > 0) && (scrollView.contentOffset.y < CGRectGetHeight(self.searchBar.frame)))
