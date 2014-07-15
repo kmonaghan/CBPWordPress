@@ -16,7 +16,6 @@
 		349C67F51956254500D25654 /* CBPHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 349C67F41956254500D25654 /* CBPHomeViewController.m */; };
 		349C67F71958AA7500D25654 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 349C67F61958AA7500D25654 /* Settings.bundle */; };
 		349C67FC1958AC9200D25654 /* CBPSubmitTipViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 349C67FB1958AC9200D25654 /* CBPSubmitTipViewController.m */; };
-		349C68071958CAF000D25654 /* GTMUIImage+Resize.m in Sources */ = {isa = PBXBuildFile; fileRef = 349C68061958CAF000D25654 /* GTMUIImage+Resize.m */; };
 		349C680E1958CC2900D25654 /* CBPTextFieldTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 349C68091958CC2900D25654 /* CBPTextFieldTableViewCell.m */; };
 		349C68101958CC2900D25654 /* CBPTextViewTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 349C680C1958CC2900D25654 /* CBPTextViewTableViewCell.m */; };
 		34BC742B195A128300C162E8 /* CBPAboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 34BC742A195A128300C162E8 /* CBPAboutViewController.m */; };
@@ -42,6 +41,7 @@
 		C67A29DDF4CD4FD1B3280908 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D58735488124103BBB09705 /* libPods.a */; };
 		F53D045B192382CE001A392E /* CBPLargePostPreviewTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F53D045A192382CE001A392E /* CBPLargePostPreviewTableViewCell.m */; };
 		F53E4E2A1926596D00932EC3 /* CBPCommentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F53E4E291926596D00932EC3 /* CBPCommentTableViewCell.m */; };
+		F5716578197588710005227C /* GTMUIImage+Resize.m in Sources */ = {isa = PBXBuildFile; fileRef = F5716575197588710005227C /* GTMUIImage+Resize.m */; };
 		F58217E8192D00130014AE2E /* NSString+CBPWordPressExample.m in Sources */ = {isa = PBXBuildFile; fileRef = F58217E7192D00130014AE2E /* NSString+CBPWordPressExample.m */; };
 		F58217EC192D02CB0014AE2E /* default.css in Resources */ = {isa = PBXBuildFile; fileRef = F58217EB192D02CB0014AE2E /* default.css */; };
 		F58217EE192D02F50014AE2E /* template.html in Resources */ = {isa = PBXBuildFile; fileRef = F58217ED192D02F50014AE2E /* template.html */; };
@@ -73,9 +73,6 @@
 		349C67F61958AA7500D25654 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = Settings.bundle; path = Resources/Settings.bundle; sourceTree = "<group>"; };
 		349C67FA1958AC9200D25654 /* CBPSubmitTipViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBPSubmitTipViewController.h; sourceTree = "<group>"; };
 		349C67FB1958AC9200D25654 /* CBPSubmitTipViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBPSubmitTipViewController.m; sourceTree = "<group>"; };
-		349C67FF1958CAC900D25654 /* GTMDefines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GTMDefines.h; sourceTree = "<group>"; };
-		349C68051958CAF000D25654 /* GTMUIImage+Resize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GTMUIImage+Resize.h"; sourceTree = "<group>"; };
-		349C68061958CAF000D25654 /* GTMUIImage+Resize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GTMUIImage+Resize.m"; sourceTree = "<group>"; };
 		349C68081958CC2900D25654 /* CBPTextFieldTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBPTextFieldTableViewCell.h; sourceTree = "<group>"; };
 		349C68091958CC2900D25654 /* CBPTextFieldTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBPTextFieldTableViewCell.m; sourceTree = "<group>"; };
 		349C680B1958CC2900D25654 /* CBPTextViewTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBPTextViewTableViewCell.h; sourceTree = "<group>"; };
@@ -117,6 +114,9 @@
 		F53D045A192382CE001A392E /* CBPLargePostPreviewTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CBPLargePostPreviewTableViewCell.m; path = Views/TableCells/CBPLargePostPreviewTableViewCell.m; sourceTree = "<group>"; };
 		F53E4E281926596D00932EC3 /* CBPCommentTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CBPCommentTableViewCell.h; path = Views/TableCells/CBPCommentTableViewCell.h; sourceTree = "<group>"; };
 		F53E4E291926596D00932EC3 /* CBPCommentTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CBPCommentTableViewCell.m; path = Views/TableCells/CBPCommentTableViewCell.m; sourceTree = "<group>"; };
+		F5716572197588710005227C /* GTMDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMDefines.h; sourceTree = "<group>"; };
+		F5716574197588710005227C /* GTMUIImage+Resize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GTMUIImage+Resize.h"; sourceTree = "<group>"; };
+		F5716575197588710005227C /* GTMUIImage+Resize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GTMUIImage+Resize.m"; sourceTree = "<group>"; };
 		F58217E6192D00130014AE2E /* NSString+CBPWordPressExample.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+CBPWordPressExample.h"; path = "Categories/NSString+CBPWordPressExample.h"; sourceTree = "<group>"; };
 		F58217E7192D00130014AE2E /* NSString+CBPWordPressExample.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+CBPWordPressExample.m"; path = "Categories/NSString+CBPWordPressExample.m"; sourceTree = "<group>"; };
 		F58217EB192D02CB0014AE2E /* default.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; name = default.css; path = Resources/default.css; sourceTree = "<group>"; };
@@ -152,27 +152,9 @@
 		349C67FD1958C5F000D25654 /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
-				349C67FE1958CABF00D25654 /* google-toolbox-for-mac */,
+				F571656D197588710005227C /* google-toolbox-for-mac */,
 			);
 			name = Vendor;
-			sourceTree = "<group>";
-		};
-		349C67FE1958CABF00D25654 /* google-toolbox-for-mac */ = {
-			isa = PBXGroup;
-			children = (
-				349C68041958CAE800D25654 /* iPhone */,
-				349C67FF1958CAC900D25654 /* GTMDefines.h */,
-			);
-			name = "google-toolbox-for-mac";
-			sourceTree = "<group>";
-		};
-		349C68041958CAE800D25654 /* iPhone */ = {
-			isa = PBXGroup;
-			children = (
-				349C68051958CAF000D25654 /* GTMUIImage+Resize.h */,
-				349C68061958CAF000D25654 /* GTMUIImage+Resize.m */,
-			);
-			name = iPhone;
 			sourceTree = "<group>";
 		};
 		34C2B86118EA0EF8002268BF /* Controllers */ = {
@@ -314,6 +296,25 @@
 				349C680C1958CC2900D25654 /* CBPTextViewTableViewCell.m */,
 			);
 			name = TableCells;
+			sourceTree = "<group>";
+		};
+		F571656D197588710005227C /* google-toolbox-for-mac */ = {
+			isa = PBXGroup;
+			children = (
+				F5716572197588710005227C /* GTMDefines.h */,
+				F5716573197588710005227C /* iPhone */,
+			);
+			name = "google-toolbox-for-mac";
+			path = "Vendor/google-toolbox-for-mac";
+			sourceTree = "<group>";
+		};
+		F5716573197588710005227C /* iPhone */ = {
+			isa = PBXGroup;
+			children = (
+				F5716574197588710005227C /* GTMUIImage+Resize.h */,
+				F5716575197588710005227C /* GTMUIImage+Resize.m */,
+			);
+			path = iPhone;
 			sourceTree = "<group>";
 		};
 		F58217E5192CFFE70014AE2E /* Categories */ = {
@@ -487,7 +488,6 @@
 				3417327819070AA000DAAE85 /* CBPPostViewController.m in Sources */,
 				347E286219084AA1004D3842 /* CBPComposeCommentViewController.m in Sources */,
 				34C2B86818EA1003002268BF /* CBPWordPressDataSource.m in Sources */,
-				349C68071958CAF000D25654 /* GTMUIImage+Resize.m in Sources */,
 				F58217E8192D00130014AE2E /* NSString+CBPWordPressExample.m in Sources */,
 				34BC742E195A15BF00C162E8 /* CBPSettingsViewController.m in Sources */,
 				349C68101958CC2900D25654 /* CBPTextViewTableViewCell.m in Sources */,
@@ -501,6 +501,7 @@
 				347E285F190849B2004D3842 /* CBPCommentsViewController.m in Sources */,
 				34C2B86418EA0EF8002268BF /* CBPPostListViewController.m in Sources */,
 				349C680E1958CC2900D25654 /* CBPTextFieldTableViewCell.m in Sources */,
+				F5716578197588710005227C /* GTMUIImage+Resize.m in Sources */,
 				F53E4E2A1926596D00932EC3 /* CBPCommentTableViewCell.m in Sources */,
 				34BC742B195A128300C162E8 /* CBPAboutViewController.m in Sources */,
 				349C67F51956254500D25654 /* CBPHomeViewController.m in Sources */,
