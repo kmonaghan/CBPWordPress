@@ -121,7 +121,7 @@
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
-    if ([defaults boolForKey:CBPLocationNotifcation]) {
+    if ([defaults boolForKey:CBPLocalNotifcation]) {
         return;
     }
     
@@ -160,7 +160,7 @@
 
     [[UIApplication sharedApplication] scheduleLocalNotification:localnotifcation];
 
-    [defaults setBool:YES forKey:CBPLocationNotifcation];
+    [defaults setBool:YES forKey:CBPLocalNotifcation];
     [defaults setBool:YES forKey:CBPDailyReminder];
     
     [defaults synchronize];

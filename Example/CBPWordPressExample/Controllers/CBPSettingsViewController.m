@@ -102,7 +102,7 @@ static NSString * const CBPSwitchTableViewCellIdentifier = @"CBPSwitchTableViewC
         [(CBPAppDelegate *)application.delegate setupNotification];
     } else {
         [application cancelAllLocalNotifications];
-        [defaults removeObjectForKey:CBPLocationNotifcation];
+        [defaults removeObjectForKey:CBPLocalNotifcation];
     }
     
     [defaults setBool:self.reminderSwitch.on forKey:CBPDailyReminder];
