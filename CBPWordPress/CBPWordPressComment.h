@@ -13,16 +13,17 @@
 @interface CBPWordPressComment : NSObject
 
 @property (nonatomic) CBPWordPressAuthor *author;
-@property (nonatomic, strong) NSString *avatar;
-@property (nonatomic, strong) NSString *content;
-@property (nonatomic, strong) NSAttributedString *contentAttributedString;
-@property (nonatomic, strong) NSDate *date;
-@property (nonatomic, strong) NSString *email;
+@property (nonatomic) NSString *avatar;
 @property (nonatomic, assign) NSInteger commentId;
-@property (nonatomic, strong) NSString *name;
+@property (nonatomic) NSString *content;
+@property (nonatomic) NSAttributedString *contentAttributedString;
+@property (nonatomic) NSDate *date;
+@property (nonatomic) NSString *email;
+@property (nonatomic, assign) NSInteger level;
+@property (nonatomic) NSString *name;
 @property (nonatomic, assign) NSInteger parent;
 @property (nonatomic, assign) NSInteger postId;
-@property (nonatomic, strong) NSString *url;
+@property (nonatomic) NSString *url;
 
 
 + (instancetype)initFromDictionary:(NSDictionary *)aDictionary;

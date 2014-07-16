@@ -64,6 +64,7 @@
     cell.commentAttributedString = comment.contentAttributedString;
     cell.commentId = comment.commentId;
     cell.delegate = self.linkDelegate;
+    cell.level = comment.level;
     
     return cell;
 }

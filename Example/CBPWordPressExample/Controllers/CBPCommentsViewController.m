@@ -136,6 +136,7 @@
     self.heightMeasuringCell.commentator = comment.name;
     self.heightMeasuringCell.commentDate = comment.date;
     self.heightMeasuringCell.commentAttributedString = comment.contentAttributedString;
+    self.heightMeasuringCell.level = comment.level;
     
     // The cell's width must be set to the same size it will end up at once it is in the table view.
     // This is important so that we'll get the correct height for different table view widths, since our cell's

@@ -25,4 +25,5 @@ static NSString * const CBPCommentTableViewCellIdentifier = @"CBPCommentTableVie
 @property (nonatomic) NSDate *commentDate;
 @property (nonatomic, assign) NSInteger commentId;
 @property (nonatomic, weak) id<CBPCommentTableViewCellDelegate> delegate;
+@property (nonatomic, assign) NSInteger level;
 @end
