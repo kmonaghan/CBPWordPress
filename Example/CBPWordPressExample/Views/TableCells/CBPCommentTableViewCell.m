@@ -12,6 +12,7 @@
 #import "CBPCommentTableViewCell.h"
 
 static const CGFloat CBPCommentTableViewCellAvatarHeight = 40.0;
+static const CGFloat CBPCommentIndent = 5.0;
 static NSDateFormatter *commentDateFormatter = nil;
 
 @interface CBPCommentTableViewCell() <TTTAttributedLabelDelegate>
@@ -27,6 +28,8 @@ static NSDateFormatter *commentDateFormatter = nil;
 @property (nonatomic) NSLayoutConstraint *level2WidthConstraint;
 @property (nonatomic) UIView *level3;
 @property (nonatomic) NSLayoutConstraint *level3WidthConstraint;
+@property (nonatomic) UIView *level4;
+@property (nonatomic) NSLayoutConstraint *level4WidthConstraint;
 @property (nonatomic) UIButton *replyButton;
 @end
 
@@ -53,6 +56,7 @@ static NSDateFormatter *commentDateFormatter = nil;
         NSDictionary *views = @{@"level1": self.level1,
                                 @"level2": self.level2,
                                 @"level3": self.level3,
+                                @"level4": self.level4,
                                 @"commentHeaderView": self.commentHeaderView,
                                 @"commentLabel": self.commentLabel};
         
@@ -73,11 +77,15 @@ static NSDateFormatter *commentDateFormatter = nil;
                                                                                  options:0
                                                                                  metrics:nil
                                                                                    views:views]];
-        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"|-(11)-[level1][level2][level3]-(5)-[commentHeaderView]-(%f)-|", CBPPadding]
+        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[level4]|"
                                                                                  options:0
                                                                                  metrics:nil
                                                                                    views:views]];
-        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"|-(11)-[level1][level2][level3]-(5)-[commentLabel]-(%f)-|", CBPPadding]
+        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"|-(11)-[level1][level2][level3][level4]-(5)-[commentHeaderView]-(%f)-|", CBPPadding]
+                                                                                 options:0
+                                                                                 metrics:nil
+                                                                                   views:views]];
+        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"|-(11)-[level1][level2][level3][level4]-(5)-[commentLabel]-(%f)-|", CBPPadding]
                                                                                  options:0
                                                                                  metrics:nil
                                                                                    views:views]];
@@ -109,12 +117,22 @@ static NSDateFormatter *commentDateFormatter = nil;
                                                                    constant:0];
         [self.contentView addConstraint:self.level3WidthConstraint];
         
+        self.level4WidthConstraint = [NSLayoutConstraint constraintWithItem:self.level4
+                                                                  attribute:NSLayoutAttributeWidth
+                                                                  relatedBy:NSLayoutRelationEqual
+                                                                     toItem:nil
+                                                                  attribute:NSLayoutAttributeNotAnAttribute
+                                                                 multiplier:1
+                                                                   constant:0];
+        [self.contentView addConstraint:self.level4WidthConstraint];
+        
         self.constraintsUpdated = YES;
     }
     
-    self.level1WidthConstraint.constant = (self.level > 0) ? 5.0f : 0;
-    self.level2WidthConstraint.constant = (self.level > 1) ? 5.0f : 0;
-    self.level3WidthConstraint.constant = (self.level > 2) ? 5.0f : 0;
+    self.level1WidthConstraint.constant = (self.level > 0) ? CBPCommentIndent : 0;
+    self.level2WidthConstraint.constant = (self.level > 1) ? CBPCommentIndent : 0;
+    self.level3WidthConstraint.constant = (self.level > 2) ? CBPCommentIndent : 0;
+    self.level4WidthConstraint.constant = (self.level > 3) ? CBPCommentIndent : 0;
     
     [super updateConstraints];
 }
@@ -128,7 +146,7 @@ static NSDateFormatter *commentDateFormatter = nil;
     [self.contentView setNeedsLayout];
     [self.contentView layoutIfNeeded];
     
-    CGFloat indent = self.level1WidthConstraint.constant + self.level2WidthConstraint.constant + self.level3WidthConstraint.constant;
+    CGFloat indent = self.level1WidthConstraint.constant + self.level2WidthConstraint.constant + self.level3WidthConstraint.constant + self.level4WidthConstraint.constant;
     
     self.commentLabel.preferredMaxLayoutWidth = CGRectGetWidth(self.contentView.frame) - (CBPPadding * 2) - indent;
     self.commentatorLabel.preferredMaxLayoutWidth = CGRectGetWidth(self.commentHeaderView.frame) - CBPCommentTableViewCellAvatarHeight - CBPPadding - CGRectGetWidth(self.replyButton.frame) - indent;
@@ -230,6 +248,7 @@ static NSDateFormatter *commentDateFormatter = nil;
 {
     if (!_commentatorLabel) {
         _commentatorLabel = [UILabel new];
+        _commentatorLabel.numberOfLines = 2;
         _commentatorLabel.translatesAutoresizingMaskIntoConstraints = NO;
         _commentatorLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline];
     }
@@ -320,7 +339,7 @@ static NSDateFormatter *commentDateFormatter = nil;
     if (!_level1) {
         _level1 = [UIView new];
         _level1.translatesAutoresizingMaskIntoConstraints = NO;
-        _level1.backgroundColor = [UIColor lightGrayColor];
+        _level1.backgroundColor = [UIColor colorWithRed:0.964f green:0.964f blue:0.964f alpha:1.0f];
         
         [self.contentView addSubview:_level1];
     }
@@ -333,7 +352,7 @@ static NSDateFormatter *commentDateFormatter = nil;
     if (!_level2) {
         _level2 = [UIView new];
         _level2.translatesAutoresizingMaskIntoConstraints = NO;
-        _level2.backgroundColor = [UIColor grayColor];
+        _level2.backgroundColor = [UIColor colorWithRed:0.867f green:0.867f blue:0.867f alpha:1.0f];
         
         [self.contentView addSubview:_level2];
     }
@@ -346,12 +365,25 @@ static NSDateFormatter *commentDateFormatter = nil;
     if (!_level3) {
         _level3 = [UIView new];
         _level3.translatesAutoresizingMaskIntoConstraints = NO;
-        _level3.backgroundColor = [UIColor blackColor];
+        _level3.backgroundColor = [UIColor colorWithRed:0.774f green:0.774f blue:0.774f alpha:1.0f];
         
         [self.contentView addSubview:_level3];
     }
     
     return _level3;
+}
+
+- (UIView *)level4
+{
+    if (!_level4) {
+        _level4 = [UIView new];
+        _level4.translatesAutoresizingMaskIntoConstraints = NO;
+        _level4.backgroundColor = [UIColor colorWithRed:0.664f green:0.664f blue:0.664f alpha:1.0f];
+        
+        [self.contentView addSubview:_level4];
+    }
+    
+    return _level4;
 }
 
 - (UIButton *)replyButton
