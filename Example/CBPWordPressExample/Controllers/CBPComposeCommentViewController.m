@@ -17,7 +17,7 @@
 
 @interface CBPComposeCommentViewController () <UITextFieldDelegate, UITextViewDelegate>
 @property (nonatomic, copy) commentCompletionBlock completionBlock;
-@property (nonatomic, assign) NSInteger commentId;
+@property (nonatomic) CBPWordPressComment *comment;
 @property (nonatomic) SAMTextView *commentTextView;
 @property (nonatomic) HTEmailAutocompleteTextField *emailTextField;
 @property (nonatomic) UITextField *nameTextField;
@@ -38,12 +38,12 @@
     return self;
 }
 
-- (instancetype)initWithPostId:(NSInteger)postId withCommentId:(NSInteger)commentId withCompletionBlock:(commentCompletionBlock)block
+- (instancetype)initWithPostId:(NSInteger)postId withComment:(CBPWordPressComment *)comment withCompletionBlock:(commentCompletionBlock)block
 {
     self = [self initWithPostId:postId withCompletionBlock:block];
     if (self) {
         // Custom initialization
-        _commentId = commentId;
+        _comment = comment;
     }
     return self;
 }
@@ -73,10 +73,7 @@
     
     [self.tableView registerClass:[CBPTextFieldTableViewCell class] forCellReuseIdentifier:CBPTextFieldTableViewCellIdentifier];
     [self.tableView registerClass:[CBPTextViewTableViewCell class] forCellReuseIdentifier:CBPTextViewTableViewCellIdentifier];
-    
-    //[self makeFooter];
-    
-    
+
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     self.nameTextField.text = [defaults objectForKey:CBPCommenterName];
     self.emailTextField.text = [defaults objectForKey:CBPCommenterEmail];
@@ -126,8 +123,8 @@
         newComment.url = self.urlTextField.text;
     }
     
-    if (self.commentId) {
-        newComment.parent = self.commentId;
+    if (self.comment) {
+        newComment.parent = self.comment.commentId;
     }
     
     [NSURLSessionDataTask postComment:newComment
@@ -138,6 +135,10 @@
                                     [strongSelf showMessage:NSLocalizedString(@"There was a problem trying to post the comment, try again in a second.", nil)];
                                     
                                     return;
+                                }
+                                
+                                if (strongSelf.comment) {
+                                    comment.level = strongSelf.comment.level + 1;
                                 }
                                 
                                 strongSelf.completionBlock(comment, nil);

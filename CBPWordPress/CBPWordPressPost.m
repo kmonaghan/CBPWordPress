@@ -134,6 +134,15 @@
     self.comments = newComments;
 }
 
+- (void)insertComment:(CBPWordPressComment *)comment atIndex:(NSInteger) index
+{
+    NSMutableArray *newComments = self.comments.mutableCopy;
+    [newComments insertObject:comment atIndex:index];
+    self.commentCount = [newComments count];
+    
+    self.comments = newComments;
+}
+
 - (NSDictionary *)dictionaryRepresentation
 {
     

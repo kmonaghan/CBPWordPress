@@ -70,35 +70,7 @@
 #pragma mark - Button Actions
 - (void)composeCommentAction
 {
-    __weak typeof(self) weakSelf = self;
-    
-    commentCompletionBlock block = ^(CBPWordPressComment *comment, NSError *error) {
-        __strong typeof(weakSelf) strongSelf = weakSelf;
-        
-        if (comment) {
-            [strongSelf.post addComment:comment];
-            
-            [strongSelf.tableView beginUpdates];
-            
-            [strongSelf.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:strongSelf.post.commentCount - 1
-                                                                              inSection:0]]
-                                        withRowAnimation:UITableViewRowAnimationFade];
-            
-            [strongSelf.tableView endUpdates];
-        }
-        
-        [weakSelf.navigationController dismissViewControllerAnimated:YES
-                                                          completion:^() {
-                                                              [strongSelf showMessage:NSLocalizedString(@"Comment submitted", nil)];
-                                                          }];
-    };
-    
-    CBPComposeCommentViewController *vc = [[CBPComposeCommentViewController alloc] initWithPostId:self.post.postId
-                                                                              withCompletionBlock:block];
-    
-    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:vc];
-    
-    [self presentViewController:navController animated:YES completion:nil];
+    [self replyToComment:0];
 }
 
 - (void)load:(BOOL)more
@@ -152,7 +124,7 @@
     
     // Get the actual height required for the cell
     CGFloat height = [self.heightMeasuringCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height;
-
+    
     // Add an extra point to the height to account for the cell separator, which is added between the bottom
     // of the cell's contentView and the bottom of the table view cell.
     height += 1;
@@ -169,22 +141,51 @@
 
 - (void)replyToComment:(NSInteger)commentId
 {
+    CBPWordPressComment *replyComment = nil;
+    NSInteger commentIndex = self.post.commentCount;
+    
+    if (commentId) {
+        NSArray *comments = [self.post.comments filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"commentId == %d", commentId]];
+    
+        replyComment = [comments firstObject];
+        
+        if (replyComment) {
+            commentIndex = [self.post.comments indexOfObject:replyComment] + 1;
+        }
+    }
+    
+    
     __weak typeof(self) weakSelf = self;
     
+    commentCompletionBlock block = ^(CBPWordPressComment *comment, NSError *error) {
+        __strong typeof(weakSelf) strongSelf = weakSelf;
+        
+        if (comment) {
+            [strongSelf.post insertComment:comment atIndex:commentIndex];
+            
+            [strongSelf.tableView beginUpdates];
+            
+            [strongSelf.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:commentIndex
+                                                                              inSection:0]]
+                                        withRowAnimation:UITableViewRowAnimationFade];
+            
+            [strongSelf.tableView endUpdates];
+            
+            [strongSelf.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:commentIndex
+                                                                            inSection:0]
+                                        atScrollPosition:UITableViewScrollPositionTop
+                                                animated:YES];
+        }
+        
+        [weakSelf.navigationController dismissViewControllerAnimated:YES
+                                                          completion:^() {
+                                                              [strongSelf showMessage:NSLocalizedString(@"Comment submitted", nil)];
+                                                          }];
+    };
+    
     CBPComposeCommentViewController *vc = [[CBPComposeCommentViewController alloc] initWithPostId:self.post.postId
-                                                                                    withCommentId:commentId
-                                                                              withCompletionBlock:^(CBPWordPressComment *comment, NSError *error) {
-                                                                                  __strong typeof(weakSelf) strongSelf = weakSelf;
-                                                                                  [strongSelf.navigationController dismissViewControllerAnimated:YES
-                                                                                                                                     completion:^() {
-                                                                                                                                         if (error) {
-                                                                                                                                             [strongSelf errorLoading:error];
-                                                                                                                                             return;
-                                                                                                                                         }
-                                                                                                                                         
-                                                                                                                                         [strongSelf showMessage:NSLocalizedString(@"Comment submitted", nil)];
-                                                                                                                                     }];
-                                                                              }];
+                                                                                      withComment:replyComment
+                                                                              withCompletionBlock:block];
     
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:vc];
     

@@ -10,7 +10,9 @@
 
 typedef void (^commentCompletionBlock)(CBPWordPressComment *comment, NSError *error);
 
+@class CBPWordPressComment;
+
 @interface CBPComposeCommentViewController : UITableViewController
 - (instancetype)initWithPostId:(NSInteger)postId withCompletionBlock:(commentCompletionBlock)block;
-- (instancetype)initWithPostId:(NSInteger)postId withCommentId:(NSInteger)commentId withCompletionBlock:(commentCompletionBlock)block;
+- (instancetype)initWithPostId:(NSInteger)postId withComment:(CBPWordPressComment *)comment withCompletionBlock:(commentCompletionBlock)block;
 @end

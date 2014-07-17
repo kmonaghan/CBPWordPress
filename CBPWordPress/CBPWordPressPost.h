@@ -45,6 +45,7 @@
 + (instancetype)initFromDictionary:(NSDictionary *)aDictionary;
 
 - (void)addComment:(CBPWordPressComment *)comment;
+- (void)insertComment:(CBPWordPressComment *)comment atIndex:(NSInteger) index;
 - (NSDictionary *)dictionaryRepresentation;
 - (void)setAttributesFromDictionary:(NSDictionary *)aDictionary;
 

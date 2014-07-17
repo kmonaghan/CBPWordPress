@@ -324,7 +324,7 @@ static NSString * const kFrameString = @"frame";
         
         if (comment) {
             [strongSelf.post addComment:comment];
-            strongSelf.postCommentButton.enabled = YES;
+            strongSelf.viewCommentsButton.enabled = YES;
         }
         
         [strongSelf.navigationController dismissViewControllerAnimated:YES
