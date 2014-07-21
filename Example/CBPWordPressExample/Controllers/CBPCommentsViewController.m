@@ -179,7 +179,9 @@
         
         [weakSelf.navigationController dismissViewControllerAnimated:YES
                                                           completion:^() {
-                                                              [strongSelf showMessage:NSLocalizedString(@"Comment submitted", nil)];
+                                                              if (comment) {
+                                                                  [strongSelf showMessage:NSLocalizedString(@"Comment submitted", nil)];
+                                                              }
                                                           }];
     };
     
