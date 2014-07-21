@@ -106,7 +106,7 @@ static NSString * const kFrameString = @"frame";
     
     self.edgesForExtendedLayout = UIRectEdgeNone;
     
-    self.view.backgroundColor = [UIColor colorWithRed:0.964f green:0.964f blue:0.964f alpha:1.0f];
+    self.view.backgroundColor = [UIColor whiteColor];
     
     [self.view addSubview:self.nextView];
     
@@ -133,7 +133,7 @@ static NSString * const kFrameString = @"frame";
                                                              toItem:nil
                                                           attribute:NSLayoutAttributeNotAnAttribute
                                                          multiplier:1.0f
-                                                           constant:CBPLoadPostViewHeight]];
+                                                           constant:CBPLoadPostViewHeight * CBPLoadPostViewMultiplier]];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|[previousView]|"
                                                                       options:0
                                                                       metrics:nil
@@ -353,11 +353,9 @@ static NSString * const kFrameString = @"frame";
         
         [strongSelf.navigationController dismissViewControllerAnimated:YES
                                                             completion:^() {
-                                                                if (error) {
-                                                                    return;
+                                                                if (comment) {
+                                                                    [strongSelf showMessage:NSLocalizedString(@"Comment submitted", nil)];
                                                                 }
-                                                                
-                                                                [strongSelf showMessage:NSLocalizedString(@"Comment submitted", nil)];
                                                             }];
     };
     
@@ -582,7 +580,7 @@ static NSString * const kFrameString = @"frame";
         if (self.scrollView.contentOffset.y == 0)
         {
             self.nextView.frame = CGRectMake(0, -CBPLoadPostViewHeight, frameWidth, CBPLoadPostViewHeight);
-            self.previousView.frame = CGRectMake(0, frameHeight, frameWidth, CBPLoadPostViewHeight);
+            self.previousView.frame = CGRectMake(0, frameHeight, frameWidth, CBPLoadPostViewHeight * CBPLoadPostViewMultiplier);
             return;
         }
         
@@ -599,7 +597,7 @@ static NSString * const kFrameString = @"frame";
             CGFloat top = (frameHeight - (self.view.frame.size.height - (self.scrollView.contentSize.height - self.scrollView.contentOffset.y)));
             if (top < (frameHeight - (CBPLoadPostViewHeight * CBPLoadPostViewMultiplier))) top = (frameHeight - (CBPLoadPostViewHeight * CBPLoadPostViewMultiplier));
             
-            self.previousView.frame = CGRectMake(0, top , frameWidth, CBPLoadPostViewHeight);
+            self.previousView.frame = CGRectMake(0, top , frameWidth, CBPLoadPostViewHeight * CBPLoadPostViewMultiplier);
         }
     }
     else if ([keyPath isEqualToString:kFrameString])
@@ -642,7 +640,7 @@ static NSString * const kFrameString = @"frame";
     if (!_nextView) {
         _nextView = [[UIView alloc] initWithFrame:CGRectMake(0, -CBPLoadPostViewHeight, CGRectGetWidth(self.view.frame), CBPLoadPostViewHeight)];
         _nextView.translatesAutoresizingMaskIntoConstraints = NO;
-        _nextView.backgroundColor = [UIColor clearColor];
+        _nextView.backgroundColor = [UIColor colorWithRed:0.964f green:0.964f blue:0.964f alpha:1.0f];
         
         [_nextView addSubview:self.nextTitleLabel];
         
@@ -693,24 +691,24 @@ static NSString * const kFrameString = @"frame";
 - (UIView *)previousView
 {
     if (!_previousView) {
-        _previousView = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.view.frame), CGRectGetWidth(self.view.frame), CBPLoadPostViewHeight)];
+        _previousView = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.view.frame), CGRectGetWidth(self.view.frame), CBPLoadPostViewHeight * CBPLoadPostViewMultiplier)];
         _previousView.translatesAutoresizingMaskIntoConstraints = NO;
-        _previousView.backgroundColor = [UIColor clearColor];
+        _previousView.backgroundColor = [UIColor colorWithRed:0.964f green:0.964f blue:0.964f alpha:1.0f];
         
         [_previousView addSubview:self.previousTitleLabel];
         
-        UIView *bottomBlackLine = [UIView new];
-        bottomBlackLine.translatesAutoresizingMaskIntoConstraints = NO;
-        bottomBlackLine.backgroundColor = [UIColor lightGrayColor];
-        [_previousView addSubview:bottomBlackLine];
+        UIView *topBlackLine = [UIView new];
+        topBlackLine.translatesAutoresizingMaskIntoConstraints = NO;
+        topBlackLine.backgroundColor = [UIColor lightGrayColor];
+        [_previousView addSubview:topBlackLine];
         
         NSDictionary *views = @{@"previousTitleLabel": self.previousTitleLabel,
-                                @"bottomBlackLine": bottomBlackLine};
+                                @"topBlackLine": topBlackLine};
         [_previousView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[previousTitleLabel]|"
                                                                               options:0
                                                                               metrics:nil
                                                                                 views:views]];
-        [_previousView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[bottomBlackLine(1)]"
+        [_previousView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[topBlackLine(1)]"
                                                                               options:0
                                                                               metrics:nil
                                                                                 views:views]];
@@ -718,7 +716,7 @@ static NSString * const kFrameString = @"frame";
                                                                               options:0
                                                                               metrics:nil
                                                                                 views:views]];
-        [_previousView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|[bottomBlackLine]|"
+        [_previousView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|[topBlackLine]|"
                                                                               options:0
                                                                               metrics:nil
                                                                                 views:views]];
