@@ -68,6 +68,7 @@
                                                                                            target:self
                                                                                            action:@selector(tipAction)];
     self.titleImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed: @"broadsheet_black"]];
+    self.titleImageView.contentMode = UIViewContentModeScaleAspectFit;
     
     self.navigationItem.titleView = self.titleImageView;
     

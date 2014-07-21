@@ -57,7 +57,7 @@ static NSString * const kFrameString = @"frame";
     {
         // Custom initialization
         _baseFontSize = [[NSUserDefaults standardUserDefaults] floatForKey:CBPUserFontSize];
-
+        
         if (!_baseFontSize) {
             _baseFontSize = [UIFontDescriptor preferredFontDescriptorWithTextStyle:UIFontTextStyleBody].pointSize;
         }
@@ -106,7 +106,7 @@ static NSString * const kFrameString = @"frame";
     
     self.edgesForExtendedLayout = UIRectEdgeNone;
     
-    self.view.backgroundColor = [UIColor whiteColor];
+    self.view.backgroundColor = [UIColor colorWithRed:0.964f green:0.964f blue:0.964f alpha:1.0f];
     
     [self.view addSubview:self.nextView];
     
@@ -114,6 +114,30 @@ static NSString * const kFrameString = @"frame";
     
     [self.view addSubview:self.webView];
     
+    NSDictionary *views = @{@"nextView": self.nextView,
+                            @"previousView": self.previousView};
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.nextView
+                                                          attribute:NSLayoutAttributeHeight
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:nil
+                                                          attribute:NSLayoutAttributeNotAnAttribute
+                                                         multiplier:1.0f
+                                                           constant:CBPLoadPostViewHeight]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|[nextView]|"
+                                                                      options:0
+                                                                      metrics:nil
+                                                                        views:views]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.previousView
+                                                          attribute:NSLayoutAttributeHeight
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:nil
+                                                          attribute:NSLayoutAttributeNotAnAttribute
+                                                         multiplier:1.0f
+                                                           constant:CBPLoadPostViewHeight]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|[previousView]|"
+                                                                      options:0
+                                                                      metrics:nil
+                                                                        views:views]];
     self.scrollView = self.webView.scrollView;
     self.scrollView.delegate = self;
 }
@@ -198,7 +222,7 @@ static NSString * const kFrameString = @"frame";
     self.postCommentButton.enabled = NO;
     [buttons addObject:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil]];
     
-
+    
     
     UIBarButtonItem *share = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction
                                                                            target:self
@@ -228,21 +252,21 @@ static NSString * const kFrameString = @"frame";
     
     [NSURLSessionDataTask fetchPostWithURL:self.url
                                  withBlock:^(CBPWordPressPost *post, NSError *error) {
-                                         if (!error) {
-                                             __strong typeof(weakSelf) strongSelf = weakSelf;
-                                             
-                                             strongSelf.post = post;
-                                             
-                                             if (strongSelf.dataSource && (strongSelf.index >= [strongSelf.dataSource.posts count])) {
-                                                 [strongSelf.dataSource addPost:post];
-                                             }
-                                             
-                                             [strongSelf displayPost];
-                                         } else {
-                                             NSLog(@"Error: %@", error);
-                                            
+                                     if (!error) {
+                                         __strong typeof(weakSelf) strongSelf = weakSelf;
+                                         
+                                         strongSelf.post = post;
+                                         
+                                         if (strongSelf.dataSource && (strongSelf.index >= [strongSelf.dataSource.posts count])) {
+                                             [strongSelf.dataSource addPost:post];
                                          }
-                                     }];
+                                         
+                                         [strongSelf displayPost];
+                                     } else {
+                                         NSLog(@"Error: %@", error);
+                                         
+                                     }
+                                 }];
 }
 
 - (void)loadNextAction
@@ -358,7 +382,7 @@ static NSString * const kFrameString = @"frame";
 }
 
 - (void)showGallery:(NSString *)uri
-{    
+{
     NSUInteger index = [self.post.attachments indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
         if ([[(CBPWordPressAttachment *)obj url] isEqualToString:uri]) {
             *stop = YES;
@@ -418,9 +442,9 @@ static NSString * const kFrameString = @"frame";
 {
     if (self.dataSource
         && (((self.index + 1) < [self.dataSource.posts count])
-        || (self.post.previousURL))) {
-        return YES;
-    }
+            || (self.post.previousURL))) {
+            return YES;
+        }
     
     return NO;
 }
@@ -441,7 +465,7 @@ static NSString * const kFrameString = @"frame";
                 || [ext isEqualToString:@"gif"]) {
                 [self showGallery:[[request URL] absoluteString]];
             }
-        //Capture CBPWordPress links
+            //Capture CBPWordPress links
         } else if ([[[request URL] scheme] hasSuffix:@"cbpwordpress"]) {
             CBPPostListViewController *vc;
             
@@ -456,12 +480,12 @@ static NSString * const kFrameString = @"frame";
             if (vc) {
                 [self.navigationController pushViewController:vc animated:YES];
             }
-        //Read More link
+            //Read More link
         } else if ([[[request URL] absoluteString] hasSuffix:[NSString stringWithFormat:@"%@#more-%ld", self.post.url, (long)self.post.postId]]) {
             __weak typeof(self) weakSelf = self;
-
+            
             [self.webView stringByEvaluatingJavaScriptFromString:@"loadingMore()"];
-
+            
             [NSURLSessionDataTask fetchPostWithId:self.post.postId
                                         withBlock:^(CBPWordPressPost *post, NSError *error) {
                                             if (!error) {
@@ -476,8 +500,8 @@ static NSString * const kFrameString = @"frame";
                                                 NSLog(@"Error: %@", error);
                                             }
                                         }];
-
-        //Capture links to other posts
+            
+            //Capture links to other posts
         } else if ([[[request URL] host] hasSuffix:@"broadsheet.ie"] && [[[request URL] path] hasPrefix:@"/20"]) {
             CBPPostViewController *vc = [[CBPPostViewController alloc] initWithURL:[request URL]];
             
@@ -603,6 +627,7 @@ static NSString * const kFrameString = @"frame";
 {
     if (!_nextTitleLabel) {
         _nextTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(CBPLoadPostViewPadding, 0, CGRectGetWidth(self.view.frame) - (CBPLoadPostViewPadding * 2), CBPLoadPostViewHeight)];
+        _nextTitleLabel.translatesAutoresizingMaskIntoConstraints = NO;
         _nextTitleLabel.backgroundColor = [UIColor clearColor];
         _nextTitleLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline];
         _nextTitleLabel.numberOfLines = 2;
@@ -616,17 +641,34 @@ static NSString * const kFrameString = @"frame";
 {
     if (!_nextView) {
         _nextView = [[UIView alloc] initWithFrame:CGRectMake(0, -CBPLoadPostViewHeight, CGRectGetWidth(self.view.frame), CBPLoadPostViewHeight)];
-        
-        CAGradientLayer *gradient = [CAGradientLayer layer];
-        gradient.frame = _nextView.bounds;
-        gradient.colors = [NSArray arrayWithObjects:(id)[[UIColor whiteColor] CGColor], (id)[[UIColor colorWithRed:0.89f green:0.89f blue:0.89f alpha:1.0f] CGColor], nil];
-        [_nextView.layer insertSublayer:gradient atIndex:0];
+        _nextView.translatesAutoresizingMaskIntoConstraints = NO;
+        _nextView.backgroundColor = [UIColor clearColor];
         
         [_nextView addSubview:self.nextTitleLabel];
         
-        UIView *bottomBlackLine = [[UIView alloc] initWithFrame:CGRectMake(0, CBPLoadPostViewHeight - 1, CGRectGetWidth(self.view.frame), 1.0f)];
+        UIView *bottomBlackLine = [UIView new];
+        bottomBlackLine.translatesAutoresizingMaskIntoConstraints = NO;
         bottomBlackLine.backgroundColor = [UIColor lightGrayColor];
         [_nextView addSubview:bottomBlackLine];
+        
+        NSDictionary *views = @{@"nextTitleLabel": self.nextTitleLabel,
+                                @"bottomBlackLine": bottomBlackLine};
+        [_nextView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[nextTitleLabel]|"
+                                                                          options:0
+                                                                          metrics:nil
+                                                                            views:views]];
+        [_nextView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[bottomBlackLine(1)]|"
+                                                                          options:0
+                                                                          metrics:nil
+                                                                            views:views]];
+        [_nextView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"|-(%f)-[nextTitleLabel]-(%f)-|", CBPLoadPostViewPadding, CBPLoadPostViewPadding]
+                                                                          options:0
+                                                                          metrics:nil
+                                                                            views:views]];
+        [_nextView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|[bottomBlackLine]|"
+                                                                          options:0
+                                                                          metrics:nil
+                                                                            views:views]];
         
         _nextView.hidden = YES;
     }
@@ -637,7 +679,8 @@ static NSString * const kFrameString = @"frame";
 - (UILabel *)previousTitleLabel
 {
     if (!_previousTitleLabel) {
-        _previousTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(CBPLoadPostViewPadding, 0, CGRectGetWidth(self.view.frame) - (CBPLoadPostViewPadding * 2), CBPLoadPostViewHeight)];
+        _previousTitleLabel = [UILabel new];
+        _previousTitleLabel.translatesAutoresizingMaskIntoConstraints = NO;
         _previousTitleLabel.backgroundColor = [UIColor clearColor];
         _previousTitleLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline];
         _previousTitleLabel.numberOfLines = 2;
@@ -651,18 +694,34 @@ static NSString * const kFrameString = @"frame";
 {
     if (!_previousView) {
         _previousView = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.view.frame), CGRectGetWidth(self.view.frame), CBPLoadPostViewHeight)];
-        
-        CAGradientLayer *gradient = [CAGradientLayer layer];
-        gradient.frame = _previousView.bounds;
-        gradient.colors = [NSArray arrayWithObjects:(id)[[UIColor colorWithRed:0.89f green:0.89f blue:0.89f alpha:1.0f] CGColor], (id)[[UIColor whiteColor] CGColor], nil];
-        [_previousView.layer insertSublayer:gradient atIndex:0];
+        _previousView.translatesAutoresizingMaskIntoConstraints = NO;
+        _previousView.backgroundColor = [UIColor clearColor];
         
         [_previousView addSubview:self.previousTitleLabel];
         
-        UIView *bottomBlackLine = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame), 1.0f)];
+        UIView *bottomBlackLine = [UIView new];
+        bottomBlackLine.translatesAutoresizingMaskIntoConstraints = NO;
         bottomBlackLine.backgroundColor = [UIColor lightGrayColor];
         [_previousView addSubview:bottomBlackLine];
         
+        NSDictionary *views = @{@"previousTitleLabel": self.previousTitleLabel,
+                                @"bottomBlackLine": bottomBlackLine};
+        [_previousView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[previousTitleLabel]|"
+                                                                              options:0
+                                                                              metrics:nil
+                                                                                views:views]];
+        [_previousView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[bottomBlackLine(1)]"
+                                                                              options:0
+                                                                              metrics:nil
+                                                                                views:views]];
+        [_previousView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"|-(%f)-[previousTitleLabel]-(%f)-|", CBPLoadPostViewPadding, CBPLoadPostViewPadding]
+                                                                              options:0
+                                                                              metrics:nil
+                                                                                views:views]];
+        [_previousView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|[bottomBlackLine]|"
+                                                                              options:0
+                                                                              metrics:nil
+                                                                                views:views]];
         _previousView.hidden = YES;
     }
     
@@ -685,7 +744,7 @@ static NSString * const kFrameString = @"frame";
         }
         
         _webView = [[UIWebView alloc] initWithFrame:self.view.frame];
-        _webView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
+        _webView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
         _webView.backgroundColor = [UIColor clearColor];
         _webView.allowsInlineMediaPlayback = YES;
         _webView.mediaPlaybackRequiresUserAction = YES;
@@ -694,7 +753,7 @@ static NSString * const kFrameString = @"frame";
         if ([[NSUserDefaults standardUserDefaults] floatForKey:CBPUserFontSize]) {
             UIPinchGestureRecognizer *pinch = [[UIPinchGestureRecognizer alloc] initWithTarget:self
                                                                                         action:@selector(pinchAction:)];
-        
+            
             [_webView addGestureRecognizer:pinch];
         }
     }
