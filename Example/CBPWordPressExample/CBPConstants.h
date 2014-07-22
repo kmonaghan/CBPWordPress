@@ -18,6 +18,6 @@ static NSString * const CBPLocalNotifcation = @"local_notification";
 static NSString * const CBPUserFontSize = @"fontsize";
 
 static const NSInteger CBPBackgroundFetchInterval = 900;
-static const CGFloat CBPPadding = 15.0;
+static const CGFloat CBPPadding = 16.0;
 static const CGFloat CBPMaximiumFontSize = 32.0;
 static const CGFloat CBPMinimumFontSize = 16.0;
