@@ -45,21 +45,23 @@
                                 @"postImageView": self.postImageView,
                                 @"postTitleLabel": self.postTitleLabel};
         
+        NSDictionary *metrics = @{@"padding": @(CBPPadding)};
+        
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(5)-[postTitleLabel]-(5)-[postImageView(150)]-(5)-[postDateLabel]-(5)-|"
                                                                                  options:0
                                                                                  metrics:nil
                                                                                    views:views]];
-        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"H:|-(%f)-[postTitleLabel]-(%f)-|", CBPPadding, CBPPadding]
+        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(padding)-[postTitleLabel]-(padding)-|"
                                                                                  options:0
-                                                                                 metrics:nil
+                                                                                 metrics:metrics
                                                                                    views:views]];
-        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"H:|-(%f)-[postImageView]-(%f)-|", CBPPadding, CBPPadding]
+        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(padding)-[postImageView]-(padding)-|"
                                                                                  options:0
-                                                                                 metrics:nil
+                                                                                 metrics:metrics
                                                                                    views:views]];
-        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"H:|-(%f)-[postDateLabel]-(>=0)-[postCommentLabel]-(%f)-|", CBPPadding, CBPPadding]
+        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(padding)-[postDateLabel]-(>=0)-[postCommentLabel]-(padding)-|"
                                                                                  options:0
-                                                                                 metrics:nil
+                                                                                 metrics:metrics
                                                                                    views:views]];
         [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.postCommentLabel
                                                                      attribute:NSLayoutAttributeCenterY

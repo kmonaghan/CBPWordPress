@@ -651,6 +651,9 @@ static NSString * const kFrameString = @"frame";
         
         NSDictionary *views = @{@"nextTitleLabel": self.nextTitleLabel,
                                 @"bottomBlackLine": bottomBlackLine};
+        
+        NSDictionary *metrics = @{@"padding": @(CBPLoadPostViewPadding)};
+        
         [_nextView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[nextTitleLabel]|"
                                                                           options:0
                                                                           metrics:nil
@@ -659,9 +662,9 @@ static NSString * const kFrameString = @"frame";
                                                                           options:0
                                                                           metrics:nil
                                                                             views:views]];
-        [_nextView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"|-(%f)-[nextTitleLabel]-(%f)-|", CBPLoadPostViewPadding, CBPLoadPostViewPadding]
+        [_nextView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-(padding)-[nextTitleLabel]-(padding)-|"
                                                                           options:0
-                                                                          metrics:nil
+                                                                          metrics:metrics
                                                                             views:views]];
         [_nextView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|[bottomBlackLine]|"
                                                                           options:0
@@ -704,6 +707,9 @@ static NSString * const kFrameString = @"frame";
         
         NSDictionary *views = @{@"previousTitleLabel": self.previousTitleLabel,
                                 @"topBlackLine": topBlackLine};
+        
+        NSDictionary *metrics = @{@"padding": @(CBPLoadPostViewPadding)};
+        
         [_previousView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[previousTitleLabel]|"
                                                                               options:0
                                                                               metrics:nil
@@ -712,9 +718,9 @@ static NSString * const kFrameString = @"frame";
                                                                               options:0
                                                                               metrics:nil
                                                                                 views:views]];
-        [_previousView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"|-(%f)-[previousTitleLabel]-(%f)-|", CBPLoadPostViewPadding, CBPLoadPostViewPadding]
+        [_previousView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-(padding)-[previousTitleLabel]-(padding)-|"
                                                                               options:0
-                                                                              metrics:nil
+                                                                              metrics:metrics
                                                                                 views:views]];
         [_previousView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|[topBlackLine]|"
                                                                               options:0

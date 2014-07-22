@@ -60,10 +60,11 @@ static NSDateFormatter *commentDateFormatter = nil;
                                 @"commentHeaderView": self.commentHeaderView,
                                 @"commentLabel": self.commentLabel};
         
+        NSDictionary *metrics = @{@"padding": @(CBPPadding)};
         
-        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"V:|[commentHeaderView][commentLabel]-(%f)-|", CBPPadding]
+        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[commentHeaderView][commentLabel]-(padding)-|"
                                                                                  options:0
-                                                                                 metrics:nil
+                                                                                 metrics:metrics
                                                                                    views:views]];
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[level1]|"
                                                                                  options:0
@@ -81,13 +82,13 @@ static NSDateFormatter *commentDateFormatter = nil;
                                                                                  options:0
                                                                                  metrics:nil
                                                                                    views:views]];
-        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"|-(11)-[level1][level2][level3][level4]-(5)-[commentHeaderView]-(%f)-|", CBPPadding]
+        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-(11)-[level1][level2][level3][level4]-(5)-[commentHeaderView]-(padding)-|"
                                                                                  options:0
-                                                                                 metrics:nil
+                                                                                 metrics:metrics
                                                                                    views:views]];
-        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"|-(11)-[level1][level2][level3][level4]-(5)-[commentLabel]-(%f)-|", CBPPadding]
+        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-(11)-[level1][level2][level3][level4]-(5)-[commentLabel]-(padding)-|"
                                                                                  options:0
-                                                                                 metrics:nil
+                                                                                 metrics:metrics
                                                                                    views:views]];
         
         self.level1WidthConstraint = [NSLayoutConstraint constraintWithItem:self.level1
@@ -288,25 +289,28 @@ static NSDateFormatter *commentDateFormatter = nil;
                                 @"commentDateLabel": self.commentDateLabel,
                                 @"replyButton": self.replyButton};
         
-        [_commentHeaderView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"V:|-(%f)-[commentatorLabel]-(>=0)-[commentDateLabel]-(%f)-|", CBPPadding, CBPPadding]
+        NSDictionary *metrics = @{@"avatarHeight": @(CBPCommentTableViewCellAvatarHeight),
+                                  @"padding": @(CBPPadding)};
+        
+        [_commentHeaderView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(padding)-[commentatorLabel]-(>=0)-[commentDateLabel]-(padding)-|"
                                                                                    options:0
-                                                                                   metrics:nil
+                                                                                   metrics:metrics
                                                                                      views:views]];
         [_commentHeaderView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[replyButton(44)]"
                                                                                    options:0
                                                                                    metrics:nil
                                                                                      views:views]];
-        [_commentHeaderView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"[avatarImageView(%f)]", CBPCommentTableViewCellAvatarHeight]
+        [_commentHeaderView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"[avatarImageView(avatarHeight)]"
                                                                                    options:0
-                                                                                   metrics:nil
+                                                                                   metrics:metrics
                                                                                      views:views]];
-        [_commentHeaderView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"H:|[avatarImageView(%f)]-(%f)-[commentatorLabel]-(>=0)-[replyButton]|", CBPCommentTableViewCellAvatarHeight, CBPPadding]
+        [_commentHeaderView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[avatarImageView(avatarHeight)]-(padding)-[commentatorLabel]-(>=0)-[replyButton]|"
                                                                                    options:0
-                                                                                   metrics:nil
+                                                                                   metrics:metrics
                                                                                      views:views]];
-        [_commentHeaderView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"H:|[avatarImageView(%f)]-(%f)-[commentDateLabel]-(>=0)-[replyButton]|", CBPCommentTableViewCellAvatarHeight, CBPPadding]
+        [_commentHeaderView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[avatarImageView(avatarHeight)]-(padding)-[commentDateLabel]-(>=0)-[replyButton]|"
                                                                                    options:0
-                                                                                   metrics:nil
+                                                                                   metrics:metrics
                                                                                      views:views]];
         [_commentHeaderView addConstraint:[NSLayoutConstraint constraintWithItem:self.avatarImageView
                                                                        attribute:NSLayoutAttributeCenterY
