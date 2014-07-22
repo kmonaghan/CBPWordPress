@@ -84,13 +84,12 @@
                                              NSMutableArray *posts = (strongSelf.posts && more) ? strongSelf.posts.mutableCopy : @[].mutableCopy;
                                              
                                              for (CBPWordPressPost *post in data.posts) {
-                                                 
-                                                 if (!strongSelf.postIdList[@(post.postId)]) {
+                                                 if (strongSelf.postIdList[@(post.postId)] && posts[[strongSelf.postIdList[@(post.postId)] integerValue]]) {
+                                                     [posts replaceObjectAtIndex:[strongSelf.postIdList[@(post.postId)] integerValue] withObject:post];
+                                                 } else {
                                                      [posts addObject:post];
                                                      
                                                      strongSelf.postIdList[@(post.postId)] = @([posts count] - 1);
-                                                 } else {
-                                                     [posts replaceObjectAtIndex:[strongSelf.postIdList[@(post.postId)] integerValue] withObject:post];
                                                  }
                                              }
                                              
