@@ -14,9 +14,10 @@
 
 @interface CBPWordPressDataSource()
 @property (nonatomic, assign, readwrite) NSInteger lastFetchedPostIndex;
-@property (nonatomic) NSInteger page;
-@property (nonatomic) NSMutableDictionary *postIdList;
+@property (nonatomic, assign) NSInteger page;
+@property (nonatomic) NSDictionary *postIdList;
 @property (nonatomic, readwrite) NSArray *posts;
+@property (nonatomic, assign) NSInteger totalPages;
 @end
 
 @implementation CBPWordPressDataSource
@@ -52,12 +53,20 @@
     NSMutableArray *posts = self.posts.mutableCopy;
     [posts addObject:post];
     
-    if (!self.postIdList) {
-        self.postIdList = @{}.mutableCopy;
+    NSMutableDictionary *postIdList = self.postIdList.mutableCopy;
+    if (!postIdList) {
+        postIdList = @{}.mutableCopy;
     }
     
-    self.postIdList[@(post.postId)] = @(post.postId);
+    postIdList[@(post.postId)] = @(post.postId);
+    
     self.posts = posts;
+    self.postIdList = postIdList;
+}
+
+- (BOOL)canLoadMore
+{
+    return (self.totalPages > self.page);
 }
 
 - (void)loadMore:(BOOL)more withParams:(NSDictionary *)params withBlock:(void (^)(BOOL result, NSError *error))block
@@ -68,6 +77,7 @@
         self.page++;
     } else {
         self.page = 1;
+        self.totalPages = 0;
         self.postIdList = @{}.mutableCopy;
         self.lastFetchedPostIndex = 0;
     }
@@ -82,18 +92,21 @@
                                              __strong typeof(weakSelf) strongSelf = weakSelf;
 
                                              NSMutableArray *posts = (strongSelf.posts && more) ? strongSelf.posts.mutableCopy : @[].mutableCopy;
+                                             NSMutableDictionary *postIdList = (strongSelf.postIdList && more) ? strongSelf.postIdList.mutableCopy : @{}.mutableCopy;
                                              
                                              for (CBPWordPressPost *post in data.posts) {
-                                                 if (strongSelf.postIdList[@(post.postId)] && posts[[strongSelf.postIdList[@(post.postId)] integerValue]]) {
+                                                 if (postIdList[@(post.postId)] && posts[[postIdList[@(post.postId)] integerValue]]) {
                                                      [posts replaceObjectAtIndex:[strongSelf.postIdList[@(post.postId)] integerValue] withObject:post];
                                                  } else {
                                                      [posts addObject:post];
                                                      
-                                                     strongSelf.postIdList[@(post.postId)] = @([posts count] - 1);
+                                                     postIdList[@(post.postId)] = @([posts count] - 1);
                                                  }
                                              }
                                              
                                              strongSelf.posts = posts;
+                                             strongSelf.postIdList = postIdList;
+                                             strongSelf.totalPages = data.pages;
                                              
                                              block(YES, nil);
                                          } else {

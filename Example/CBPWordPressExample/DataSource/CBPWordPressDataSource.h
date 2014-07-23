@@ -13,6 +13,7 @@
 @property (nonatomic, readonly) NSArray *posts;
 
 - (void)addPost:(CBPWordPressPost *)post;
+- (BOOL)canLoadMore;
 - (void)loadMore:(BOOL)more withParams:(NSDictionary *)params withBlock:(void (^)(BOOL result, NSError *error))block;
 - (CBPWordPressPost *)postAtIndex:(NSInteger)index;
 - (void)replacePost:(CBPWordPressPost *)post;

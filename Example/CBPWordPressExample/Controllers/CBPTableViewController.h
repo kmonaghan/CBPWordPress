@@ -10,6 +10,7 @@
 
 @interface CBPTableViewController : UIViewController <UITableViewDelegate>
 @property (nonatomic, assign) BOOL canInfiniteLoad;
+@property (nonatomic, assign) BOOL canLoadMore;
 @property (nonatomic, assign) BOOL canPullToRefresh;
 @property (nonatomic) UITableView *tableView;
 
