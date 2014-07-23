@@ -27,13 +27,13 @@ PODS:
   - HexColors (2.2.1)
   - HTAutocompleteTextField (1.2.6)
   - MBProgressHUD (0.8)
-  - MHVideoPhotoGallery (1.6.1):
-    - SDWebImage (~> 3.6)
+  - MHVideoPhotoGallery (1.6.3):
+    - SDWebImage
   - NSString-HTML (0.0.1)
   - SAMTextView (0.2.1)
-  - SDWebImage (3.7.0):
+  - SDWebImage (3.7.1):
     - SDWebImage/Core
-  - SDWebImage/Core (3.7.0)
+  - SDWebImage/Core (3.7.1)
   - SORelativeDateTransformer (1.1.10)
   - SSCWhatsAppActivity (1.0)
   - SVPullToRefresh (HEAD based on 0.4.1)
@@ -73,10 +73,10 @@ SPEC CHECKSUMS:
   HexColors: 01384d2bbe8dc4ffa43c3b4135db6e976952d153
   HTAutocompleteTextField: 92ca48eb8f2a7fba756fb9f19bc54cba3391b8f4
   MBProgressHUD: c356980b0cd097f19acec959b49dca5eb8ec31be
-  MHVideoPhotoGallery: 55bedce06c1bd53c6cf1368a9419bc0db0f7f701
+  MHVideoPhotoGallery: 13b31768eb49b636e8b27ef60a5d7b2c9aea9b73
   NSString-HTML: 2ccaa6a9886d35f8176ee5e456442bd1524c151b
   SAMTextView: 1062a784ba7b2080b0c17748001c416b53010b4b
-  SDWebImage: 791cb0f588046cb0bb7802ae8ae8f5462947b773
+  SDWebImage: 116e88633b5b416ea0ca4b334a4ac59cf72dd38d
   SORelativeDateTransformer: de7936811c9988af8e129a097af48c828f933f5f
   SSCWhatsAppActivity: a0194b86913400fbb05605ac9f0c83874f3ca377
   SVPullToRefresh: d5161ebc833a38b465364412e5e307ca80bbb190
