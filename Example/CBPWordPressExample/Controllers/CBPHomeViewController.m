@@ -77,7 +77,7 @@
     self.tableView.contentOffset = CGPointMake(0, CGRectGetHeight(self.searchBar.frame));
     
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(updatePosts)
+                                             selector:@selector(willEnterForeground)
                                                  name:UIApplicationWillEnterForegroundNotification
                                                object:nil];
 }
@@ -243,7 +243,7 @@
         self.navigationItem.titleView = self.titleImageView;
     }
     
-    if (lastHeaderUpdate && [lastHeaderUpdate timeIntervalSinceNow] < 84600) {
+    if (lastHeaderUpdate && (fabsf([lastHeaderUpdate timeIntervalSinceNow]) < 21600)) {
         return;
     }
     
@@ -270,7 +270,7 @@
                                         }];
 }
 
-- (void)updatePosts
+- (void)willEnterForeground
 {
     if ([[NSUserDefaults standardUserDefaults] boolForKey:CBPBackgroundUpdate]) {
         return;
