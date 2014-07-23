@@ -20,4 +20,14 @@
                                        duration:5.0f
                            canBeDismissedByUser:YES];
 }
+
+- (void)showError:(NSString *)message
+{
+    [TSMessage showNotificationInViewController:self
+                                          title:message
+                                       subtitle:nil
+                                           type:TSMessageNotificationTypeError
+                                       duration:5.0f
+                           canBeDismissedByUser:YES];
+}
 @end

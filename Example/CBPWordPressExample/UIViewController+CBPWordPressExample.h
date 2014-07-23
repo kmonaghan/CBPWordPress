@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface UIViewController (CBPWordPressExample)
+- (void)showError:(NSString *)message;
 - (void)showMessage:(NSString *)message;
 @end
