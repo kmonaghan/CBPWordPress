@@ -401,6 +401,11 @@ static NSString * const kFrameString = @"frame";
     MHGalleryController *gallery = [MHGalleryController galleryWithPresentationStyle:MHGalleryViewModeImageViewerNavigationBarShown];
     gallery.galleryItems = galleryData;
     
+    MHUICustomization *viewCustomization = [MHUICustomization new];
+    viewCustomization.showOverView = NO;
+    
+    gallery.UICustomization = viewCustomization;
+    
     if (index != NSNotFound) {
         gallery.presentationIndex = index;
     }
