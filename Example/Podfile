@@ -6,13 +6,14 @@ pod 'SVPullToRefresh', :head
 pod 'SORelativeDateTransformer', '~> 1.1'
 pod 'GooglePlusShareActivity', '~> 0.2'
 pod 'HTAutocompleteTextField', '~> 1.2'
-pod 'MBProgressHUD', '~> 0.8'
 pod 'BButton', '~> 4.0'
 pod 'SAMTextView', '~> 0.2'
 pod 'Appirater', '~> 2.0'
 pod 'SSCWhatsAppActivity', '~> 1.0'
 pod 'TTTAttributedLabel', '~> 1.10'
 pod 'TSMessages', '~> 0.9'
+pod 'HTProgressHUD', '~> 0.2.1'
+pod 'ASImageResize', '~> 1.0'
 
 post_install do | installer |
   require 'fileutils'

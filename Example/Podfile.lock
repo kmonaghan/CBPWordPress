@@ -18,6 +18,7 @@ PODS:
   - AFNetworking/UIKit (2.0.3):
     - AFNetworking/NSURLConnection
   - Appirater (2.0.2)
+  - ASImageResize (1.0.3)
   - BButton (4.0.1)
   - CBPWordPress (0.1.0):
     - AFNetworking (~> 2.0.0)
@@ -26,7 +27,7 @@ PODS:
     - google-plus-ios-sdk (= 1.5.0)
   - HexColors (2.2.1)
   - HTAutocompleteTextField (1.2.6)
-  - MBProgressHUD (0.8)
+  - HTProgressHUD (0.2.1)
   - MHVideoPhotoGallery (1.6.3):
     - SDWebImage
   - NSString-HTML (0.0.1)
@@ -44,11 +45,12 @@ PODS:
 
 DEPENDENCIES:
   - Appirater (~> 2.0)
+  - ASImageResize (~> 1.0)
   - BButton (~> 4.0)
   - CBPWordPress (from `../CBPWordPress.podspec`)
   - GooglePlusShareActivity (~> 0.2)
   - HTAutocompleteTextField (~> 1.2)
-  - MBProgressHUD (~> 0.8)
+  - HTProgressHUD (~> 0.2.1)
   - MHVideoPhotoGallery (~> 1.6)
   - NSString-HTML (~> 0.0)
   - SAMTextView (~> 0.2)
@@ -66,13 +68,14 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   AFNetworking: a4d0e9a64de9242986620dafd1b3cee3b413ac5c
   Appirater: a5e00fb01d47a9a6acf4b2f22323b4ccf4f23fbb
+  ASImageResize: 86021cd2b4345b46a9fbaa6ac12ba347fdd32f89
   BButton: 396a5e59648e3f687b7d8201b88ebdbad6e36b59
   CBPWordPress: 31b7daaa8e8c727cac5276db59705b68252ea1e9
   google-plus-ios-sdk: 20ab80284c5ce4616e176b25ed9522cde6f894d3
   GooglePlusShareActivity: 291bce40de044aaefc8dbe32141e21f8de0c13f4
   HexColors: 01384d2bbe8dc4ffa43c3b4135db6e976952d153
   HTAutocompleteTextField: 92ca48eb8f2a7fba756fb9f19bc54cba3391b8f4
-  MBProgressHUD: c356980b0cd097f19acec959b49dca5eb8ec31be
+  HTProgressHUD: 5009f5e22d72757019864a792531d18f353bd01a
   MHVideoPhotoGallery: 13b31768eb49b636e8b27ef60a5d7b2c9aea9b73
   NSString-HTML: 2ccaa6a9886d35f8176ee5e456442bd1524c151b
   SAMTextView: 1062a784ba7b2080b0c17748001c416b53010b4b

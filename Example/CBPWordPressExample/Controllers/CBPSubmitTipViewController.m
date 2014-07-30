@@ -8,10 +8,11 @@
 
 #import "AFHTTPRequestOperationManager.h"
 #import "BButton.h"
-#import "GTMUIImage+Resize.h"
 #import "HTEmailAutocompleteTextField.h"
-#import "MBProgressHUD.h"
+#import "HTProgressHUD.h"
+#import "MHGallery.h"
 #import "SAMTextView.h"
+#import "UIImage+Resize.h"
 
 #import "CBPSubmitTipViewController.h"
 
@@ -19,18 +20,25 @@
 #import "CBPTextViewTableViewCell.h"
 
 @interface CBPSubmitTipViewController () <UIActionSheetDelegate,
-                                            UIAlertViewDelegate,
-                                            UIImagePickerControllerDelegate,
-                                            UINavigationControllerDelegate,
-                                            UITextFieldDelegate,
-                                            UITextViewDelegate>
+UIAlertViewDelegate,
+UIImagePickerControllerDelegate,
+UINavigationControllerDelegate,
+UITextFieldDelegate,
+UITextViewDelegate>
+@property (nonatomic) BButton *addPhoto;
 @property (nonatomic, assign) BOOL askAboutAttachment;
 @property (nonatomic) UIImage *attachmentImage;
 @property (nonatomic) UIImageView *attachmentImageView;
+@property (nonatomic, assign) CGFloat currentTextViewHeight;
 @property (nonatomic) HTEmailAutocompleteTextField *emailTextField;
+@property (nonatomic) HTProgressHUD *hud;
 @property (nonatomic) UITextField *nameTextField;
 @property (nonatomic) SAMTextView *messageTextView;
 @property (nonatomic) UIImagePickerController *picker;
+@property (nonatomic) BButton *removePhoto;
+@property (nonatomic) BButton *retakePhoto;
+@property (nonatomic) BButton *submit;
+@property (nonatomic) UIButton *viewImage;
 @end
 
 @implementation CBPSubmitTipViewController
@@ -42,6 +50,7 @@
         // Custom initialization
         _picker = [UIImagePickerController new];
         _picker.delegate = self;
+        _currentTextViewHeight = CBPTextViewTableViewCellHeight;
     }
     
     return self;
@@ -83,28 +92,28 @@
     if (![self.nameTextField.text length]) {
         result = NO;
         
-        [errorMessage appendString:@"Please enter your name\n"];
+        [errorMessage appendString:NSLocalizedString(@"Please enter your name\n", nil)];
     }
     
     if (![self.emailTextField.text length]) {
         result = NO;
-        [errorMessage appendString:@"Please enter an email address\n"];
+        [errorMessage appendString:NSLocalizedString(@"Please enter an email address\n", nil)];
     }
     
     if (![self.messageTextView.text length]) {
         result = NO;
-        [errorMessage appendString:@"Please enter a message"];
+        [errorMessage appendString:NSLocalizedString(@"Please enter a message", nil)];
     }
     
     if (!result){
         UILabel *errorLabel = [UILabel new];
         errorLabel.text = errorMessage;
         errorLabel.numberOfLines = 0;
-        errorLabel.frame = CGRectMake(10, 10, 300, 22);
+        errorLabel.frame = CGRectMake(CBPPadding, CBPPadding, CGRectGetWidth(self.view.frame) - (CBPPadding * 2), 22.0f);
         [errorLabel sizeToFit];
         errorLabel.backgroundColor = [UIColor clearColor];
         
-        UIView *header = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, errorLabel.frame.size.height + 20)];
+        UIView *header = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame), errorLabel.frame.size.height + 20.0f)];
         
         [header addSubview:errorLabel];
         
@@ -116,7 +125,7 @@
     return result;
 }
 
-- (void)submit
+- (void)submitAction
 {
     self.tableView.tableHeaderView = nil;
     
@@ -138,41 +147,39 @@
     
     [self.view endEditing:YES];
     
-    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    hud.labelText = NSLocalizedString(@"Sending Tip", nil);
-    //hud.yOffset = (self.view.$y / 2) - (hud.$y / 2);
+    self.submit.enabled = NO;
+    self.retakePhoto.enabled = NO;
+    self.removePhoto.enabled = NO;
+    self.addPhoto.enabled = NO;
     
     AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:[NSURL URLWithString:@"http://broadsheet.ie"]];
     NSData *imageData = UIImagePNGRepresentation(self.attachmentImage);
     
     __weak typeof(self) weakSelf = self;
     
-    AFHTTPRequestOperation *op = [manager POST:@"/iphone_tip.php"
+    AFHTTPRequestOperation *op = [manager POST:@"/iphone_tip_karl.php"
                                     parameters:@{@"name": self.nameTextField.text,
                                                  @"email": self.emailTextField.text,
                                                  @"message": self.messageTextView.text}
                      constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-                         //do not put image inside parameters dictionary as I did, but append it!
-                         [formData appendPartWithFileData:imageData
-                                                     name:@"image"
-                                                 fileName:@"tip.png"
-                                                 mimeType:@"image/png"];
+                         if (imageData) {
+                             [formData appendPartWithFileData:imageData
+                                                         name:@"image"
+                                                     fileName:@"tip.png"
+                                                     mimeType:@"image/png"];
+                         }
                      }
                                        success:^(AFHTTPRequestOperation *operation, id responseObject) {
                                            
                                            __strong typeof(weakSelf) strongSelf = weakSelf;
-                                           [MBProgressHUD hideHUDForView:strongSelf.view animated:YES];
                                            
-                                           MBProgressHUD *HUD = [[MBProgressHUD alloc] initWithView:strongSelf.view];
-                                           [strongSelf.view addSubview:HUD];
+                                           [strongSelf.hud hideWithAnimation:YES];
                                            
-                                           // Set custom view mode
-                                           HUD.mode = MBProgressHUDModeCustomView;
-                                           
-                                           HUD.labelText = NSLocalizedString(@"Thanks!", nil);
-                                           
-                                           [HUD show:YES];
-                                           [HUD hide:YES afterDelay:1];
+                                           HTProgressHUD *hud = [HTProgressHUD new];
+                                           hud.indicatorView = nil;
+                                           hud.textLabel.text = NSLocalizedString(@"Thanks!", nil);
+                                           [hud showInView:strongSelf.view animated:NO];
+                                           [hud hideAfterDelay:3];
                                            
                                            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
                                            
@@ -183,108 +190,157 @@
                                            
                                            [strongSelf reset];
                                        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                                           [MBProgressHUD hideHUDForView:self.view animated:YES];
+                                           __strong typeof(weakSelf) strongSelf = weakSelf;
+                                           
+                                           [strongSelf.hud hideWithAnimation:YES];
+                                           
+                                           [strongSelf showError:error.localizedDescription];
+                                           
+                                           strongSelf.submit.enabled = YES;
+                                           strongSelf.retakePhoto.enabled = YES;
+                                           strongSelf.removePhoto.enabled = YES;
+                                           strongSelf.addPhoto.enabled = YES;
                                        }];
     [op start];
+    
+    self.hud = [HTProgressHUD new];
+    [self.hud showInView:self.view animated:YES];
+    self.hud.textLabel.text = NSLocalizedString(@"Sending Tip", nil);
 }
 
 - (void)makeFooter
 {
     self.tableView.tableFooterView = nil;
     
-    UIView *footer = [[UIView alloc] initWithFrame:CGRectZero];
+    UIView *footer = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame), 100)];
     footer.backgroundColor = [UIColor clearColor];
     
-    CGFloat offset = 10.0f;
+    [footer addSubview:self.submit];
     
+    NSMutableDictionary *views = @{@"submit": self.submit}.mutableCopy;
+    
+    NSDictionary *metrics = @{@"imageHeight": @(160),
+                              @"minHeight": @(44),
+                              @"padding": @(CBPPadding)};
+    
+    [footer addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-(padding)-[submit]-(padding)-|"
+                                                                   options:0
+                                                                   metrics:metrics
+                                                                     views:views]];
     if (self.attachmentImage) {
-        BButton *retakePhoto = [[BButton alloc] initWithFrame:CGRectMake(10, 28, 80, 44)];
-        
-        [retakePhoto setTitle:@"Retake" forState:UIControlStateNormal];
-        [retakePhoto addTarget:self
-                        action:@selector(addPhoto)
-              forControlEvents:UIControlEventTouchUpInside];
-        [retakePhoto setType:BButtonTypeDefault];
-        
-        [footer addSubview:retakePhoto];
-        
-        if (!self.attachmentImageView) {
-            self.attachmentImageView = [[UIImageView alloc] initWithFrame:CGRectMake(110.0f, 0.0f, 100.0f, 100.0f)];
-        }
-        
-        self.attachmentImageView.image = self.attachmentImage;
-        
-        offset = 55.0f;
+        [footer addSubview:self.retakePhoto];
         
         [footer addSubview:self.attachmentImageView];
         
-        BButton *removePhoto = [[BButton alloc] initWithFrame:CGRectMake(230.0f, 28.0f, 80.0f, 44.0f)];
+        [footer addSubview:self.removePhoto];
         
-        [removePhoto setTitle:@"Remove" forState:UIControlStateNormal];
-        [removePhoto addTarget:self
-                        action:@selector(removePhoto)
-              forControlEvents:UIControlEventTouchUpInside];
-        [removePhoto setType:BButtonTypeDanger];
+        [footer addSubview:self.viewImage];
         
-        [footer addSubview:removePhoto];
+        views[@"retakePhoto"] = self.retakePhoto;
+        views[@"attachmentImageView"] = self.attachmentImageView;
+        views[@"removePhoto"] = self.removePhoto;
+        views[@"viewImage"] = self.viewImage;
         
+        [footer addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[attachmentImageView(imageHeight)]-(10)-[retakePhoto]-(10)-[submit(minHeight)]"
+                                                                       options:0
+                                                                       metrics:metrics
+                                                                         views:views]];
+        [footer addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[viewImage(imageHeight)]"
+                                                                       options:0
+                                                                       metrics:metrics
+                                                                         views:views]];
+        
+        [footer addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[retakePhoto(minHeight)]"
+                                                                       options:0
+                                                                       metrics:metrics
+                                                                         views:views]];
+        
+        [footer addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[removePhoto(minHeight)]"
+                                                                       options:0
+                                                                       metrics:metrics
+                                                                         views:views]];
+        [footer addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-[attachmentImageView]-|"
+                                                                       options:0
+                                                                       metrics:metrics
+                                                                         views:views]];
+        [footer addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-[viewImage]-|"
+                                                                       options:0
+                                                                       metrics:metrics
+                                                                         views:views]];
+        [footer addConstraint:[NSLayoutConstraint constraintWithItem:self.attachmentImageView
+                                                           attribute:NSLayoutAttributeCenterX
+                                                           relatedBy:NSLayoutRelationEqual
+                                                              toItem:footer
+                                                           attribute:NSLayoutAttributeCenterX
+                                                          multiplier:1.0f
+                                                            constant:0]];
+        
+        [footer addConstraint:[NSLayoutConstraint constraintWithItem:self.removePhoto
+                                                           attribute:NSLayoutAttributeCenterY
+                                                           relatedBy:NSLayoutRelationEqual
+                                                              toItem:self.retakePhoto
+                                                           attribute:NSLayoutAttributeCenterY
+                                                          multiplier:1.0f
+                                                            constant:0]];
+        
+        [footer addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-(padding)-[retakePhoto(==removePhoto)]-[removePhoto]-(padding)-|"
+                                                                       options:0
+                                                                       metrics:metrics
+                                                                         views:views]];
+        self.attachmentImageView.image = self.attachmentImage;
     } else {
-        BButton *addPhoto = [[BButton alloc] initWithFrame:CGRectMake(10, 3, 300, 44)];
+        [footer addSubview:self.addPhoto];
         
-        [addPhoto setTitle:@"Add Photo" forState:UIControlStateNormal];
-        [addPhoto addTarget:self
-                     action:@selector(addPhoto)
-           forControlEvents:UIControlEventTouchUpInside];
-        [addPhoto setType:BButtonTypeDefault];
+        views[@"addPhoto"] = self.addPhoto;
         
-        [footer addSubview:addPhoto];
+        [footer addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[addPhoto(minHeight)]-[submit(minHeight)]"
+                                                                       options:0
+                                                                       metrics:metrics
+                                                                         views:views]];
+        
+        [footer addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-(padding)-[addPhoto]-(padding)-|"
+                                                                       options:0
+                                                                       metrics:metrics
+                                                                         views:views]];
     }
     
-    BButton *submit = [[BButton alloc] initWithFrame:CGRectMake(10.0f, 50.0f + offset, 300.0f, 44.0f)];
+    [footer layoutIfNeeded];
     
-    [submit setTitle:@"Submit Tip" forState:UIControlStateNormal];
-    [submit addTarget:self
-               action:@selector(submit)
-     forControlEvents:UIControlEventTouchUpInside];
-    [submit setType:BButtonTypePrimary];
-    
-    [footer addSubview:submit];
-    
-    footer.frame = CGRectMake(0, 0, CGRectGetWidth(self.view.frame), 100.0f + offset);
+    footer.frame = CGRectMake(0, 0, CGRectGetWidth(self.view.frame), CGRectGetMaxY(self.submit.frame) + 10.0f);
     
     self.tableView.tableFooterView = footer;
 }
 
-- (void)addPhoto
+- (void)addPhotoAction
 {
     [self.view endEditing:YES];
     
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@""
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil
                                                              delegate:self
                                                     cancelButtonTitle:nil
                                                destructiveButtonTitle:nil
                                                     otherButtonTitles:nil];
     
     if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
-        [actionSheet addButtonWithTitle:@"Take Photo"];
+        [actionSheet addButtonWithTitle:NSLocalizedString(@"Take Photo", nil)];
     }
     
     if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]) {
-        [actionSheet addButtonWithTitle:@"From Photo Library"];
+        [actionSheet addButtonWithTitle:NSLocalizedString(@"From Photo Library", nil)];
     }
     
     if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeSavedPhotosAlbum]) {
-        [actionSheet addButtonWithTitle:@"From Album"];
+        [actionSheet addButtonWithTitle:NSLocalizedString(@"From Album", nil)];
     }
     
-    [actionSheet addButtonWithTitle:@"Cancel"];
+    [actionSheet addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
     
     actionSheet.cancelButtonIndex = actionSheet.numberOfButtons - 1;
     
     [actionSheet showInView:self.view];
 }
 
-- (void)removePhoto
+- (void)removePhotoAction
 {
     self.attachmentImage = nil;
     self.attachmentImageView = nil;
@@ -306,7 +362,39 @@
     
     self.askAboutAttachment = NO;
     
+    self.submit.enabled = YES;
+    self.retakePhoto.enabled = YES;
+    self.removePhoto.enabled = YES;
+    self.addPhoto.enabled = YES;
+    
     [self makeFooter];
+}
+
+- (void)showImageAction
+{
+    NSArray *galleryData = @[[[MHGalleryItem alloc] initWithImage:self.attachmentImage]];
+    
+    MHGalleryController *gallery = [MHGalleryController galleryWithPresentationStyle:MHGalleryViewModeImageViewerNavigationBarHidden];
+    gallery.galleryItems = galleryData;
+    gallery.presentingFromImageView = self.attachmentImageView;
+    
+    MHUICustomization *viewCustomization = [MHUICustomization new];
+    viewCustomization.showOverView = NO;
+    viewCustomization.hideShare = YES;
+    
+    gallery.UICustomization = viewCustomization;
+    
+    __weak MHGalleryController *blockGallery = gallery;
+    
+    gallery.finishedCallback = ^(NSUInteger currentIndex, UIImage *image, MHTransitionDismissMHGallery *interactiveTransition, MHGalleryViewMode viewMode) {
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [blockGallery dismissViewControllerAnimated:YES dismissImageView:nil completion:nil];
+        });
+        
+    };
+    
+    [self presentMHGalleryController:gallery animated:YES completion:nil];
 }
 
 #pragma mark - UIImagePickerControllerDelegate
@@ -317,9 +405,8 @@
 
 - (void) imagePickerController: (UIImagePickerController *) picker didFinishPickingMediaWithInfo: (NSDictionary *) info {
     
-    self.attachmentImage = [[info objectForKey:UIImagePickerControllerOriginalImage] gtm_imageByResizingToSize:CGSizeMake(800.0f, 800.0f)
-                                                                                           preserveAspectRatio:YES
-                                                                                                     trimToFit:NO];
+    self.attachmentImage = [[info objectForKey:UIImagePickerControllerOriginalImage] resizedImageToFitInSize:CGSizeMake(1000.0f, 1000.0f) scaleIfSmaller:NO];
+    
     [self dismissViewControllerAnimated:YES completion:nil];
     
     [self makeFooter];
@@ -371,7 +458,7 @@
 {
     if (indexPath.row == 2)
     {
-        return CBPTextViewTableViewCellHeight;
+        return self.currentTextViewHeight;
     }
     
     return CBPTextFieldTableViewCellHeight;
@@ -398,11 +485,11 @@
 {
     UIImagePickerControllerSourceType source;
     
-    if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:@"Take Photo"]) {
+    if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:NSLocalizedString(@"Take Photo", nil)]) {
         source = UIImagePickerControllerSourceTypeCamera;
-    } else if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:@"From Photo Library"]) {
+    } else if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:NSLocalizedString(@"From Photo Library", nil)]) {
         source = UIImagePickerControllerSourceTypePhotoLibrary;
-    } else if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:@"From Album"]) {
+    } else if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:NSLocalizedString(@"From Album", nil)]) {
         source = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
     } else {
         return;
@@ -414,6 +501,10 @@
 #pragma mark - UITextFieldDelegate
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
+    if (!self.submit.enabled) {
+        return NO;
+    }
+    
     if (textField == self.nameTextField) {
         [self.emailTextField becomeFirstResponder];
         return NO;
@@ -424,11 +515,21 @@
     return YES;
 }
 
+#pragma mark - UITextViewDelegate
+- (BOOL)textViewShouldBeginEditing:(UITextView *)textView;
+{
+    if (!self.submit.enabled) {
+        return NO;
+    }
+    
+    return YES;
+}
+
 #pragma mark - UIAlertViewDelegate
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
     if (alertView.cancelButtonIndex == buttonIndex) {
-        [self submit];
+        [self submitAction];
         
         return;
     }
@@ -437,6 +538,32 @@
 }
 
 #pragma mark -
+- (BButton *)addPhoto
+{
+    if (!_addPhoto){
+        _addPhoto = [[BButton alloc] initWithFrame:CGRectZero];
+        _addPhoto.translatesAutoresizingMaskIntoConstraints = NO;
+        [_addPhoto setTitle:NSLocalizedString(@"Add Photo", nil) forState:UIControlStateNormal];
+        [_addPhoto addTarget:self
+                      action:@selector(addPhotoAction)
+            forControlEvents:UIControlEventTouchUpInside];
+        [_addPhoto setType:BButtonTypeDefault];
+    }
+    
+    return _addPhoto;
+}
+
+- (UIImageView *)attachmentImageView
+{
+    if (!_attachmentImageView) {
+        _attachmentImageView = [UIImageView new];
+        _attachmentImageView.translatesAutoresizingMaskIntoConstraints = NO;
+        _attachmentImageView.contentMode = UIViewContentModeScaleAspectFit;
+    }
+    
+    return _attachmentImageView;
+}
+
 - (HTEmailAutocompleteTextField *)emailTextField
 {
     if (!_emailTextField) {
@@ -477,19 +604,75 @@
         _messageTextView.backgroundColor = [UIColor clearColor];
         _messageTextView.font = self.emailTextField.font;
         _messageTextView.contentInset = UIEdgeInsetsMake(5.0f, 10.0f, 5.0f, 10.0f);
+        _messageTextView.delegate = self;
         
         NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc]initWithString:NSLocalizedString(@"What have you got for us?", @"Placeholder text for the tip submission")];
         [attributedString addAttribute:NSForegroundColorAttributeName
-                       value:[UIColor colorWithWhite:0.8 alpha:1.0f]
-                       range:NSMakeRange(0, [attributedString length])];
+                                 value:[UIColor colorWithWhite:0.8 alpha:1.0f]
+                                 range:NSMakeRange(0, [attributedString length])];
         [attributedString addAttribute:NSFontAttributeName
                                  value:self.emailTextField.font
                                  range:NSMakeRange(0,[attributedString length])];
-
+        
         _messageTextView.attributedPlaceholder = attributedString;
     }
     
     return _messageTextView;
 }
 
+- (BButton *)removePhoto
+{
+    if (!_removePhoto) {
+        _removePhoto = [[BButton alloc] initWithFrame:CGRectZero];
+        _removePhoto.translatesAutoresizingMaskIntoConstraints = NO;
+        [_removePhoto setTitle:NSLocalizedString(@"Remove", nil) forState:UIControlStateNormal];
+        [_removePhoto addTarget:self
+                         action:@selector(removePhotoAction)
+               forControlEvents:UIControlEventTouchUpInside];
+        [_removePhoto setType:BButtonTypeDanger];
+    }
+    
+    return _removePhoto;
+}
+
+- (BButton *)retakePhoto
+{
+    if (!_retakePhoto) {
+        _retakePhoto = [[BButton alloc] initWithFrame:CGRectZero];
+        _retakePhoto.translatesAutoresizingMaskIntoConstraints = NO;
+        [_retakePhoto setTitle:NSLocalizedString(@"Retake", nil) forState:UIControlStateNormal];
+        [_retakePhoto addTarget:self
+                         action:@selector(addPhoto)
+               forControlEvents:UIControlEventTouchUpInside];
+        [_retakePhoto setType:BButtonTypeDefault];
+    }
+    
+    return _retakePhoto;
+}
+
+- (BButton *)submit
+{
+    if (!_submit) {
+        _submit = [[BButton alloc] initWithFrame:CGRectZero];
+        _submit.translatesAutoresizingMaskIntoConstraints = NO;
+        [_submit setTitle:NSLocalizedString(@"Submit Tip", nil) forState:UIControlStateNormal];
+        [_submit addTarget:self
+                    action:@selector(submitAction)
+          forControlEvents:UIControlEventTouchUpInside];
+        [_submit setType:BButtonTypePrimary];
+    }
+    
+    return _submit;
+}
+
+- (UIButton *)viewImage
+{
+    if (!_viewImage) {
+        _viewImage = [UIButton buttonWithType:UIButtonTypeCustom];
+        _viewImage.translatesAutoresizingMaskIntoConstraints = NO;
+        [_viewImage addTarget:self action:@selector(showImageAction) forControlEvents:UIControlEventTouchUpInside];
+    }
+    
+    return _viewImage;
+}
 @end
