@@ -13,4 +13,5 @@ static NSString * const CBPTextFieldTableViewCellIdentifier = @"CBPTextFieldTabl
 
 @interface CBPTextFieldTableViewCell : UITableViewCell
 @property (nonatomic) UITextField *inputTextField;
+@property (nonatomic) NSString *imageURI;
 @end

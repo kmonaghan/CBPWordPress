@@ -6,6 +6,8 @@
 //  Copyright (c) 2014 Crayons and Brown Paper. All rights reserved.
 //
 
+#import <CommonCrypto/CommonDigest.h>
+
 #import "HTEmailAutocompleteTextField.h"
 #import "HTProgressHUD.h"
 #import "SAMTextView.h"
@@ -58,8 +60,6 @@
     [self updateViewConstraints];
 }
 
-
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -74,7 +74,7 @@
     
     [self.tableView registerClass:[CBPTextFieldTableViewCell class] forCellReuseIdentifier:CBPTextFieldTableViewCellIdentifier];
     [self.tableView registerClass:[CBPTextViewTableViewCell class] forCellReuseIdentifier:CBPTextViewTableViewCellIdentifier];
-
+    
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     self.nameTextField.text = [defaults objectForKey:CBPCommenterName];
     self.emailTextField.text = [defaults objectForKey:CBPCommenterEmail];
@@ -135,11 +135,11 @@
     [NSURLSessionDataTask postComment:newComment
                             withBlock:^(CBPWordPressComment *comment, NSError *error){
                                 __strong typeof(weakSelf) strongSelf = weakSelf;
-
+                                
                                 [strongSelf.hud hideWithAnimation:YES];
                                 
                                 if (error) {
-                                    [strongSelf showMessage:NSLocalizedString(@"There was a problem trying to post the comment, try again in a second.", nil)];
+                                    [strongSelf showError:NSLocalizedString(@"There was a problem trying to post the comment, try again in a second.", nil)];
                                     
                                     return;
                                 }
@@ -194,6 +194,26 @@
 }
 
 #pragma mark -
+- (NSString *)gravatarURI
+{
+    return [NSString stringWithFormat:@"http://www.gravatar.com/avatar/%@.png?s=88", [self md5:self.emailTextField.text]];
+}
+
+- (NSString *)md5:(NSString *)input
+{
+    const char *cStr = [input UTF8String];
+    unsigned char digest[CC_MD5_DIGEST_LENGTH];
+    CC_MD5(cStr, (CC_LONG)strlen(cStr), digest);
+    
+    NSMutableString *output = [NSMutableString stringWithCapacity:CC_MD5_DIGEST_LENGTH * 2];
+    
+    for(int i = 0; i < CC_MD5_DIGEST_LENGTH; i++) {
+        [output appendFormat:@"%02x", digest[i]];
+    }
+    
+    return  output;
+}
+
 - (void)syncDetails
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -238,7 +258,12 @@
     
     switch (indexPath.row) {
         case 0:
+        {
             cell.inputTextField = self.nameTextField;
+            if ([self.emailTextField.text length]) {
+                cell.imageURI = [self gravatarURI];
+            }
+        }
             break;
         case 1:
             cell.inputTextField = self.emailTextField;
@@ -249,6 +274,9 @@
         default:
             break;
     }
+    
+    [cell updateConstraints];
+    
     return cell;
 }
 
@@ -363,6 +391,7 @@
         [self.emailTextField becomeFirstResponder];
     } else if (textField == self.emailTextField) {
         [self.urlTextField becomeFirstResponder];
+        [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
     } else if (textField == self.urlTextField) {
         [self.commentTextView becomeFirstResponder];
     }

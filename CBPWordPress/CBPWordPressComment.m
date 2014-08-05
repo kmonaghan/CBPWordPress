@@ -41,6 +41,8 @@
         }
     } else if ([key isEqualToString:@"date"]) {
         self.date = [[NSDateFormatter cbp_sharedInstance] dateFromString:value];
+    } else if ([key isEqualToString:@"level"]) {
+        self.level = [value intValue];
     } else {
         [super setValue:value forKey:key];
     }
