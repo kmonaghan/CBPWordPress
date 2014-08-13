@@ -191,6 +191,12 @@
 #pragma mark -
 - (void)errorLoading:(NSError *)error
 {
+    if ([self.dataSource.posts count]) {
+        [self showError:error.localizedDescription];
+        
+        return;
+    }
+    
     [super errorLoading:error];
 }
 
