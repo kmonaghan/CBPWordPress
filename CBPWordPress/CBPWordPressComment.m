@@ -98,6 +98,13 @@
 
 }
 
+/**
+ * The comments can be encoded in a few different ways so we'll try and fall back to different encodings. 
+ * In my own installs I've found that the encoding as more like in this order:
+ * NSWindowsCP1252StringEncoding
+ * NSISOLatin1StringEncoding
+ * NSUTF8StringEncoding
+ */
 - (NSAttributedString *)contentAttributedString
 {
     if (!_contentAttributedString) {
@@ -109,7 +116,21 @@
                                                                       error:&error];
         
         if (error) {
-            _contentAttributedString = nil;
+            _contentAttributedString = [[NSAttributedString alloc] initWithData:[self.content dataUsingEncoding:NSISOLatin1StringEncoding]
+                                                                        options:@{NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType}
+                                                             documentAttributes:nil
+                                                                          error:&error];
+            
+            if (error) {
+                _contentAttributedString = [[NSAttributedString alloc] initWithData:[self.content dataUsingEncoding:NSUTF8StringEncoding]
+                                                                            options:@{NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType}
+                                                                 documentAttributes:nil
+                                                                              error:&error];
+                
+                if (error) {
+                    _contentAttributedString = nil;
+                }
+            }
         }
     }
     
