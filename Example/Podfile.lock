@@ -17,16 +17,16 @@ PODS:
   - AFNetworking/Serialization (2.0.3)
   - AFNetworking/UIKit (2.0.3):
     - AFNetworking/NSURLConnection
-  - Appirater (2.0.2)
+  - Appirater (2.0.3)
   - ASImageResize (1.0.3)
   - BButton (4.0.1)
   - CBPWordPress (0.1.0):
     - AFNetworking (~> 2.0.0)
-  - google-plus-ios-sdk (1.5.0)
-  - GooglePlusShareActivity (0.2.4):
-    - google-plus-ios-sdk (= 1.5.0)
+  - google-plus-ios-sdk (1.7.0)
+  - GooglePlusShareActivity (0.2.6):
+    - google-plus-ios-sdk (= 1.7.0)
   - HexColors (2.2.1)
-  - HTAutocompleteTextField (1.2.6)
+  - HTAutocompleteTextField (1.3.2)
   - HTProgressHUD (0.2.1)
   - MHVideoPhotoGallery (1.6.3):
     - SDWebImage
@@ -38,7 +38,7 @@ PODS:
   - SORelativeDateTransformer (1.1.10)
   - SSCWhatsAppActivity (1.0)
   - SVPullToRefresh (HEAD based on 0.4.1)
-  - TOWebViewController (2.0.12)
+  - TOWebViewController (2.0.13)
   - TSMessages (0.9.9):
     - HexColors
   - TTTAttributedLabel (1.10.1)
@@ -67,14 +67,14 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   AFNetworking: a4d0e9a64de9242986620dafd1b3cee3b413ac5c
-  Appirater: a5e00fb01d47a9a6acf4b2f22323b4ccf4f23fbb
+  Appirater: 793f3723354b1b155f7ddc87fc6017bea889ce50
   ASImageResize: 86021cd2b4345b46a9fbaa6ac12ba347fdd32f89
   BButton: 396a5e59648e3f687b7d8201b88ebdbad6e36b59
   CBPWordPress: 31b7daaa8e8c727cac5276db59705b68252ea1e9
-  google-plus-ios-sdk: 20ab80284c5ce4616e176b25ed9522cde6f894d3
-  GooglePlusShareActivity: 291bce40de044aaefc8dbe32141e21f8de0c13f4
+  google-plus-ios-sdk: f613bd712196b435ecc098eed75afb3364bca177
+  GooglePlusShareActivity: 6a3acf89b352e9d437a2dbdeae1a91b940bbb981
   HexColors: 01384d2bbe8dc4ffa43c3b4135db6e976952d153
-  HTAutocompleteTextField: 92ca48eb8f2a7fba756fb9f19bc54cba3391b8f4
+  HTAutocompleteTextField: 554b1eb39e58a54cb2078a063e078d263ae05a76
   HTProgressHUD: 5009f5e22d72757019864a792531d18f353bd01a
   MHVideoPhotoGallery: 13b31768eb49b636e8b27ef60a5d7b2c9aea9b73
   NSString-HTML: 2ccaa6a9886d35f8176ee5e456442bd1524c151b
@@ -83,7 +83,7 @@ SPEC CHECKSUMS:
   SORelativeDateTransformer: de7936811c9988af8e129a097af48c828f933f5f
   SSCWhatsAppActivity: a0194b86913400fbb05605ac9f0c83874f3ca377
   SVPullToRefresh: d5161ebc833a38b465364412e5e307ca80bbb190
-  TOWebViewController: 6835e64ddfd79f178a65ee46a5041c075a5aa77d
+  TOWebViewController: ec298b6393926f0eda1c4ff174eb50c3d3d95c79
   TSMessages: 2999ef55e532378692e9d14d32da2bb60e285129
   TTTAttributedLabel: 94bb04f1e005616002dd2cee0262a0082e533627
 
