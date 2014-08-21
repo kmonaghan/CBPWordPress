@@ -13,6 +13,12 @@
 @class CBPWordPressPostsContainer;
 
 @interface NSURLSessionDataTask (CBPWordPress)
++ (NSURLSessionDataTask *)fetchPageWithId:(NSInteger)pageId
+                             withPostType:(NSString *)postType
+                                withBlock:(void (^)(CBPWordPressPost *post, NSError *error))block;
++ (NSURLSessionDataTask *)fetchPageWithSlug:(NSString *)slug
+                               withPostType:(NSString *)postType
+                                  withBlock:(void (^)(CBPWordPressPost *post, NSError *error))block;
 + (NSURLSessionDataTask *)fetchPostWithURL:(NSURL *)url
                                  withBlock:(void (^)(CBPWordPressPost *post, NSError *error))block;
 + (NSURLSessionDataTask *)fetchPostsWithParams:(NSDictionary *)params

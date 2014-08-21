@@ -17,6 +17,49 @@
 #import "CBPWordPressSearchParamters.h"
 
 @implementation NSURLSessionDataTask (CBPWordPress)
++ (NSURLSessionDataTask *)fetchPageWithId:(NSInteger)pageId
+                             withPostType:(NSString *)postType
+                                withBlock:(void (^)(CBPWordPressPost *post, NSError *error))block
+{
+    return [[CBPWordPressAPIClient sharedClient] GET:@"" parameters:@{CBPAction: CBPPage, CBPPageId: @(pageId)} success:^(NSURLSessionDataTask * __unused task, id JSON) {
+        if ([JSON[@"status"] isEqualToString:@"ok"]) {
+            CBPWordPressPost *post = [CBPWordPressPost initFromDictionary:JSON[@"page"]];
+            
+            if (block) {
+                block(post, nil);
+            }
+        } else {
+            block(nil, [NSError errorWithDomain:@"CBPWordPressError" code:0 userInfo:@{@"error": JSON[@"error"]}]);
+        }
+    } failure:^(NSURLSessionDataTask *__unused task, NSError *error) {
+        if (block) {
+            block(nil, error);
+        }
+    }];
+}
+
++ (NSURLSessionDataTask *)fetchPageWithSlug:(NSString *)slug
+                               withPostType:(NSString *)postType
+                                  withBlock:(void (^)(CBPWordPressPost *post, NSError *error))block
+{
+    return [[CBPWordPressAPIClient sharedClient] GET:@"" parameters:@{CBPAction: CBPPage, CBPPageSlug: slug} success:^(NSURLSessionDataTask * __unused task, id JSON) {
+        
+        if ([JSON[@"status"] isEqualToString:@"ok"]) {
+            CBPWordPressPost *post = [CBPWordPressPost initFromDictionary:JSON[@"page"]];
+            
+            if (block) {
+                block(post, nil);
+            }
+        } else {
+            block(nil, [NSError errorWithDomain:@"CBPWordPressError" code:0 userInfo:@{@"error": JSON[@"error"]}]);
+        }
+    } failure:^(NSURLSessionDataTask *__unused task, NSError *error) {
+        if (block) {
+            block(nil, error);
+        }
+    }];
+}
+
 + (NSURLSessionDataTask *)fetchPostWithURL:(NSURL *)url withBlock:(void (^)(CBPWordPressPost *post, NSError *error))block
 {
     return [[CBPWordPressAPIClient sharedClient] GET:[url path] parameters:@{CBPAction: @1} success:^(NSURLSessionDataTask * __unused task, id JSON) {

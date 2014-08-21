@@ -41,6 +41,9 @@ static NSString *rootURI = nil;
     } else if (params[CBPCategoryId]) {
         queryDictionary[CBPAction] = CBPCategoryPosts;
         queryDictionary[CBPCategoryId] = params[CBPCategoryId];
+    } else if (params[CBPPageSlug]) {
+        queryDictionary[CBPAction] = CBPPage;
+        queryDictionary[CBPPageSlug] = params[CBPPageSlug];
     } else if (params[CBPSearchQuery]) {
         queryDictionary[CBPAction] = CBPSearchResults;
         queryDictionary[CBPSearchQuery] = params[CBPSearchQuery];
