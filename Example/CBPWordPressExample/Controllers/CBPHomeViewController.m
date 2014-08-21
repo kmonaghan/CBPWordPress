@@ -168,7 +168,7 @@
         vc = [[CBPPostListViewController alloc] initWithCategoryId:[url port]];
     } else if ([[url host] hasSuffix:@"tag"]) {
         vc = [[CBPPostListViewController alloc] initWithTagId:[url port]];
-    } else if ([[url host] hasSuffix:@"broadsheet.ie"] && [[url path] hasPrefix:@"/20"]) {
+    } else if ([[url host] hasSuffix:CBPSiteURL] && [[url path] hasPrefix:@"/20"]) {
         vc = [[CBPPostViewController alloc] initWithURL:url];
     }
     

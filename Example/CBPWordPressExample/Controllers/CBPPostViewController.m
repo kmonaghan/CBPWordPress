@@ -478,7 +478,7 @@ static NSString * const kFrameString = @"frame";
     if (navigationType == UIWebViewNavigationTypeLinkClicked)
 	{
         //show images in the in-app browser
-        if ([[[request URL] host] hasPrefix:@"cf.broadsheet.ie"]) {
+        if ([[[request URL] host] hasPrefix:CBPImageURL]) {
             NSArray *parts = [[[request URL] absoluteString] componentsSeparatedByString:@"."];
             
             NSString *ext = [[parts lastObject] lowercaseString];
@@ -525,7 +525,7 @@ static NSString * const kFrameString = @"frame";
                                         }];
             
             //Capture links to other posts
-        } else if ([[[request URL] host] hasSuffix:@"broadsheet.ie"] && [[[request URL] path] hasPrefix:@"/20"]) {
+        } else if ([[[request URL] host] hasSuffix:CBPSiteURL] && [[[request URL] path] hasPrefix:@"/20"]) {
             CBPPostViewController *vc = [[CBPPostViewController alloc] initWithURL:[request URL]];
             
             [self.navigationController pushViewController:vc animated:YES];
