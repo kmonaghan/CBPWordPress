@@ -60,6 +60,26 @@
     }];
 }
 
++ (NSURLSessionDataTask *)fetchPostWithId:(NSInteger)postId withBlock:(void (^)(CBPWordPressPost *post, NSError *error))block
+{
+    return [[CBPWordPressAPIClient sharedClient] GET:@"" parameters:@{CBPAction: CBPPost, CBPPostId: @(postId)} success:^(NSURLSessionDataTask * __unused task, id JSON) {
+        
+        if ([JSON[@"status"] isEqualToString:@"ok"]) {
+            CBPWordPressPost *post = [CBPWordPressPost initFromDictionary:JSON[@"post"]];
+            
+            if (block) {
+                block(post, nil);
+            }
+        } else {
+            block(nil, [NSError errorWithDomain:@"CBPWordPressError" code:0 userInfo:@{@"error": JSON[@"error"]}]);
+        }
+    } failure:^(NSURLSessionDataTask *__unused task, NSError *error) {
+        if (block) {
+            block(nil, error);
+        }
+    }];
+}
+
 + (NSURLSessionDataTask *)fetchPostWithURL:(NSURL *)url withBlock:(void (^)(CBPWordPressPost *post, NSError *error))block
 {
     return [[CBPWordPressAPIClient sharedClient] GET:[url path] parameters:@{CBPAction: @1} success:^(NSURLSessionDataTask * __unused task, id JSON) {
@@ -87,26 +107,6 @@
         
         if (block) {
             block(container, nil);
-        }
-    } failure:^(NSURLSessionDataTask *__unused task, NSError *error) {
-        if (block) {
-            block(nil, error);
-        }
-    }];
-}
-
-+ (NSURLSessionDataTask *)fetchPostWithId:(NSInteger)postId withBlock:(void (^)(CBPWordPressPost *post, NSError *error))block
-{
-    return [[CBPWordPressAPIClient sharedClient] GET:@"" parameters:@{CBPAction: CBPPost, CBPPostId: @(postId)} success:^(NSURLSessionDataTask * __unused task, id JSON) {
-        
-        if ([JSON[@"status"] isEqualToString:@"ok"]) {
-            CBPWordPressPost *post = [CBPWordPressPost initFromDictionary:JSON[@"post"]];
-            
-            if (block) {
-                block(post, nil);
-            }
-        } else {
-            block(nil, [NSError errorWithDomain:@"CBPWordPressError" code:0 userInfo:@{@"error": JSON[@"error"]}]);
         }
     } failure:^(NSURLSessionDataTask *__unused task, NSError *error) {
         if (block) {
