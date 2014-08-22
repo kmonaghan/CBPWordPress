@@ -3,8 +3,10 @@ Pod::Spec.new do |s|
   s.version          = "0.1.0"
   s.summary          = "A library to display content from a WordPress blog."
   s.description      = <<-DESC
-                       This library depends on the (JSON-API plugin)[https://github.com/kmonaghan/wp-json-api]
-                       DESC
+			CBPWordPress is an iOS library that will allow you to easily include content from a WordPress blog. The library can fetch lists of posts, individual posts and submit comments.
+
+			The data is provided from your WordPress blog using the WP-JSON-API plugin.                        
+DESC
   s.homepage         = "https://github.com/kmonaghan/CBPWordPress"
   s.license          = 'MIT'
   s.author           = { "Karl Monaghan" => "karl.t.monaghan@gmail.com" }
