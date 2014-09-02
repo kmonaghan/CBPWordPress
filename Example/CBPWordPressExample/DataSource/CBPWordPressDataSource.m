@@ -58,7 +58,7 @@
         postIdList = @{}.mutableCopy;
     }
     
-    postIdList[@(post.postId)] = @(post.postId);
+    postIdList[@(post.postId)] = @([posts count] - 1);
     
     self.posts = posts;
     self.postIdList = postIdList;
