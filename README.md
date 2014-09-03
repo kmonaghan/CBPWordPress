@@ -19,7 +19,7 @@ pod 'CBPWordPress'
 ## Usage
 Pointing the library at your own WordPress installation is trivial. The first call to the library should be to set the root URL for the API.
 ```
-[CBPWordPressAPIClientrootURI:@"http://YOUR-API-URL"];
+[CBPWordPressAPIClient rootURI:@"http://YOUR-API-URL"];
 ```
 Once that is set, the calls to the API will use that URL.
 
