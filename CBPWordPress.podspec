@@ -8,7 +8,7 @@ Pod::Spec.new do |s|
 			The data is provided from your WordPress blog using the WP-JSON-API plugin.                        
 DESC
   s.homepage         = "https://github.com/kmonaghan/CBPWordPress"
-  s.screenshots		 = "https://www.dropbox.com/s/r0bquyim2to4zk4/broadshet-screenshot.png"
+  s.screenshots		 = "https://dl.dropboxusercontent.com/s/r0bquyim2to4zk4/broadshet-screenshot.png"
   s.license          = 'MIT'
   s.author           = { "Karl Monaghan" => "karl.t.monaghan@gmail.com" }
   s.source           = { :git => "https://github.com/kmonaghan/CBPWordPress.git", :tag => s.version.to_s }
