@@ -1,6 +1,6 @@
 source 'https://github.com/CocoaPods/Specs.git'
 
-pod "CBPWordPress", :path => "../CBPWordPress.podspec"
+pod 'CBPWordPress', '~> 0.1'
 pod 'TOWebViewController', '~> 2.0.5'
 pod 'NSString-HTML', '~> 0.0'
 pod 'MHVideoPhotoGallery', '~> 1.6'
