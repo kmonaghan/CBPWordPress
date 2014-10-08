@@ -1,3 +1,5 @@
+source 'https://github.com/CocoaPods/Specs.git'
+
 pod "CBPWordPress", :path => "../CBPWordPress.podspec"
 pod 'TOWebViewController', '~> 2.0.5'
 pod 'NSString-HTML', '~> 0.0'
@@ -14,8 +16,3 @@ pod 'TTTAttributedLabel', '~> 1.10'
 pod 'TSMessages', '~> 0.9'
 pod 'HTProgressHUD', '~> 0.2.1'
 pod 'ASImageResize', '~> 1.0'
-
-post_install do | installer |
-  require 'fileutils'
-  FileUtils.cp_r('Pods/Pods-Acknowledgements.plist', 'CBPWordPressExample/Resources/Settings.bundle/Acknowledgements.plist', :remove_destination => true)
-end
