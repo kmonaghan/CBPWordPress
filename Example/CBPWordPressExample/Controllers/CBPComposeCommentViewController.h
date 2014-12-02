@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+#import "CBPWordPress.h"
+
 typedef void (^commentCompletionBlock)(CBPWordPressComment *comment, NSError *error);
 
 @class CBPWordPressComment;

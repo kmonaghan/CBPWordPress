@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+@class CBPWordPressPost;
+
 @interface NSString (CBPWordPressExample)
 + (NSString *)cbp_HTMLStringFor:(CBPWordPressPost *)post withFontSize:(CGFloat)fontSize;
 @end

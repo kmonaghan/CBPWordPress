@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+@class CBPWordPressPost;
+
 @interface CBPWordPressDataSource : NSObject <UITableViewDataSource>
 @property (nonatomic, assign, readonly) NSInteger lastFetchedPostIndex;
 @property (nonatomic, readonly) NSArray *posts;

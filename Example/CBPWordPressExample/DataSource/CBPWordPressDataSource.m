@@ -6,6 +6,8 @@
 //  Copyright (c) 2014 Crayons and Brown Paper. All rights reserved.
 //
 
+#import "CBPWordPress.h"
+
 #import "NSString+HTML.h"
 
 #import "CBPWordPressDataSource.h"

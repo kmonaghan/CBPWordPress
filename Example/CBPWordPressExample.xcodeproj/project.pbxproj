@@ -1,1980 +1,713 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<plist version="1.0">
-<dict>
-	<key>archiveVersion</key>
-	<string>1</string>
-	<key>classes</key>
-	<dict/>
-	<key>objectVersion</key>
-	<string>46</string>
-	<key>objects</key>
-	<dict>
-		<key>3417327619070AA000DAAE85</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>path</key>
-			<string>CBPPostViewController.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>3417327719070AA000DAAE85</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>CBPPostViewController.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>3417327819070AA000DAAE85</key>
-		<dict>
-			<key>fileRef</key>
-			<string>3417327719070AA000DAAE85</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>341C803119522B4D00070FD4</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>path</key>
-			<string>CBPTableViewController.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>341C803219522B4D00070FD4</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>CBPTableViewController.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>341C803319522B4D00070FD4</key>
-		<dict>
-			<key>fileRef</key>
-			<string>341C803219522B4D00070FD4</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>341C8036195238E900070FD4</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.html</string>
-			<key>path</key>
-			<string>tag.snippet.html</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>341C8037195238E900070FD4</key>
-		<dict>
-			<key>fileRef</key>
-			<string>341C8036195238E900070FD4</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>341C803819523B8D00070FD4</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.html</string>
-			<key>path</key>
-			<string>category.snippet.html</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>341C803919523B8D00070FD4</key>
-		<dict>
-			<key>fileRef</key>
-			<string>341C803819523B8D00070FD4</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>347E285D190849B2004D3842</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>path</key>
-			<string>CBPCommentsViewController.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>347E285E190849B2004D3842</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>CBPCommentsViewController.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>347E285F190849B2004D3842</key>
-		<dict>
-			<key>fileRef</key>
-			<string>347E285E190849B2004D3842</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>347E286019084AA1004D3842</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>path</key>
-			<string>CBPComposeCommentViewController.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>347E286119084AA1004D3842</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>CBPComposeCommentViewController.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>347E286219084AA1004D3842</key>
-		<dict>
-			<key>fileRef</key>
-			<string>347E286119084AA1004D3842</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>349BC6D41975E236008CA989</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>path</key>
-			<string>UIViewController+CBPWordPressExample.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>349BC6D51975E236008CA989</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>UIViewController+CBPWordPressExample.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>349BC6D61975E236008CA989</key>
-		<dict>
-			<key>fileRef</key>
-			<string>349BC6D51975E236008CA989</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>349C67F31956254500D25654</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>path</key>
-			<string>CBPHomeViewController.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>349C67F41956254500D25654</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>CBPHomeViewController.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>349C67F51956254500D25654</key>
-		<dict>
-			<key>fileRef</key>
-			<string>349C67F41956254500D25654</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>349C67F61958AA7500D25654</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>wrapper.plug-in</string>
-			<key>name</key>
-			<string>Settings.bundle</string>
-			<key>path</key>
-			<string>Settings.bundle</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>349C67F71958AA7500D25654</key>
-		<dict>
-			<key>fileRef</key>
-			<string>349C67F61958AA7500D25654</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>349C67FA1958AC9200D25654</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>path</key>
-			<string>CBPSubmitTipViewController.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>349C67FB1958AC9200D25654</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>CBPSubmitTipViewController.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>349C67FC1958AC9200D25654</key>
-		<dict>
-			<key>fileRef</key>
-			<string>349C67FB1958AC9200D25654</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>349C68081958CC2900D25654</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>path</key>
-			<string>CBPTextFieldTableViewCell.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>349C68091958CC2900D25654</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>CBPTextFieldTableViewCell.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>349C680B1958CC2900D25654</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>path</key>
-			<string>CBPTextViewTableViewCell.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>349C680C1958CC2900D25654</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>CBPTextViewTableViewCell.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>349C680E1958CC2900D25654</key>
-		<dict>
-			<key>fileRef</key>
-			<string>349C68091958CC2900D25654</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>349C68101958CC2900D25654</key>
-		<dict>
-			<key>fileRef</key>
-			<string>349C680C1958CC2900D25654</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>34BC7429195A128300C162E8</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>path</key>
-			<string>CBPAboutViewController.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>34BC742A195A128300C162E8</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>CBPAboutViewController.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>34BC742B195A128300C162E8</key>
-		<dict>
-			<key>fileRef</key>
-			<string>34BC742A195A128300C162E8</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>34BC742C195A15BF00C162E8</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>path</key>
-			<string>CBPSettingsViewController.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>34BC742D195A15BF00C162E8</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>CBPSettingsViewController.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>34BC742E195A15BF00C162E8</key>
-		<dict>
-			<key>fileRef</key>
-			<string>34BC742D195A15BF00C162E8</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>34BC742F195A191500C162E8</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>path</key>
-			<string>CBPConstants.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>34C2B86118EA0EF8002268BF</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>34BC7429195A128300C162E8</string>
-				<string>34BC742A195A128300C162E8</string>
-				<string>34BC742C195A15BF00C162E8</string>
-				<string>34BC742D195A15BF00C162E8</string>
-				<string>349C67FA1958AC9200D25654</string>
-				<string>349C67FB1958AC9200D25654</string>
-				<string>347E285D190849B2004D3842</string>
-				<string>347E285E190849B2004D3842</string>
-				<string>347E286019084AA1004D3842</string>
-				<string>347E286119084AA1004D3842</string>
-				<string>349C67F31956254500D25654</string>
-				<string>349C67F41956254500D25654</string>
-				<string>34C2B86218EA0EF8002268BF</string>
-				<string>34C2B86318EA0EF8002268BF</string>
-				<string>3417327619070AA000DAAE85</string>
-				<string>3417327719070AA000DAAE85</string>
-				<string>341C803119522B4D00070FD4</string>
-				<string>341C803219522B4D00070FD4</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>path</key>
-			<string>Controllers</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>34C2B86218EA0EF8002268BF</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>path</key>
-			<string>CBPPostListViewController.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>34C2B86318EA0EF8002268BF</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>CBPPostListViewController.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>34C2B86418EA0EF8002268BF</key>
-		<dict>
-			<key>fileRef</key>
-			<string>34C2B86318EA0EF8002268BF</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>34C2B86518EA0FE2002268BF</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>34C2B86618EA1003002268BF</string>
-				<string>34C2B86718EA1003002268BF</string>
-				<string>34E6C1CC1909B5FB00F7B5BD</string>
-				<string>34E6C1CD1909B5FB00F7B5BD</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>DataSource</string>
-			<key>path</key>
-			<string>DataSource</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>34C2B86618EA1003002268BF</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>name</key>
-			<string>CBPWordPressDataSource.h</string>
-			<key>path</key>
-			<string>CBPWordPressDataSource.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>34C2B86718EA1003002268BF</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>name</key>
-			<string>CBPWordPressDataSource.m</string>
-			<key>path</key>
-			<string>CBPWordPressDataSource.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>34C2B86818EA1003002268BF</key>
-		<dict>
-			<key>fileRef</key>
-			<string>34C2B86718EA1003002268BF</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>34C4F1FF1961D5A70092D9F8</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>path</key>
-			<string>CBPSliderTableViewCell.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>34C4F2001961D5A70092D9F8</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>CBPSliderTableViewCell.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>34C4F2011961D5A70092D9F8</key>
-		<dict>
-			<key>fileRef</key>
-			<string>34C4F2001961D5A70092D9F8</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>34D3692D18E709AF00E14526</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>34D3693F18E709AF00E14526</string>
-				<string>34D3695E18E709AF00E14526</string>
-				<string>34D3693818E709AF00E14526</string>
-				<string>34D3693718E709AF00E14526</string>
-				<string>6F029F3BBAA643F491064C2C</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>34D3692E18E709AF00E14526</key>
-		<dict>
-			<key>attributes</key>
-			<dict>
-				<key>CLASSPREFIX</key>
-				<string>CBP</string>
-				<key>LastUpgradeCheck</key>
-				<string>0510</string>
-				<key>ORGANIZATIONNAME</key>
-				<string>Crayons and Brown Paper</string>
-				<key>TargetAttributes</key>
-				<dict>
-					<key>34D3693518E709AF00E14526</key>
-					<dict>
-						<key>DevelopmentTeam</key>
-						<string>733QMTEL36</string>
-						<key>SystemCapabilities</key>
-						<dict>
-							<key>com.apple.BackgroundModes</key>
-							<dict>
-								<key>enabled</key>
-								<string>1</string>
-							</dict>
-						</dict>
-					</dict>
-					<key>34D3695618E709AF00E14526</key>
-					<dict>
-						<key>TestTargetID</key>
-						<string>34D3693518E709AF00E14526</string>
-					</dict>
-				</dict>
-			</dict>
-			<key>buildConfigurationList</key>
-			<string>34D3693118E709AF00E14526</string>
-			<key>compatibilityVersion</key>
-			<string>Xcode 3.2</string>
-			<key>developmentRegion</key>
-			<string>English</string>
-			<key>hasScannedForEncodings</key>
-			<string>0</string>
-			<key>isa</key>
-			<string>PBXProject</string>
-			<key>knownRegions</key>
-			<array>
-				<string>en</string>
-				<string>Base</string>
-			</array>
-			<key>mainGroup</key>
-			<string>34D3692D18E709AF00E14526</string>
-			<key>productRefGroup</key>
-			<string>34D3693718E709AF00E14526</string>
-			<key>projectDirPath</key>
-			<string></string>
-			<key>projectReferences</key>
-			<array/>
-			<key>projectRoot</key>
-			<string></string>
-			<key>targets</key>
-			<array>
-				<string>34D3693518E709AF00E14526</string>
-				<string>34D3695618E709AF00E14526</string>
-			</array>
-		</dict>
-		<key>34D3693118E709AF00E14526</key>
-		<dict>
-			<key>buildConfigurations</key>
-			<array>
-				<string>34D3696618E709AF00E14526</string>
-				<string>34D3696718E709AF00E14526</string>
-			</array>
-			<key>defaultConfigurationIsVisible</key>
-			<string>0</string>
-			<key>defaultConfigurationName</key>
-			<string>Release</string>
-			<key>isa</key>
-			<string>XCConfigurationList</string>
-		</dict>
-		<key>34D3693218E709AF00E14526</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>3417327819070AA000DAAE85</string>
-				<string>347E286219084AA1004D3842</string>
-				<string>34C2B86818EA1003002268BF</string>
-				<string>F58217E8192D00130014AE2E</string>
-				<string>34BC742E195A15BF00C162E8</string>
-				<string>349C68101958CC2900D25654</string>
-				<string>F53D045B192382CE001A392E</string>
-				<string>34D3694A18E709AF00E14526</string>
-				<string>34E6C1CE1909B5FB00F7B5BD</string>
-				<string>341C803319522B4D00070FD4</string>
-				<string>349C67FC1958AC9200D25654</string>
-				<string>34C4F2011961D5A70092D9F8</string>
-				<string>34D3694618E709AF00E14526</string>
-				<string>347E285F190849B2004D3842</string>
-				<string>34C2B86418EA0EF8002268BF</string>
-				<string>349C680E1958CC2900D25654</string>
-				<string>F53E4E2A1926596D00932EC3</string>
-				<string>34BC742B195A128300C162E8</string>
-				<string>349C67F51956254500D25654</string>
-				<string>349BC6D61975E236008CA989</string>
-			</array>
-			<key>isa</key>
-			<string>PBXSourcesBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>34D3693318E709AF00E14526</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>34E31C5B1953727E00604A39</string>
-				<string>34D3693C18E709AF00E14526</string>
-				<string>34D3693E18E709AF00E14526</string>
-				<string>34D3693A18E709AF00E14526</string>
-				<string>C67A29DDF4CD4FD1B3280908</string>
-			</array>
-			<key>isa</key>
-			<string>PBXFrameworksBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>34D3693418E709AF00E14526</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>349C67F71958AA7500D25654</string>
-				<string>341C803919523B8D00070FD4</string>
-				<string>34FE95F41950ED2A0003C814</string>
-				<string>F58217EE192D02F50014AE2E</string>
-				<string>34D3695218E709AF00E14526</string>
-				<string>34D3694418E709AF00E14526</string>
-				<string>341C8037195238E900070FD4</string>
-				<string>F58217EC192D02CB0014AE2E</string>
-			</array>
-			<key>isa</key>
-			<string>PBXResourcesBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>34D3693518E709AF00E14526</key>
-		<dict>
-			<key>buildConfigurationList</key>
-			<string>34D3696818E709AF00E14526</string>
-			<key>buildPhases</key>
-			<array>
-				<string>EA72F6BDE28F4BE5BA277E9B</string>
-				<string>34D3693218E709AF00E14526</string>
-				<string>34D3693318E709AF00E14526</string>
-				<string>34D3693418E709AF00E14526</string>
-				<string>9F29664206684FBFAD1F908C</string>
-			</array>
-			<key>buildRules</key>
-			<array/>
-			<key>dependencies</key>
-			<array/>
-			<key>isa</key>
-			<string>PBXNativeTarget</string>
-			<key>name</key>
-			<string>CBPWordPressExample</string>
-			<key>productName</key>
-			<string>CBPWordPressExample</string>
-			<key>productReference</key>
-			<string>34D3693618E709AF00E14526</string>
-			<key>productType</key>
-			<string>com.apple.product-type.application</string>
-		</dict>
-		<key>34D3693618E709AF00E14526</key>
-		<dict>
-			<key>explicitFileType</key>
-			<string>wrapper.application</string>
-			<key>includeInIndex</key>
-			<string>0</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>path</key>
-			<string>CBPWordPressExample.app</string>
-			<key>sourceTree</key>
-			<string>BUILT_PRODUCTS_DIR</string>
-		</dict>
-		<key>34D3693718E709AF00E14526</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>34D3693618E709AF00E14526</string>
-				<string>34D3695718E709AF00E14526</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Products</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>34D3693818E709AF00E14526</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>34E31C5A1953727E00604A39</string>
-				<string>34D3693918E709AF00E14526</string>
-				<string>34D3693B18E709AF00E14526</string>
-				<string>34D3693D18E709AF00E14526</string>
-				<string>34D3695818E709AF00E14526</string>
-				<string>5D58735488124103BBB09705</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Frameworks</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>34D3693918E709AF00E14526</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>wrapper.framework</string>
-			<key>name</key>
-			<string>Foundation.framework</string>
-			<key>path</key>
-			<string>System/Library/Frameworks/Foundation.framework</string>
-			<key>sourceTree</key>
-			<string>SDKROOT</string>
-		</dict>
-		<key>34D3693A18E709AF00E14526</key>
-		<dict>
-			<key>fileRef</key>
-			<string>34D3693918E709AF00E14526</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>34D3693B18E709AF00E14526</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>wrapper.framework</string>
-			<key>name</key>
-			<string>CoreGraphics.framework</string>
-			<key>path</key>
-			<string>System/Library/Frameworks/CoreGraphics.framework</string>
-			<key>sourceTree</key>
-			<string>SDKROOT</string>
-		</dict>
-		<key>34D3693C18E709AF00E14526</key>
-		<dict>
-			<key>fileRef</key>
-			<string>34D3693B18E709AF00E14526</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>34D3693D18E709AF00E14526</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>wrapper.framework</string>
-			<key>name</key>
-			<string>UIKit.framework</string>
-			<key>path</key>
-			<string>System/Library/Frameworks/UIKit.framework</string>
-			<key>sourceTree</key>
-			<string>SDKROOT</string>
-		</dict>
-		<key>34D3693E18E709AF00E14526</key>
-		<dict>
-			<key>fileRef</key>
-			<string>34D3693D18E709AF00E14526</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>34D3693F18E709AF00E14526</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>F58217E5192CFFE70014AE2E</string>
-				<string>34D3694818E709AF00E14526</string>
-				<string>34D3694918E709AF00E14526</string>
-				<string>34C2B86118EA0EF8002268BF</string>
-				<string>34C2B86518EA0FE2002268BF</string>
-				<string>34D3695118E709AF00E14526</string>
-				<string>F58217EA192D010D0014AE2E</string>
-				<string>34D3694018E709AF00E14526</string>
-				<string>F53D04571923823E001A392E</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>path</key>
-			<string>CBPWordPressExample</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>34D3694018E709AF00E14526</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>34D3694118E709AF00E14526</string>
-				<string>34D3694218E709AF00E14526</string>
-				<string>34D3694518E709AF00E14526</string>
-				<string>34D3694718E709AF00E14526</string>
-				<string>34BC742F195A191500C162E8</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Supporting Files</string>
-			<key>path</key>
-			<string>Supporting Files</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>34D3694118E709AF00E14526</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.plist.xml</string>
-			<key>path</key>
-			<string>CBPWordPressExample-Info.plist</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>34D3694218E709AF00E14526</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>34D3694318E709AF00E14526</string>
-			</array>
-			<key>isa</key>
-			<string>PBXVariantGroup</string>
-			<key>name</key>
-			<string>InfoPlist.strings</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>34D3694318E709AF00E14526</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.plist.strings</string>
-			<key>name</key>
-			<string>en</string>
-			<key>path</key>
-			<string>en.lproj/InfoPlist.strings</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>34D3694418E709AF00E14526</key>
-		<dict>
-			<key>fileRef</key>
-			<string>34D3694218E709AF00E14526</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>34D3694518E709AF00E14526</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>main.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>34D3694618E709AF00E14526</key>
-		<dict>
-			<key>fileRef</key>
-			<string>34D3694518E709AF00E14526</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>34D3694718E709AF00E14526</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>path</key>
-			<string>CBPWordPressExample-Prefix.pch</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>34D3694818E709AF00E14526</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>path</key>
-			<string>CBPAppDelegate.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>34D3694918E709AF00E14526</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>CBPAppDelegate.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>34D3694A18E709AF00E14526</key>
-		<dict>
-			<key>fileRef</key>
-			<string>34D3694918E709AF00E14526</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>34D3695118E709AF00E14526</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>folder.assetcatalog</string>
-			<key>path</key>
-			<string>Images.xcassets</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>34D3695218E709AF00E14526</key>
-		<dict>
-			<key>fileRef</key>
-			<string>34D3695118E709AF00E14526</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>34D3695318E709AF00E14526</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>34D3696518E709AF00E14526</string>
-			</array>
-			<key>isa</key>
-			<string>PBXSourcesBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>34D3695418E709AF00E14526</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>34D3695918E709AF00E14526</string>
-				<string>34D3695B18E709AF00E14526</string>
-				<string>34D3695A18E709AF00E14526</string>
-			</array>
-			<key>isa</key>
-			<string>PBXFrameworksBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>34D3695518E709AF00E14526</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>34D3696318E709AF00E14526</string>
-			</array>
-			<key>isa</key>
-			<string>PBXResourcesBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>34D3695618E709AF00E14526</key>
-		<dict>
-			<key>buildConfigurationList</key>
-			<string>34D3696B18E709AF00E14526</string>
-			<key>buildPhases</key>
-			<array>
-				<string>34D3695318E709AF00E14526</string>
-				<string>34D3695418E709AF00E14526</string>
-				<string>34D3695518E709AF00E14526</string>
-			</array>
-			<key>buildRules</key>
-			<array/>
-			<key>dependencies</key>
-			<array>
-				<string>34D3695D18E709AF00E14526</string>
-			</array>
-			<key>isa</key>
-			<string>PBXNativeTarget</string>
-			<key>name</key>
-			<string>CBPWordPressExampleTests</string>
-			<key>productName</key>
-			<string>CBPWordPressExampleTests</string>
-			<key>productReference</key>
-			<string>34D3695718E709AF00E14526</string>
-			<key>productType</key>
-			<string>com.apple.product-type.bundle.unit-test</string>
-		</dict>
-		<key>34D3695718E709AF00E14526</key>
-		<dict>
-			<key>explicitFileType</key>
-			<string>wrapper.cfbundle</string>
-			<key>includeInIndex</key>
-			<string>0</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>path</key>
-			<string>CBPWordPressExampleTests.xctest</string>
-			<key>sourceTree</key>
-			<string>BUILT_PRODUCTS_DIR</string>
-		</dict>
-		<key>34D3695818E709AF00E14526</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>wrapper.framework</string>
-			<key>name</key>
-			<string>XCTest.framework</string>
-			<key>path</key>
-			<string>Library/Frameworks/XCTest.framework</string>
-			<key>sourceTree</key>
-			<string>DEVELOPER_DIR</string>
-		</dict>
-		<key>34D3695918E709AF00E14526</key>
-		<dict>
-			<key>fileRef</key>
-			<string>34D3695818E709AF00E14526</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>34D3695A18E709AF00E14526</key>
-		<dict>
-			<key>fileRef</key>
-			<string>34D3693918E709AF00E14526</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>34D3695B18E709AF00E14526</key>
-		<dict>
-			<key>fileRef</key>
-			<string>34D3693D18E709AF00E14526</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>34D3695C18E709AF00E14526</key>
-		<dict>
-			<key>containerPortal</key>
-			<string>34D3692E18E709AF00E14526</string>
-			<key>isa</key>
-			<string>PBXContainerItemProxy</string>
-			<key>proxyType</key>
-			<string>1</string>
-			<key>remoteGlobalIDString</key>
-			<string>34D3693518E709AF00E14526</string>
-			<key>remoteInfo</key>
-			<string>CBPWordPressExample</string>
-		</dict>
-		<key>34D3695D18E709AF00E14526</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXTargetDependency</string>
-			<key>target</key>
-			<string>34D3693518E709AF00E14526</string>
-			<key>targetProxy</key>
-			<string>34D3695C18E709AF00E14526</string>
-		</dict>
-		<key>34D3695E18E709AF00E14526</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>34D3696418E709AF00E14526</string>
-				<string>34D3695F18E709AF00E14526</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>path</key>
-			<string>CBPWordPressExampleTests</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>34D3695F18E709AF00E14526</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>34D3696018E709AF00E14526</string>
-				<string>34D3696118E709AF00E14526</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Supporting Files</string>
-			<key>path</key>
-			<string>Supporting Files</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>34D3696018E709AF00E14526</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.plist.xml</string>
-			<key>path</key>
-			<string>CBPWordPressExampleTests-Info.plist</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>34D3696118E709AF00E14526</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>34D3696218E709AF00E14526</string>
-			</array>
-			<key>isa</key>
-			<string>PBXVariantGroup</string>
-			<key>name</key>
-			<string>InfoPlist.strings</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>34D3696218E709AF00E14526</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.plist.strings</string>
-			<key>name</key>
-			<string>en</string>
-			<key>path</key>
-			<string>en.lproj/InfoPlist.strings</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>34D3696318E709AF00E14526</key>
-		<dict>
-			<key>fileRef</key>
-			<string>34D3696118E709AF00E14526</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>34D3696418E709AF00E14526</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>CBPWordPressExampleTests.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>34D3696518E709AF00E14526</key>
-		<dict>
-			<key>fileRef</key>
-			<string>34D3696418E709AF00E14526</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>34D3696618E709AF00E14526</key>
-		<dict>
-			<key>buildSettings</key>
-			<dict>
-				<key>ALWAYS_SEARCH_USER_PATHS</key>
-				<string>NO</string>
-				<key>CLANG_CXX_LANGUAGE_STANDARD</key>
-				<string>gnu++0x</string>
-				<key>CLANG_CXX_LIBRARY</key>
-				<string>libc++</string>
-				<key>CLANG_ENABLE_MODULES</key>
-				<string>YES</string>
-				<key>CLANG_ENABLE_OBJC_ARC</key>
-				<string>YES</string>
-				<key>CLANG_WARN_BOOL_CONVERSION</key>
-				<string>YES</string>
-				<key>CLANG_WARN_CONSTANT_CONVERSION</key>
-				<string>YES</string>
-				<key>CLANG_WARN_DIRECT_OBJC_ISA_USAGE</key>
-				<string>YES_ERROR</string>
-				<key>CLANG_WARN_EMPTY_BODY</key>
-				<string>YES</string>
-				<key>CLANG_WARN_ENUM_CONVERSION</key>
-				<string>YES</string>
-				<key>CLANG_WARN_INT_CONVERSION</key>
-				<string>YES</string>
-				<key>CLANG_WARN_OBJC_ROOT_CLASS</key>
-				<string>YES_ERROR</string>
-				<key>CLANG_WARN__DUPLICATE_METHOD_MATCH</key>
-				<string>YES</string>
-				<key>CODE_SIGN_IDENTITY[sdk=iphoneos*]</key>
-				<string>iPhone Developer</string>
-				<key>COPY_PHASE_STRIP</key>
-				<string>NO</string>
-				<key>GCC_C_LANGUAGE_STANDARD</key>
-				<string>gnu99</string>
-				<key>GCC_DYNAMIC_NO_PIC</key>
-				<string>NO</string>
-				<key>GCC_OPTIMIZATION_LEVEL</key>
-				<string>0</string>
-				<key>GCC_PREPROCESSOR_DEFINITIONS</key>
-				<array>
-					<string>DEBUG=1</string>
-					<string>$(inherited)</string>
-				</array>
-				<key>GCC_SYMBOLS_PRIVATE_EXTERN</key>
-				<string>NO</string>
-				<key>GCC_WARN_64_TO_32_BIT_CONVERSION</key>
-				<string>YES</string>
-				<key>GCC_WARN_ABOUT_RETURN_TYPE</key>
-				<string>YES_ERROR</string>
-				<key>GCC_WARN_UNDECLARED_SELECTOR</key>
-				<string>YES</string>
-				<key>GCC_WARN_UNINITIALIZED_AUTOS</key>
-				<string>YES_AGGRESSIVE</string>
-				<key>GCC_WARN_UNUSED_FUNCTION</key>
-				<string>YES</string>
-				<key>GCC_WARN_UNUSED_VARIABLE</key>
-				<string>YES</string>
-				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
-				<string>7.1</string>
-				<key>ONLY_ACTIVE_ARCH</key>
-				<string>YES</string>
-				<key>SDKROOT</key>
-				<string>iphoneos</string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Debug</string>
-		</dict>
-		<key>34D3696718E709AF00E14526</key>
-		<dict>
-			<key>buildSettings</key>
-			<dict>
-				<key>ALWAYS_SEARCH_USER_PATHS</key>
-				<string>NO</string>
-				<key>CLANG_CXX_LANGUAGE_STANDARD</key>
-				<string>gnu++0x</string>
-				<key>CLANG_CXX_LIBRARY</key>
-				<string>libc++</string>
-				<key>CLANG_ENABLE_MODULES</key>
-				<string>YES</string>
-				<key>CLANG_ENABLE_OBJC_ARC</key>
-				<string>YES</string>
-				<key>CLANG_WARN_BOOL_CONVERSION</key>
-				<string>YES</string>
-				<key>CLANG_WARN_CONSTANT_CONVERSION</key>
-				<string>YES</string>
-				<key>CLANG_WARN_DIRECT_OBJC_ISA_USAGE</key>
-				<string>YES_ERROR</string>
-				<key>CLANG_WARN_EMPTY_BODY</key>
-				<string>YES</string>
-				<key>CLANG_WARN_ENUM_CONVERSION</key>
-				<string>YES</string>
-				<key>CLANG_WARN_INT_CONVERSION</key>
-				<string>YES</string>
-				<key>CLANG_WARN_OBJC_ROOT_CLASS</key>
-				<string>YES_ERROR</string>
-				<key>CLANG_WARN__DUPLICATE_METHOD_MATCH</key>
-				<string>YES</string>
-				<key>CODE_SIGN_IDENTITY[sdk=iphoneos*]</key>
-				<string>iPhone Developer</string>
-				<key>COPY_PHASE_STRIP</key>
-				<string>YES</string>
-				<key>ENABLE_NS_ASSERTIONS</key>
-				<string>NO</string>
-				<key>GCC_C_LANGUAGE_STANDARD</key>
-				<string>gnu99</string>
-				<key>GCC_WARN_64_TO_32_BIT_CONVERSION</key>
-				<string>YES</string>
-				<key>GCC_WARN_ABOUT_RETURN_TYPE</key>
-				<string>YES_ERROR</string>
-				<key>GCC_WARN_UNDECLARED_SELECTOR</key>
-				<string>YES</string>
-				<key>GCC_WARN_UNINITIALIZED_AUTOS</key>
-				<string>YES_AGGRESSIVE</string>
-				<key>GCC_WARN_UNUSED_FUNCTION</key>
-				<string>YES</string>
-				<key>GCC_WARN_UNUSED_VARIABLE</key>
-				<string>YES</string>
-				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
-				<string>7.1</string>
-				<key>SDKROOT</key>
-				<string>iphoneos</string>
-				<key>VALIDATE_PRODUCT</key>
-				<string>YES</string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Release</string>
-		</dict>
-		<key>34D3696818E709AF00E14526</key>
-		<dict>
-			<key>buildConfigurations</key>
-			<array>
-				<string>34D3696918E709AF00E14526</string>
-				<string>34D3696A18E709AF00E14526</string>
-			</array>
-			<key>defaultConfigurationIsVisible</key>
-			<string>0</string>
-			<key>defaultConfigurationName</key>
-			<string>Release</string>
-			<key>isa</key>
-			<string>XCConfigurationList</string>
-		</dict>
-		<key>34D3696918E709AF00E14526</key>
-		<dict>
-			<key>baseConfigurationReference</key>
-			<string>6F029F3BBAA643F491064C2C</string>
-			<key>buildSettings</key>
-			<dict>
-				<key>ASSETCATALOG_COMPILER_APPICON_NAME</key>
-				<string>AppIcon</string>
-				<key>ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME</key>
-				<string>LaunchImage</string>
-				<key>CODE_SIGN_IDENTITY</key>
-				<string>iPhone Developer</string>
-				<key>CODE_SIGN_IDENTITY[sdk=iphoneos*]</key>
-				<string>iPhone Developer</string>
-				<key>FRAMEWORK_SEARCH_PATHS</key>
-				<string>$(inherited)</string>
-				<key>GCC_PRECOMPILE_PREFIX_HEADER</key>
-				<string>YES</string>
-				<key>GCC_PREFIX_HEADER</key>
-				<string>CBPWordPressExample/Supporting Files/CBPWordPressExample-Prefix.pch</string>
-				<key>INFOPLIST_FILE</key>
-				<string>CBPWordPressExample/Supporting Files/CBPWordPressExample-Info.plist</string>
-				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
-				<string>7.0</string>
-				<key>PRODUCT_NAME</key>
-				<string>$(TARGET_NAME)</string>
-				<key>PROVISIONING_PROFILE</key>
-				<string></string>
-				<key>WRAPPER_EXTENSION</key>
-				<string>app</string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Debug</string>
-		</dict>
-		<key>34D3696A18E709AF00E14526</key>
-		<dict>
-			<key>baseConfigurationReference</key>
-			<string>6F029F3BBAA643F491064C2C</string>
-			<key>buildSettings</key>
-			<dict>
-				<key>ASSETCATALOG_COMPILER_APPICON_NAME</key>
-				<string>AppIcon</string>
-				<key>ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME</key>
-				<string>LaunchImage</string>
-				<key>CODE_SIGN_IDENTITY</key>
-				<string>iPhone Developer</string>
-				<key>CODE_SIGN_IDENTITY[sdk=iphoneos*]</key>
-				<string>iPhone Developer</string>
-				<key>FRAMEWORK_SEARCH_PATHS</key>
-				<string>$(inherited)</string>
-				<key>GCC_PRECOMPILE_PREFIX_HEADER</key>
-				<string>YES</string>
-				<key>GCC_PREFIX_HEADER</key>
-				<string>CBPWordPressExample/Supporting Files/CBPWordPressExample-Prefix.pch</string>
-				<key>INFOPLIST_FILE</key>
-				<string>CBPWordPressExample/Supporting Files/CBPWordPressExample-Info.plist</string>
-				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
-				<string>7.0</string>
-				<key>PRODUCT_NAME</key>
-				<string>$(TARGET_NAME)</string>
-				<key>PROVISIONING_PROFILE</key>
-				<string></string>
-				<key>WRAPPER_EXTENSION</key>
-				<string>app</string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Release</string>
-		</dict>
-		<key>34D3696B18E709AF00E14526</key>
-		<dict>
-			<key>buildConfigurations</key>
-			<array>
-				<string>34D3696C18E709AF00E14526</string>
-				<string>34D3696D18E709AF00E14526</string>
-			</array>
-			<key>defaultConfigurationIsVisible</key>
-			<string>0</string>
-			<key>defaultConfigurationName</key>
-			<string>Release</string>
-			<key>isa</key>
-			<string>XCConfigurationList</string>
-		</dict>
-		<key>34D3696C18E709AF00E14526</key>
-		<dict>
-			<key>buildSettings</key>
-			<dict>
-				<key>BUNDLE_LOADER</key>
-				<string>$(BUILT_PRODUCTS_DIR)/CBPWordPressExample.app/CBPWordPressExample</string>
-				<key>FRAMEWORK_SEARCH_PATHS</key>
-				<array>
-					<string>$(SDKROOT)/Developer/Library/Frameworks</string>
-					<string>$(inherited)</string>
-					<string>$(DEVELOPER_FRAMEWORKS_DIR)</string>
-				</array>
-				<key>GCC_PRECOMPILE_PREFIX_HEADER</key>
-				<string>YES</string>
-				<key>GCC_PREFIX_HEADER</key>
-				<string>CBPWordPressExample/Supporting Files/CBPWordPressExample-Prefix.pch</string>
-				<key>GCC_PREPROCESSOR_DEFINITIONS</key>
-				<array>
-					<string>DEBUG=1</string>
-					<string>$(inherited)</string>
-				</array>
-				<key>INFOPLIST_FILE</key>
-				<string>CBPWordPressExampleTests/Supporting Files/CBPWordPressExampleTests-Info.plist</string>
-				<key>PRODUCT_NAME</key>
-				<string>$(TARGET_NAME)</string>
-				<key>TEST_HOST</key>
-				<string>$(BUNDLE_LOADER)</string>
-				<key>WRAPPER_EXTENSION</key>
-				<string>xctest</string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Debug</string>
-		</dict>
-		<key>34D3696D18E709AF00E14526</key>
-		<dict>
-			<key>buildSettings</key>
-			<dict>
-				<key>BUNDLE_LOADER</key>
-				<string>$(BUILT_PRODUCTS_DIR)/CBPWordPressExample.app/CBPWordPressExample</string>
-				<key>FRAMEWORK_SEARCH_PATHS</key>
-				<array>
-					<string>$(SDKROOT)/Developer/Library/Frameworks</string>
-					<string>$(inherited)</string>
-					<string>$(DEVELOPER_FRAMEWORKS_DIR)</string>
-				</array>
-				<key>GCC_PRECOMPILE_PREFIX_HEADER</key>
-				<string>YES</string>
-				<key>GCC_PREFIX_HEADER</key>
-				<string>CBPWordPressExample/Supporting Files/CBPWordPressExample-Prefix.pch</string>
-				<key>INFOPLIST_FILE</key>
-				<string>CBPWordPressExampleTests/Supporting Files/CBPWordPressExampleTests-Info.plist</string>
-				<key>PRODUCT_NAME</key>
-				<string>$(TARGET_NAME)</string>
-				<key>TEST_HOST</key>
-				<string>$(BUNDLE_LOADER)</string>
-				<key>WRAPPER_EXTENSION</key>
-				<string>xctest</string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Release</string>
-		</dict>
-		<key>34E31C5A1953727E00604A39</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>wrapper.framework</string>
-			<key>name</key>
-			<string>AVFoundation.framework</string>
-			<key>path</key>
-			<string>System/Library/Frameworks/AVFoundation.framework</string>
-			<key>sourceTree</key>
-			<string>SDKROOT</string>
-		</dict>
-		<key>34E31C5B1953727E00604A39</key>
-		<dict>
-			<key>fileRef</key>
-			<string>34E31C5A1953727E00604A39</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>34E6C1CC1909B5FB00F7B5BD</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>name</key>
-			<string>CBPCommentDataSource.h</string>
-			<key>path</key>
-			<string>CBPCommentDataSource.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>34E6C1CD1909B5FB00F7B5BD</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>name</key>
-			<string>CBPCommentDataSource.m</string>
-			<key>path</key>
-			<string>CBPCommentDataSource.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>34E6C1CE1909B5FB00F7B5BD</key>
-		<dict>
-			<key>fileRef</key>
-			<string>34E6C1CD1909B5FB00F7B5BD</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>34FE95F01950E9BB0003C814</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.javascript</string>
-			<key>path</key>
-			<string>cbpwordpress.js</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>34FE95F41950ED2A0003C814</key>
-		<dict>
-			<key>fileRef</key>
-			<string>34FE95F01950E9BB0003C814</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>5D58735488124103BBB09705</key>
-		<dict>
-			<key>explicitFileType</key>
-			<string>archive.ar</string>
-			<key>includeInIndex</key>
-			<string>0</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>path</key>
-			<string>libPods.a</string>
-			<key>sourceTree</key>
-			<string>BUILT_PRODUCTS_DIR</string>
-		</dict>
-		<key>6F029F3BBAA643F491064C2C</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.xcconfig</string>
-			<key>name</key>
-			<string>Pods.xcconfig</string>
-			<key>path</key>
-			<string>Pods/Pods.xcconfig</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>9F29664206684FBFAD1F908C</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array/>
-			<key>inputPaths</key>
-			<array/>
-			<key>isa</key>
-			<string>PBXShellScriptBuildPhase</string>
-			<key>name</key>
-			<string>Copy Pods Resources</string>
-			<key>outputPaths</key>
-			<array/>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-			<key>shellPath</key>
-			<string>/bin/sh</string>
-			<key>shellScript</key>
-			<string>"${SRCROOT}/Pods/Pods-resources.sh"
-</string>
-			<key>showEnvVarsInLog</key>
-			<string>0</string>
-		</dict>
-		<key>C67A29DDF4CD4FD1B3280908</key>
-		<dict>
-			<key>fileRef</key>
-			<string>5D58735488124103BBB09705</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>EA72F6BDE28F4BE5BA277E9B</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array/>
-			<key>inputPaths</key>
-			<array/>
-			<key>isa</key>
-			<string>PBXShellScriptBuildPhase</string>
-			<key>name</key>
-			<string>Check Pods Manifest.lock</string>
-			<key>outputPaths</key>
-			<array/>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-			<key>shellPath</key>
-			<string>/bin/sh</string>
-			<key>shellScript</key>
-			<string>diff "${PODS_ROOT}/../Podfile.lock" "${PODS_ROOT}/Manifest.lock" &gt; /dev/null
-if [[ $? != 0 ]] ; then
-    cat &lt;&lt; EOM
-error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.
-EOM
-    exit 1
-fi
-</string>
-			<key>showEnvVarsInLog</key>
-			<string>0</string>
-		</dict>
-		<key>F53D04571923823E001A392E</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>F53D045819238253001A392E</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Views</string>
-			<key>path</key>
-			<string>Views</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>F53D045819238253001A392E</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>F53E4E281926596D00932EC3</string>
-				<string>F53E4E291926596D00932EC3</string>
-				<string>F53D0459192382CE001A392E</string>
-				<string>F53D045A192382CE001A392E</string>
-				<string>34C4F1FF1961D5A70092D9F8</string>
-				<string>34C4F2001961D5A70092D9F8</string>
-				<string>349C68081958CC2900D25654</string>
-				<string>349C68091958CC2900D25654</string>
-				<string>349C680B1958CC2900D25654</string>
-				<string>349C680C1958CC2900D25654</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>TableCells</string>
-			<key>path</key>
-			<string>TableCells</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>F53D0459192382CE001A392E</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>name</key>
-			<string>CBPLargePostPreviewTableViewCell.h</string>
-			<key>path</key>
-			<string>CBPLargePostPreviewTableViewCell.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>F53D045A192382CE001A392E</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>name</key>
-			<string>CBPLargePostPreviewTableViewCell.m</string>
-			<key>path</key>
-			<string>CBPLargePostPreviewTableViewCell.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>F53D045B192382CE001A392E</key>
-		<dict>
-			<key>fileRef</key>
-			<string>F53D045A192382CE001A392E</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>F53E4E281926596D00932EC3</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>name</key>
-			<string>CBPCommentTableViewCell.h</string>
-			<key>path</key>
-			<string>CBPCommentTableViewCell.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>F53E4E291926596D00932EC3</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>name</key>
-			<string>CBPCommentTableViewCell.m</string>
-			<key>path</key>
-			<string>CBPCommentTableViewCell.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>F53E4E2A1926596D00932EC3</key>
-		<dict>
-			<key>fileRef</key>
-			<string>F53E4E291926596D00932EC3</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>F58217E5192CFFE70014AE2E</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>F58217E6192D00130014AE2E</string>
-				<string>F58217E7192D00130014AE2E</string>
-				<string>349BC6D41975E236008CA989</string>
-				<string>349BC6D51975E236008CA989</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Categories</string>
-			<key>path</key>
-			<string>Categories</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>F58217E6192D00130014AE2E</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>name</key>
-			<string>NSString+CBPWordPressExample.h</string>
-			<key>path</key>
-			<string>NSString+CBPWordPressExample.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>F58217E7192D00130014AE2E</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>name</key>
-			<string>NSString+CBPWordPressExample.m</string>
-			<key>path</key>
-			<string>NSString+CBPWordPressExample.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>F58217E8192D00130014AE2E</key>
-		<dict>
-			<key>fileRef</key>
-			<string>F58217E7192D00130014AE2E</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>F58217EA192D010D0014AE2E</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>F58217EB192D02CB0014AE2E</string>
-				<string>F58217ED192D02F50014AE2E</string>
-				<string>34FE95F01950E9BB0003C814</string>
-				<string>341C8036195238E900070FD4</string>
-				<string>341C803819523B8D00070FD4</string>
-				<string>349C67F61958AA7500D25654</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Resources</string>
-			<key>path</key>
-			<string>Resources</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>F58217EB192D02CB0014AE2E</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.css</string>
-			<key>name</key>
-			<string>default.css</string>
-			<key>path</key>
-			<string>default.css</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>F58217EC192D02CB0014AE2E</key>
-		<dict>
-			<key>fileRef</key>
-			<string>F58217EB192D02CB0014AE2E</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>F58217ED192D02F50014AE2E</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.html</string>
-			<key>name</key>
-			<string>template.html</string>
-			<key>path</key>
-			<string>template.html</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>F58217EE192D02F50014AE2E</key>
-		<dict>
-			<key>fileRef</key>
-			<string>F58217ED192D02F50014AE2E</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-	</dict>
-	<key>rootObject</key>
-	<string>34D3692E18E709AF00E14526</string>
-</dict>
-</plist>
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		3417327819070AA000DAAE85 /* CBPPostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3417327719070AA000DAAE85 /* CBPPostViewController.m */; };
+		341C803319522B4D00070FD4 /* CBPTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 341C803219522B4D00070FD4 /* CBPTableViewController.m */; };
+		341C8037195238E900070FD4 /* tag.snippet.html in Resources */ = {isa = PBXBuildFile; fileRef = 341C8036195238E900070FD4 /* tag.snippet.html */; };
+		341C803919523B8D00070FD4 /* category.snippet.html in Resources */ = {isa = PBXBuildFile; fileRef = 341C803819523B8D00070FD4 /* category.snippet.html */; };
+		347E285F190849B2004D3842 /* CBPCommentsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 347E285E190849B2004D3842 /* CBPCommentsViewController.m */; };
+		347E286219084AA1004D3842 /* CBPComposeCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 347E286119084AA1004D3842 /* CBPComposeCommentViewController.m */; };
+		349BC6D61975E236008CA989 /* UIViewController+CBPWordPressExample.m in Sources */ = {isa = PBXBuildFile; fileRef = 349BC6D51975E236008CA989 /* UIViewController+CBPWordPressExample.m */; };
+		349C67F51956254500D25654 /* CBPHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 349C67F41956254500D25654 /* CBPHomeViewController.m */; };
+		349C67F71958AA7500D25654 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 349C67F61958AA7500D25654 /* Settings.bundle */; };
+		349C67FC1958AC9200D25654 /* CBPSubmitTipViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 349C67FB1958AC9200D25654 /* CBPSubmitTipViewController.m */; };
+		349C680E1958CC2900D25654 /* CBPTextFieldTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 349C68091958CC2900D25654 /* CBPTextFieldTableViewCell.m */; };
+		349C68101958CC2900D25654 /* CBPTextViewTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 349C680C1958CC2900D25654 /* CBPTextViewTableViewCell.m */; };
+		34BC742B195A128300C162E8 /* CBPAboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 34BC742A195A128300C162E8 /* CBPAboutViewController.m */; };
+		34BC742E195A15BF00C162E8 /* CBPSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 34BC742D195A15BF00C162E8 /* CBPSettingsViewController.m */; };
+		34C2B86418EA0EF8002268BF /* CBPPostListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 34C2B86318EA0EF8002268BF /* CBPPostListViewController.m */; };
+		34C2B86818EA1003002268BF /* CBPWordPressDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 34C2B86718EA1003002268BF /* CBPWordPressDataSource.m */; };
+		34C4F2011961D5A70092D9F8 /* CBPSliderTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 34C4F2001961D5A70092D9F8 /* CBPSliderTableViewCell.m */; };
+		34D3693A18E709AF00E14526 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34D3693918E709AF00E14526 /* Foundation.framework */; };
+		34D3693C18E709AF00E14526 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34D3693B18E709AF00E14526 /* CoreGraphics.framework */; };
+		34D3693E18E709AF00E14526 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34D3693D18E709AF00E14526 /* UIKit.framework */; };
+		34D3694418E709AF00E14526 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 34D3694218E709AF00E14526 /* InfoPlist.strings */; };
+		34D3694618E709AF00E14526 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 34D3694518E709AF00E14526 /* main.m */; };
+		34D3694A18E709AF00E14526 /* CBPAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 34D3694918E709AF00E14526 /* CBPAppDelegate.m */; };
+		34D3695218E709AF00E14526 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 34D3695118E709AF00E14526 /* Images.xcassets */; };
+		34D3695918E709AF00E14526 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34D3695818E709AF00E14526 /* XCTest.framework */; };
+		34D3695A18E709AF00E14526 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34D3693918E709AF00E14526 /* Foundation.framework */; };
+		34D3695B18E709AF00E14526 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34D3693D18E709AF00E14526 /* UIKit.framework */; };
+		34D3696318E709AF00E14526 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 34D3696118E709AF00E14526 /* InfoPlist.strings */; };
+		34D3696518E709AF00E14526 /* CBPWordPressExampleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 34D3696418E709AF00E14526 /* CBPWordPressExampleTests.m */; };
+		34E31C5B1953727E00604A39 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34E31C5A1953727E00604A39 /* AVFoundation.framework */; };
+		34E6C1CE1909B5FB00F7B5BD /* CBPCommentDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 34E6C1CD1909B5FB00F7B5BD /* CBPCommentDataSource.m */; };
+		34FE95F41950ED2A0003C814 /* cbpwordpress.js in Resources */ = {isa = PBXBuildFile; fileRef = 34FE95F01950E9BB0003C814 /* cbpwordpress.js */; };
+		C67A29DDF4CD4FD1B3280908 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D58735488124103BBB09705 /* libPods.a */; };
+		F53D045B192382CE001A392E /* CBPLargePostPreviewTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F53D045A192382CE001A392E /* CBPLargePostPreviewTableViewCell.m */; };
+		F53E4E2A1926596D00932EC3 /* CBPCommentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F53E4E291926596D00932EC3 /* CBPCommentTableViewCell.m */; };
+		F58217E8192D00130014AE2E /* NSString+CBPWordPressExample.m in Sources */ = {isa = PBXBuildFile; fileRef = F58217E7192D00130014AE2E /* NSString+CBPWordPressExample.m */; };
+		F58217EC192D02CB0014AE2E /* default.css in Resources */ = {isa = PBXBuildFile; fileRef = F58217EB192D02CB0014AE2E /* default.css */; };
+		F58217EE192D02F50014AE2E /* template.html in Resources */ = {isa = PBXBuildFile; fileRef = F58217ED192D02F50014AE2E /* template.html */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		34D3695C18E709AF00E14526 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 34D3692E18E709AF00E14526 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 34D3693518E709AF00E14526;
+			remoteInfo = CBPWordPressExample;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		3417327619070AA000DAAE85 /* CBPPostViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBPPostViewController.h; sourceTree = "<group>"; };
+		3417327719070AA000DAAE85 /* CBPPostViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBPPostViewController.m; sourceTree = "<group>"; };
+		341C803119522B4D00070FD4 /* CBPTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBPTableViewController.h; sourceTree = "<group>"; };
+		341C803219522B4D00070FD4 /* CBPTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBPTableViewController.m; sourceTree = "<group>"; };
+		341C8036195238E900070FD4 /* tag.snippet.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = tag.snippet.html; sourceTree = "<group>"; };
+		341C803819523B8D00070FD4 /* category.snippet.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = category.snippet.html; sourceTree = "<group>"; };
+		347E285D190849B2004D3842 /* CBPCommentsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBPCommentsViewController.h; sourceTree = "<group>"; };
+		347E285E190849B2004D3842 /* CBPCommentsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBPCommentsViewController.m; sourceTree = "<group>"; };
+		347E286019084AA1004D3842 /* CBPComposeCommentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBPComposeCommentViewController.h; sourceTree = "<group>"; };
+		347E286119084AA1004D3842 /* CBPComposeCommentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBPComposeCommentViewController.m; sourceTree = "<group>"; };
+		349BC6D41975E236008CA989 /* UIViewController+CBPWordPressExample.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+CBPWordPressExample.h"; sourceTree = "<group>"; };
+		349BC6D51975E236008CA989 /* UIViewController+CBPWordPressExample.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+CBPWordPressExample.m"; sourceTree = "<group>"; };
+		349C67F31956254500D25654 /* CBPHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBPHomeViewController.h; sourceTree = "<group>"; };
+		349C67F41956254500D25654 /* CBPHomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBPHomeViewController.m; sourceTree = "<group>"; };
+		349C67F61958AA7500D25654 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
+		349C67FA1958AC9200D25654 /* CBPSubmitTipViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBPSubmitTipViewController.h; sourceTree = "<group>"; };
+		349C67FB1958AC9200D25654 /* CBPSubmitTipViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBPSubmitTipViewController.m; sourceTree = "<group>"; };
+		349C68081958CC2900D25654 /* CBPTextFieldTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBPTextFieldTableViewCell.h; sourceTree = "<group>"; };
+		349C68091958CC2900D25654 /* CBPTextFieldTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBPTextFieldTableViewCell.m; sourceTree = "<group>"; };
+		349C680B1958CC2900D25654 /* CBPTextViewTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBPTextViewTableViewCell.h; sourceTree = "<group>"; };
+		349C680C1958CC2900D25654 /* CBPTextViewTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBPTextViewTableViewCell.m; sourceTree = "<group>"; };
+		34BC7429195A128300C162E8 /* CBPAboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBPAboutViewController.h; sourceTree = "<group>"; };
+		34BC742A195A128300C162E8 /* CBPAboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBPAboutViewController.m; sourceTree = "<group>"; };
+		34BC742C195A15BF00C162E8 /* CBPSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBPSettingsViewController.h; sourceTree = "<group>"; };
+		34BC742D195A15BF00C162E8 /* CBPSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBPSettingsViewController.m; sourceTree = "<group>"; };
+		34BC742F195A191500C162E8 /* CBPConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CBPConstants.h; sourceTree = "<group>"; };
+		34C2B86218EA0EF8002268BF /* CBPPostListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBPPostListViewController.h; sourceTree = "<group>"; };
+		34C2B86318EA0EF8002268BF /* CBPPostListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBPPostListViewController.m; sourceTree = "<group>"; };
+		34C2B86618EA1003002268BF /* CBPWordPressDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBPWordPressDataSource.h; sourceTree = "<group>"; };
+		34C2B86718EA1003002268BF /* CBPWordPressDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBPWordPressDataSource.m; sourceTree = "<group>"; };
+		34C4F1FF1961D5A70092D9F8 /* CBPSliderTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBPSliderTableViewCell.h; sourceTree = "<group>"; };
+		34C4F2001961D5A70092D9F8 /* CBPSliderTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBPSliderTableViewCell.m; sourceTree = "<group>"; };
+		34D3693618E709AF00E14526 /* CBPWordPressExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CBPWordPressExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		34D3693918E709AF00E14526 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		34D3693B18E709AF00E14526 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		34D3693D18E709AF00E14526 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		34D3694118E709AF00E14526 /* CBPWordPressExample-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CBPWordPressExample-Info.plist"; sourceTree = "<group>"; };
+		34D3694318E709AF00E14526 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		34D3694518E709AF00E14526 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		34D3694718E709AF00E14526 /* CBPWordPressExample-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CBPWordPressExample-Prefix.pch"; sourceTree = "<group>"; };
+		34D3694818E709AF00E14526 /* CBPAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CBPAppDelegate.h; sourceTree = "<group>"; };
+		34D3694918E709AF00E14526 /* CBPAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CBPAppDelegate.m; sourceTree = "<group>"; };
+		34D3695118E709AF00E14526 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		34D3695718E709AF00E14526 /* CBPWordPressExampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CBPWordPressExampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		34D3695818E709AF00E14526 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		34D3696018E709AF00E14526 /* CBPWordPressExampleTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CBPWordPressExampleTests-Info.plist"; sourceTree = "<group>"; };
+		34D3696218E709AF00E14526 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		34D3696418E709AF00E14526 /* CBPWordPressExampleTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CBPWordPressExampleTests.m; sourceTree = "<group>"; };
+		34E31C5A1953727E00604A39 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		34E6C1CC1909B5FB00F7B5BD /* CBPCommentDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBPCommentDataSource.h; sourceTree = "<group>"; };
+		34E6C1CD1909B5FB00F7B5BD /* CBPCommentDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBPCommentDataSource.m; sourceTree = "<group>"; };
+		34FE95F01950E9BB0003C814 /* cbpwordpress.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = cbpwordpress.js; sourceTree = "<group>"; };
+		36C93CD6AAD4BFAF4BF236A5 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		5D58735488124103BBB09705 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		C703CEB51A654FBD07C4DFD3 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		F53D0459192382CE001A392E /* CBPLargePostPreviewTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBPLargePostPreviewTableViewCell.h; sourceTree = "<group>"; };
+		F53D045A192382CE001A392E /* CBPLargePostPreviewTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBPLargePostPreviewTableViewCell.m; sourceTree = "<group>"; };
+		F53E4E281926596D00932EC3 /* CBPCommentTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBPCommentTableViewCell.h; sourceTree = "<group>"; };
+		F53E4E291926596D00932EC3 /* CBPCommentTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBPCommentTableViewCell.m; sourceTree = "<group>"; };
+		F58217E6192D00130014AE2E /* NSString+CBPWordPressExample.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+CBPWordPressExample.h"; sourceTree = "<group>"; };
+		F58217E7192D00130014AE2E /* NSString+CBPWordPressExample.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+CBPWordPressExample.m"; sourceTree = "<group>"; };
+		F58217EB192D02CB0014AE2E /* default.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = default.css; sourceTree = "<group>"; };
+		F58217ED192D02F50014AE2E /* template.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = template.html; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		34D3693318E709AF00E14526 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				34E31C5B1953727E00604A39 /* AVFoundation.framework in Frameworks */,
+				34D3693C18E709AF00E14526 /* CoreGraphics.framework in Frameworks */,
+				34D3693E18E709AF00E14526 /* UIKit.framework in Frameworks */,
+				34D3693A18E709AF00E14526 /* Foundation.framework in Frameworks */,
+				C67A29DDF4CD4FD1B3280908 /* libPods.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		34D3695418E709AF00E14526 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				34D3695918E709AF00E14526 /* XCTest.framework in Frameworks */,
+				34D3695B18E709AF00E14526 /* UIKit.framework in Frameworks */,
+				34D3695A18E709AF00E14526 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		34C2B86118EA0EF8002268BF /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				34BC7429195A128300C162E8 /* CBPAboutViewController.h */,
+				34BC742A195A128300C162E8 /* CBPAboutViewController.m */,
+				34BC742C195A15BF00C162E8 /* CBPSettingsViewController.h */,
+				34BC742D195A15BF00C162E8 /* CBPSettingsViewController.m */,
+				349C67FA1958AC9200D25654 /* CBPSubmitTipViewController.h */,
+				349C67FB1958AC9200D25654 /* CBPSubmitTipViewController.m */,
+				347E285D190849B2004D3842 /* CBPCommentsViewController.h */,
+				347E285E190849B2004D3842 /* CBPCommentsViewController.m */,
+				347E286019084AA1004D3842 /* CBPComposeCommentViewController.h */,
+				347E286119084AA1004D3842 /* CBPComposeCommentViewController.m */,
+				349C67F31956254500D25654 /* CBPHomeViewController.h */,
+				349C67F41956254500D25654 /* CBPHomeViewController.m */,
+				34C2B86218EA0EF8002268BF /* CBPPostListViewController.h */,
+				34C2B86318EA0EF8002268BF /* CBPPostListViewController.m */,
+				3417327619070AA000DAAE85 /* CBPPostViewController.h */,
+				3417327719070AA000DAAE85 /* CBPPostViewController.m */,
+				341C803119522B4D00070FD4 /* CBPTableViewController.h */,
+				341C803219522B4D00070FD4 /* CBPTableViewController.m */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		34C2B86518EA0FE2002268BF /* DataSource */ = {
+			isa = PBXGroup;
+			children = (
+				34C2B86618EA1003002268BF /* CBPWordPressDataSource.h */,
+				34C2B86718EA1003002268BF /* CBPWordPressDataSource.m */,
+				34E6C1CC1909B5FB00F7B5BD /* CBPCommentDataSource.h */,
+				34E6C1CD1909B5FB00F7B5BD /* CBPCommentDataSource.m */,
+			);
+			path = DataSource;
+			sourceTree = "<group>";
+		};
+		34D3692D18E709AF00E14526 = {
+			isa = PBXGroup;
+			children = (
+				34D3693F18E709AF00E14526 /* CBPWordPressExample */,
+				34D3695E18E709AF00E14526 /* CBPWordPressExampleTests */,
+				34D3693818E709AF00E14526 /* Frameworks */,
+				34D3693718E709AF00E14526 /* Products */,
+				7F9770D6C1DA0509DEE252DB /* Pods */,
+			);
+			sourceTree = "<group>";
+		};
+		34D3693718E709AF00E14526 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				34D3693618E709AF00E14526 /* CBPWordPressExample.app */,
+				34D3695718E709AF00E14526 /* CBPWordPressExampleTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		34D3693818E709AF00E14526 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				34E31C5A1953727E00604A39 /* AVFoundation.framework */,
+				34D3693918E709AF00E14526 /* Foundation.framework */,
+				34D3693B18E709AF00E14526 /* CoreGraphics.framework */,
+				34D3693D18E709AF00E14526 /* UIKit.framework */,
+				34D3695818E709AF00E14526 /* XCTest.framework */,
+				5D58735488124103BBB09705 /* libPods.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		34D3693F18E709AF00E14526 /* CBPWordPressExample */ = {
+			isa = PBXGroup;
+			children = (
+				F58217E5192CFFE70014AE2E /* Categories */,
+				34D3694818E709AF00E14526 /* CBPAppDelegate.h */,
+				34D3694918E709AF00E14526 /* CBPAppDelegate.m */,
+				34C2B86118EA0EF8002268BF /* Controllers */,
+				34C2B86518EA0FE2002268BF /* DataSource */,
+				34D3695118E709AF00E14526 /* Images.xcassets */,
+				F58217EA192D010D0014AE2E /* Resources */,
+				34D3694018E709AF00E14526 /* Supporting Files */,
+				F53D04571923823E001A392E /* Views */,
+			);
+			path = CBPWordPressExample;
+			sourceTree = "<group>";
+		};
+		34D3694018E709AF00E14526 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				34D3694118E709AF00E14526 /* CBPWordPressExample-Info.plist */,
+				34D3694218E709AF00E14526 /* InfoPlist.strings */,
+				34D3694518E709AF00E14526 /* main.m */,
+				34D3694718E709AF00E14526 /* CBPWordPressExample-Prefix.pch */,
+				34BC742F195A191500C162E8 /* CBPConstants.h */,
+			);
+			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		34D3695E18E709AF00E14526 /* CBPWordPressExampleTests */ = {
+			isa = PBXGroup;
+			children = (
+				34D3696418E709AF00E14526 /* CBPWordPressExampleTests.m */,
+				34D3695F18E709AF00E14526 /* Supporting Files */,
+			);
+			path = CBPWordPressExampleTests;
+			sourceTree = "<group>";
+		};
+		34D3695F18E709AF00E14526 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				34D3696018E709AF00E14526 /* CBPWordPressExampleTests-Info.plist */,
+				34D3696118E709AF00E14526 /* InfoPlist.strings */,
+			);
+			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		7F9770D6C1DA0509DEE252DB /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				36C93CD6AAD4BFAF4BF236A5 /* Pods.debug.xcconfig */,
+				C703CEB51A654FBD07C4DFD3 /* Pods.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		F53D04571923823E001A392E /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				F53D045819238253001A392E /* TableCells */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		F53D045819238253001A392E /* TableCells */ = {
+			isa = PBXGroup;
+			children = (
+				F53E4E281926596D00932EC3 /* CBPCommentTableViewCell.h */,
+				F53E4E291926596D00932EC3 /* CBPCommentTableViewCell.m */,
+				F53D0459192382CE001A392E /* CBPLargePostPreviewTableViewCell.h */,
+				F53D045A192382CE001A392E /* CBPLargePostPreviewTableViewCell.m */,
+				34C4F1FF1961D5A70092D9F8 /* CBPSliderTableViewCell.h */,
+				34C4F2001961D5A70092D9F8 /* CBPSliderTableViewCell.m */,
+				349C68081958CC2900D25654 /* CBPTextFieldTableViewCell.h */,
+				349C68091958CC2900D25654 /* CBPTextFieldTableViewCell.m */,
+				349C680B1958CC2900D25654 /* CBPTextViewTableViewCell.h */,
+				349C680C1958CC2900D25654 /* CBPTextViewTableViewCell.m */,
+			);
+			path = TableCells;
+			sourceTree = "<group>";
+		};
+		F58217E5192CFFE70014AE2E /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				F58217E6192D00130014AE2E /* NSString+CBPWordPressExample.h */,
+				F58217E7192D00130014AE2E /* NSString+CBPWordPressExample.m */,
+				349BC6D41975E236008CA989 /* UIViewController+CBPWordPressExample.h */,
+				349BC6D51975E236008CA989 /* UIViewController+CBPWordPressExample.m */,
+			);
+			path = Categories;
+			sourceTree = "<group>";
+		};
+		F58217EA192D010D0014AE2E /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				F58217EB192D02CB0014AE2E /* default.css */,
+				F58217ED192D02F50014AE2E /* template.html */,
+				34FE95F01950E9BB0003C814 /* cbpwordpress.js */,
+				341C8036195238E900070FD4 /* tag.snippet.html */,
+				341C803819523B8D00070FD4 /* category.snippet.html */,
+				349C67F61958AA7500D25654 /* Settings.bundle */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		34D3693518E709AF00E14526 /* CBPWordPressExample */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 34D3696818E709AF00E14526 /* Build configuration list for PBXNativeTarget "CBPWordPressExample" */;
+			buildPhases = (
+				EA72F6BDE28F4BE5BA277E9B /* Check Pods Manifest.lock */,
+				34D3693218E709AF00E14526 /* Sources */,
+				34D3693318E709AF00E14526 /* Frameworks */,
+				34D3693418E709AF00E14526 /* Resources */,
+				9F29664206684FBFAD1F908C /* Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CBPWordPressExample;
+			productName = CBPWordPressExample;
+			productReference = 34D3693618E709AF00E14526 /* CBPWordPressExample.app */;
+			productType = "com.apple.product-type.application";
+		};
+		34D3695618E709AF00E14526 /* CBPWordPressExampleTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 34D3696B18E709AF00E14526 /* Build configuration list for PBXNativeTarget "CBPWordPressExampleTests" */;
+			buildPhases = (
+				34D3695318E709AF00E14526 /* Sources */,
+				34D3695418E709AF00E14526 /* Frameworks */,
+				34D3695518E709AF00E14526 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				34D3695D18E709AF00E14526 /* PBXTargetDependency */,
+			);
+			name = CBPWordPressExampleTests;
+			productName = CBPWordPressExampleTests;
+			productReference = 34D3695718E709AF00E14526 /* CBPWordPressExampleTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		34D3692E18E709AF00E14526 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = CBP;
+				LastUpgradeCheck = 0510;
+				ORGANIZATIONNAME = "Crayons and Brown Paper";
+				TargetAttributes = {
+					34D3693518E709AF00E14526 = {
+						DevelopmentTeam = 733QMTEL36;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
+					};
+					34D3695618E709AF00E14526 = {
+						TestTargetID = 34D3693518E709AF00E14526;
+					};
+				};
+			};
+			buildConfigurationList = 34D3693118E709AF00E14526 /* Build configuration list for PBXProject "CBPWordPressExample" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 34D3692D18E709AF00E14526;
+			productRefGroup = 34D3693718E709AF00E14526 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				34D3693518E709AF00E14526 /* CBPWordPressExample */,
+				34D3695618E709AF00E14526 /* CBPWordPressExampleTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		34D3693418E709AF00E14526 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				349C67F71958AA7500D25654 /* Settings.bundle in Resources */,
+				341C803919523B8D00070FD4 /* category.snippet.html in Resources */,
+				34FE95F41950ED2A0003C814 /* cbpwordpress.js in Resources */,
+				F58217EE192D02F50014AE2E /* template.html in Resources */,
+				34D3695218E709AF00E14526 /* Images.xcassets in Resources */,
+				34D3694418E709AF00E14526 /* InfoPlist.strings in Resources */,
+				341C8037195238E900070FD4 /* tag.snippet.html in Resources */,
+				F58217EC192D02CB0014AE2E /* default.css in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		34D3695518E709AF00E14526 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				34D3696318E709AF00E14526 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		9F29664206684FBFAD1F908C /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		EA72F6BDE28F4BE5BA277E9B /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		34D3693218E709AF00E14526 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3417327819070AA000DAAE85 /* CBPPostViewController.m in Sources */,
+				347E286219084AA1004D3842 /* CBPComposeCommentViewController.m in Sources */,
+				34C2B86818EA1003002268BF /* CBPWordPressDataSource.m in Sources */,
+				F58217E8192D00130014AE2E /* NSString+CBPWordPressExample.m in Sources */,
+				34BC742E195A15BF00C162E8 /* CBPSettingsViewController.m in Sources */,
+				349C68101958CC2900D25654 /* CBPTextViewTableViewCell.m in Sources */,
+				F53D045B192382CE001A392E /* CBPLargePostPreviewTableViewCell.m in Sources */,
+				34D3694A18E709AF00E14526 /* CBPAppDelegate.m in Sources */,
+				34E6C1CE1909B5FB00F7B5BD /* CBPCommentDataSource.m in Sources */,
+				341C803319522B4D00070FD4 /* CBPTableViewController.m in Sources */,
+				349C67FC1958AC9200D25654 /* CBPSubmitTipViewController.m in Sources */,
+				34C4F2011961D5A70092D9F8 /* CBPSliderTableViewCell.m in Sources */,
+				34D3694618E709AF00E14526 /* main.m in Sources */,
+				347E285F190849B2004D3842 /* CBPCommentsViewController.m in Sources */,
+				34C2B86418EA0EF8002268BF /* CBPPostListViewController.m in Sources */,
+				349C680E1958CC2900D25654 /* CBPTextFieldTableViewCell.m in Sources */,
+				F53E4E2A1926596D00932EC3 /* CBPCommentTableViewCell.m in Sources */,
+				34BC742B195A128300C162E8 /* CBPAboutViewController.m in Sources */,
+				349C67F51956254500D25654 /* CBPHomeViewController.m in Sources */,
+				349BC6D61975E236008CA989 /* UIViewController+CBPWordPressExample.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		34D3695318E709AF00E14526 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				34D3696518E709AF00E14526 /* CBPWordPressExampleTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		34D3695D18E709AF00E14526 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 34D3693518E709AF00E14526 /* CBPWordPressExample */;
+			targetProxy = 34D3695C18E709AF00E14526 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		34D3694218E709AF00E14526 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				34D3694318E709AF00E14526 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		34D3696118E709AF00E14526 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				34D3696218E709AF00E14526 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		34D3696618E709AF00E14526 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		34D3696718E709AF00E14526 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		34D3696918E709AF00E14526 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 36C93CD6AAD4BFAF4BF236A5 /* Pods.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "CBPWordPressExample/Supporting Files/CBPWordPressExample-Prefix.pch";
+				INFOPLIST_FILE = "CBPWordPressExample/Supporting Files/CBPWordPressExample-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		34D3696A18E709AF00E14526 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = C703CEB51A654FBD07C4DFD3 /* Pods.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "CBPWordPressExample/Supporting Files/CBPWordPressExample-Prefix.pch";
+				INFOPLIST_FILE = "CBPWordPressExample/Supporting Files/CBPWordPressExample-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		34D3696C18E709AF00E14526 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/CBPWordPressExample.app/CBPWordPressExample";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "CBPWordPressExample/Supporting Files/CBPWordPressExample-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "CBPWordPressExampleTests/Supporting Files/CBPWordPressExampleTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		34D3696D18E709AF00E14526 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/CBPWordPressExample.app/CBPWordPressExample";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "CBPWordPressExample/Supporting Files/CBPWordPressExample-Prefix.pch";
+				INFOPLIST_FILE = "CBPWordPressExampleTests/Supporting Files/CBPWordPressExampleTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		34D3693118E709AF00E14526 /* Build configuration list for PBXProject "CBPWordPressExample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				34D3696618E709AF00E14526 /* Debug */,
+				34D3696718E709AF00E14526 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		34D3696818E709AF00E14526 /* Build configuration list for PBXNativeTarget "CBPWordPressExample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				34D3696918E709AF00E14526 /* Debug */,
+				34D3696A18E709AF00E14526 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		34D3696B18E709AF00E14526 /* Build configuration list for PBXNativeTarget "CBPWordPressExampleTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				34D3696C18E709AF00E14526 /* Debug */,
+				34D3696D18E709AF00E14526 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 34D3692E18E709AF00E14526 /* Project object */;
+}
