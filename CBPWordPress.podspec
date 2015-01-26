@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = "CBPWordPress"
-  s.version          = "0.1.1"
+  s.version          = "0.1.2"
   s.summary          = "A library to display content from a WordPress blog."
   s.description      = <<-DESC
 			CBPWordPress is an iOS library that will allow you to easily include content from a WordPress blog. The library can fetch lists of posts, individual posts and submit comments.
