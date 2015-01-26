@@ -22,6 +22,7 @@
 @property (nonatomic) NSString *content;
 @property (nonatomic) NSDictionary *customFields;
 @property (nonatomic) NSDate *date;
+@property (nonatomic) NSString *dateString;
 @property (nonatomic) NSString *excerpt;
 @property (nonatomic, assign) NSInteger postId;
 @property (nonatomic) NSString *postHtml;

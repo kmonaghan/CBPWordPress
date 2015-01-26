@@ -87,6 +87,7 @@
     }
 
     [dictionary setObject:@(self.parent) forKey:@"parent"];
+    [dictionary setObject:@(self.parent) forKey:@"comment_parent"];
 
     [dictionary setObject:@(self.postId) forKey:@"post_id"];
 

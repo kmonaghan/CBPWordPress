@@ -78,6 +78,7 @@
             
         }
     } else if ([key isEqualToString:@"date"]) {
+        self.dateString = value;
         self.date = [[NSDateFormatter cbp_sharedInstance] dateFromString:value];
     } else if ([key isEqualToString:@"tags"]) {
         if ([value isKindOfClass:[NSArray class]])
