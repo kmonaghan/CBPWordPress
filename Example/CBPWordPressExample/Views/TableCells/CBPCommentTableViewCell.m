@@ -6,6 +6,8 @@
 //  Copyright (c) 2014 Crayons and Brown Paper. All rights reserved.
 //
 
+#import "CBPConstants.h"
+
 #import "TTTAttributedLabel.h"
 #import "UIImageView+AFNetworking.h"
 
@@ -62,10 +64,15 @@ static NSDateFormatter *commentDateFormatter = nil;
         
         NSDictionary *metrics = @{@"padding": @(CBPPadding)};
         
-        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[commentHeaderView][commentLabel]-(padding)-|"
-                                                                                 options:0
-                                                                                 metrics:metrics
-                                                                                   views:views]];
+        NSArray *verticalContraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|[commentHeaderView][commentLabel]-(padding)-|"
+                                                                              options:0
+                                                                              metrics:metrics
+                                                                                views:views];
+        for (NSLayoutConstraint *constraint in verticalContraints) {
+            constraint.priority = UILayoutPriorityDefaultHigh;
+        }
+        [self.contentView addConstraints:verticalContraints];
+        
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[level1]|"
                                                                                  options:0
                                                                                  metrics:nil
@@ -82,6 +89,7 @@ static NSDateFormatter *commentDateFormatter = nil;
                                                                                  options:0
                                                                                  metrics:nil
                                                                                    views:views]];
+        
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-(11)-[level1][level2][level3][level4]-(5)-[commentHeaderView]-(padding)-|"
                                                                                  options:0
                                                                                  metrics:metrics
@@ -147,7 +155,6 @@ static NSDateFormatter *commentDateFormatter = nil;
     [self.contentView setNeedsLayout];
     [self.contentView layoutIfNeeded];
     
-    //[self.replyButton sizeToFit];
     CGFloat indent = self.level1WidthConstraint.constant + self.level2WidthConstraint.constant + self.level3WidthConstraint.constant + self.level4WidthConstraint.constant;
     
     self.commentLabel.preferredMaxLayoutWidth = CGRectGetWidth(self.contentView.frame) - (CBPPadding * 2) - indent;
@@ -321,7 +328,6 @@ static NSDateFormatter *commentDateFormatter = nil;
                                                                         constant:0]];
         
         [self.contentView addSubview:_commentHeaderView];
-        
         
     }
     

@@ -40,7 +40,7 @@
                                                                                  options:0
                                                                                  metrics:nil
                                                                                    views:@{@"fieldImageView": self.fieldImageView}]];
-        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-[fieldImageView]-[inputTextField]-|"
+        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|[fieldImageView]-[inputTextField]-|"
                                                                                  options:0
                                                                                  metrics:nil
                                                                                    views:@{@"inputTextField": self.inputTextField,
@@ -80,6 +80,9 @@
     _inputTextField.translatesAutoresizingMaskIntoConstraints = NO;
     
     [self.contentView addSubview:_inputTextField];
+    
+    [self setNeedsUpdateConstraints];
+    [self setNeedsLayout];
 }
 
 - (UIImageView *)fieldImageView

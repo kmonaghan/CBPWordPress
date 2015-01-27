@@ -65,7 +65,6 @@ static NSString * const CBPSwitchTableViewCellIdentifier = @"CBPSwitchTableViewC
     [self.systemFontSwitch addTarget:self action:@selector(systemFontValueChanged) forControlEvents:UIControlEventValueChanged];
     
     self.backgroundSwitch.on = [defaults boolForKey:CBPBackgroundUpdate];
-    self.reminderSwitch.on = [defaults boolForKey:CBPDailyReminder];
     self.systemFontSwitch.on = ([defaults floatForKey:CBPUserFontSize]) ? NO : YES;
     
     self.userFontSizeSlider.value = ([defaults floatForKey:CBPUserFontSize])? [defaults floatForKey:CBPUserFontSize] : CBPMinimumFontSize;
@@ -97,15 +96,6 @@ static NSString * const CBPSwitchTableViewCellIdentifier = @"CBPSwitchTableViewC
     }
 
     [defaults setBool:self.backgroundSwitch.on forKey:CBPBackgroundUpdate];
-    
-    if (self.reminderSwitch.on) {
-        [(CBPAppDelegate *)application.delegate setupNotification];
-    } else {
-        [application cancelAllLocalNotifications];
-        [defaults removeObjectForKey:CBPLocalNotifcation];
-    }
-    
-    [defaults setBool:self.reminderSwitch.on forKey:CBPDailyReminder];
     
     if (self.systemFontSwitch.on) {
         [defaults removeObjectForKey:CBPUserFontSize];
@@ -149,7 +139,7 @@ static NSString * const CBPSwitchTableViewCellIdentifier = @"CBPSwitchTableViewC
             return 3;
             break;
         case 1:
-            return (self.systemFontSwitch.on) ? 3 : 4;
+            return (self.systemFontSwitch.on) ? 2 : 3;
             break;
         default:
             break;
@@ -218,12 +208,6 @@ static NSString * const CBPSwitchTableViewCellIdentifier = @"CBPSwitchTableViewC
             }
                 break;
             case 1:
-            {
-                cell.textLabel.text = NSLocalizedString(@"Daily reminder", nil);
-                cell.accessoryView = self.reminderSwitch;
-            }
-                break;
-            case 2:
             {
                 cell.textLabel.text = NSLocalizedString(@"Use iOS dynamic font sizes", nil);
                 cell.accessoryView = self.systemFontSwitch;

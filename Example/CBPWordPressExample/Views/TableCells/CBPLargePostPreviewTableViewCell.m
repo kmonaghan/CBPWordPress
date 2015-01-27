@@ -5,6 +5,7 @@
 //  Created by Karl Monaghan on 14/05/2014.
 //  Copyright (c) 2014 Crayons and Brown Paper. All rights reserved.
 //
+#import "CBPConstants.h"
 
 #import "SORelativeDateTransformer.h"
 
@@ -21,17 +22,6 @@
 @end
 
 @implementation CBPLargePostPreviewTableViewCell
-
-- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
-{
-    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
-    if (self) {
-        // Initialization code
-        [self setNeedsUpdateConstraints];
-    }
-    return self;
-}
-
 - (void)updateConstraints
 {
     if (!self.constraintsUpdated) {
@@ -47,10 +37,15 @@
         
         NSDictionary *metrics = @{@"padding": @(CBPPadding)};
         
-        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(5)-[postTitleLabel]-(5)-[postImageView(150)]-(5)-[postDateLabel]-(5)-|"
-                                                                                 options:0
-                                                                                 metrics:nil
-                                                                                   views:views]];
+        NSArray *verticalContraints =[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(5)-[postTitleLabel]-(5)-[postImageView(150)]-(5)-[postDateLabel]-(5)-|"
+                                                                             options:0
+                                                                             metrics:nil
+                                                                               views:views];
+        for (NSLayoutConstraint *constraint in verticalContraints) {
+            constraint.priority = UILayoutPriorityDefaultHigh;
+        }
+        [self.contentView addConstraints:verticalContraints];
+        
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(padding)-[postTitleLabel]-(padding)-|"
                                                                                  options:0
                                                                                  metrics:metrics
@@ -101,7 +96,7 @@
 - (void)prepareForReuse
 {
     [super prepareForReuse];
-
+    
     self.postCommentLabel.text = nil;
     self.postDateLabel.text = nil;
     self.postImageView.image = nil;
@@ -124,7 +119,9 @@
 
 - (void)setImageURI:(NSString *)imageURI
 {
-    [self.postImageView setImageWithURL:[NSURL URLWithString:imageURI]
+    NSURL *URL = [NSURL URLWithString:[NSString stringWithFormat:@"https://%@%@", CBPImageURL, [[NSURL URLWithString:imageURI] relativePath]]];
+    
+    [self.postImageView setImageWithURL:URL
                        placeholderImage:[UIImage imageNamed:@"post_default_image"]];
 }
 

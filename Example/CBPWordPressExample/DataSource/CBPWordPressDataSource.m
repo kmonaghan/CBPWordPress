@@ -187,6 +187,10 @@
     cell.postDate = post.date;
     cell.commentCount = post.commentCount;
     
+    [cell setNeedsUpdateConstraints];
+    [cell setNeedsLayout];
+    [cell layoutIfNeeded];
+    
     return cell;
 }
 @end

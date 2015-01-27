@@ -12,7 +12,6 @@
 #import "NSString+HTML.h"
 
 #import "SSCWhatsAppActivity.h"
-#import "GPPShareActivity.h"
 #import "MHGallery.h"
 #import "TOWebViewController.h"
 
@@ -376,7 +375,7 @@ static NSString * const kFrameString = @"frame";
     NSArray* activityItems = @[self.post.title,
                                [NSURL URLWithString:self.post.url]];
     
-    UIActivityViewController* activityViewController = [[UIActivityViewController alloc] initWithActivityItems:activityItems applicationActivities:@[[SSCWhatsAppActivity new], [GPPShareActivity new]]];
+    UIActivityViewController* activityViewController = [[UIActivityViewController alloc] initWithActivityItems:activityItems applicationActivities:@[[SSCWhatsAppActivity new]]];
     
     activityViewController.excludedActivityTypes = @[UIActivityTypePostToWeibo, UIActivityTypeAssignToContact, UIActivityTypeAirDrop, UIActivityTypePostToTencentWeibo ];
     
@@ -416,7 +415,7 @@ static NSString * const kFrameString = @"frame";
     
     __weak MHGalleryController *blockGallery = gallery;
     
-    gallery.finishedCallback = ^(NSUInteger currentIndex, UIImage *image,MHTransitionDismissMHGallery *interactiveTransition, MHGalleryViewMode viewMode) {
+    gallery.finishedCallback = ^(NSInteger currentIndex, UIImage *image,MHTransitionDismissMHGallery *interactiveTransition, MHGalleryViewMode viewMode) {
         
         dispatch_async(dispatch_get_main_queue(), ^{
             [blockGallery dismissViewControllerAnimated:YES dismissImageView:nil completion:nil];

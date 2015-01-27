@@ -6,8 +6,6 @@
 //  Copyright (c) 2014 Crayons and Brown Paper. All rights reserved.
 //
 
-#import <GooglePlus/GooglePlus.h>
-
 #import "CBPAppDelegate.h"
 
 #import "CBPHomeViewController.h"
@@ -38,8 +36,6 @@
                                                          diskCapacity:20 * 1024 * 1024
                                                              diskPath:nil];
     [NSURLCache setSharedURLCache:URLCache];
-
-    [GPPSignIn sharedInstance].clientID = @"864709573863-rr1na3aqu5embrr4fc15dkp5i8g7fmdm.apps.googleusercontent.com";
     
     [self firstTime:application];
     
@@ -66,7 +62,6 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-    [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
@@ -76,16 +71,11 @@
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
 {
-    NSLog(@"sourceApplication: %@", sourceApplication);
-    
     if ([[url host] hasSuffix:CBPSiteURL]) {
         [self.viewController openURL:url];
-        
-        return YES;
     }
     
-    // handle Google+ Sign In callback URL
-    return [[GPPSignIn sharedInstance] handleURL:url sourceApplication:sourceApplication annotation:annotation];
+    return YES;
 }
 
 - (void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
@@ -110,58 +100,7 @@
     [application setMinimumBackgroundFetchInterval:CBPBackgroundFetchInterval];
     [defaults setBool:YES forKey:CBPBackgroundUpdate];
     
-    [self setupNotification];
-    
     [defaults setBool:YES forKey:CBPFirstTime];
-    
-    [defaults synchronize];
-}
-
-- (void)setupNotification
-{
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    
-    if ([defaults boolForKey:CBPLocalNotifcation]) {
-        return;
-    }
-    
-    NSDate *tomorrow = [NSDate dateWithTimeIntervalSinceNow:84600];
-    
-    NSCalendar *calendar = [NSCalendar autoupdatingCurrentCalendar];
-    calendar.timeZone = [NSTimeZone defaultTimeZone];
-    
-    NSDateComponents *dateComps = [calendar components: NSCalendarUnitYear | NSCalendarUnitMonth |  NSCalendarUnitDay fromDate:tomorrow];
-    [dateComps setHour:8];
-    [dateComps setMinute:15];
-    NSDate *itemDate = [calendar dateFromComponents:dateComps];
-    
-    UILocalNotification *localnotifcation = [UILocalNotification new];
-    
-    if (!localnotifcation) {
-        return;
-    }
-    
-    localnotifcation.fireDate = itemDate;
-    localnotifcation.timeZone = [NSTimeZone defaultTimeZone];
-    localnotifcation.repeatInterval = NSCalendarUnitWeekday;
-    
-    localnotifcation.alertBody = NSLocalizedString(@"Catch up on all the news that doesn't matter.", nil);
-    localnotifcation.alertAction = NSLocalizedString(@"Read More", nil);
-    
-    localnotifcation.soundName = UILocalNotificationDefaultSoundName;
-    localnotifcation.applicationIconBadgeNumber = 1;
-    
-    [[UIApplication sharedApplication] scheduleLocalNotification:localnotifcation];
-    
-    [dateComps setHour:17];
-    [dateComps setMinute:45];
-    itemDate = [calendar dateFromComponents:dateComps];
-    localnotifcation.fireDate = itemDate;
-
-    [[UIApplication sharedApplication] scheduleLocalNotification:localnotifcation];
-
-    [defaults setBool:YES forKey:CBPLocalNotifcation];
-    [defaults setBool:YES forKey:CBPDailyReminder];
     
     [defaults synchronize];
 }

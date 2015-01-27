@@ -386,7 +386,7 @@ UITextViewDelegate>
     
     __weak MHGalleryController *blockGallery = gallery;
     
-    gallery.finishedCallback = ^(NSUInteger currentIndex, UIImage *image, MHTransitionDismissMHGallery *interactiveTransition, MHGalleryViewMode viewMode) {
+    gallery.finishedCallback = ^(NSInteger currentIndex, UIImage *image, MHTransitionDismissMHGallery *interactiveTransition, MHGalleryViewMode viewMode) {
         
         dispatch_async(dispatch_get_main_queue(), ^{
             [blockGallery dismissViewControllerAnimated:YES dismissImageView:nil completion:nil];

@@ -10,7 +10,6 @@
 
 #import "Appirater.h"
 #import "SSCWhatsAppActivity.h"
-#import "GPPShareActivity.h"
 
 #import "CBPAboutViewController.h"
 #import "CBPSubmitTipViewController.h"
@@ -49,8 +48,7 @@
                                [NSURL URLWithString:[NSString stringWithFormat:@"https://itunes.apple.com/ie/app/id%@?mt=8", kAppId]]];
     
     UIActivityViewController* activityViewController = [[UIActivityViewController alloc] initWithActivityItems:activityItems
-                                                                                         applicationActivities:@[[SSCWhatsAppActivity new],
-                                                                                                                 [GPPShareActivity new]]];
+                                                                                         applicationActivities:@[[SSCWhatsAppActivity new]]];
     
     activityViewController.excludedActivityTypes = @[UIActivityTypePostToWeibo, UIActivityTypeAssignToContact, UIActivityTypeAirDrop, UIActivityTypePostToTencentWeibo, UIActivityTypePrint ];
     
